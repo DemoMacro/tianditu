@@ -12,7 +12,7 @@ export namespace Components {
 }
 declare global {
   interface HTMLTMapElement extends Components.TMap, HTMLStencilElement {}
-  var HTMLTMapElement: {
+  let HTMLTMapElement: {
     prototype: HTMLTMapElement;
     new (): HTMLTMapElement;
   };
