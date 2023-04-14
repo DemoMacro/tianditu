@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/rome/configuration_schema.json",
   "files": {
-    "ignore": ["*/dist/*"]
+    "ignore": ["*/dist/*", "*/src/components.d.ts"]
   },
   "formatter": {
     "indentStyle": "space"

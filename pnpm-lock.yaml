@@ -13,7 +13,7 @@ importers:
         specifier: edge
         version: 0.0.1-edge.10
       "@types/node":
-        specifier: ^18.15.11
+        specifier: 18.15.11
         version: 18.15.11
       prettier:
         specifier: 2.8.4
@@ -31,10 +31,16 @@ importers:
         specifier: 1.0.1
         version: 1.0.1
 
+  packages/web-components:
+    dependencies:
+      "@stencil/core":
+        specifier: 3.0.0
+        version: 3.0.0
+
   playground:
     dependencies:
       dotenv:
-        specifier: ^16.0.3
+        specifier: 16.0.3
         version: 16.0.3
 
 packages:
@@ -893,6 +899,15 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@stencil/core@3.0.0:
+    resolution:
+      {
+        integrity: sha512-MYhrOlnzAtBUJH0FEggaP2pwm5GUvkB4wYRpZZFtUzGXAPamvrsreUf8QsGe0C4NdFdk8NlUauFxEEGE3z1+Sw==,
+      }
+    engines: { node: ">=14.10.0", npm: ">=6.0.0" }
+    hasBin: true
+    dev: false
 
   /@types/estree@1.0.0:
     resolution:

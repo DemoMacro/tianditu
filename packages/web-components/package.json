@@ -1,0 +1,45 @@
+{
+  "name": "@tianditu/web-components",
+  "version": "0.0.0",
+  "description": "Web components for tianditu, powered by Demo Macro.",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "es2015": "dist/esm/index.mjs",
+  "es2017": "dist/esm/index.mjs",
+  "types": "dist/types/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/web-components/web-components.esm.js",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "prepack": "stencil build",
+    "dev": "stencil build --dev --watch",
+    "generate": "stencil generate"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DemoMacro/tianditu.git"
+  },
+  "keywords": [
+    "utility",
+    "libraries",
+    "tianditu",
+    "map",
+    "web-components"
+  ],
+  "author": {
+    "name": "Demo Macro",
+    "email": "abc@imst.xyz",
+    "url": "https://imst.xyz/"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DemoMacro/tianditu/issues"
+  },
+  "homepage": "https://github.com/DemoMacro/tianditu#readme",
+  "dependencies": {
+    "@stencil/core": "3.0.0"
+  }
+}
