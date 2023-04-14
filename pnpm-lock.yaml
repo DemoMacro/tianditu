@@ -12,6 +12,9 @@ importers:
       "@funish/lint":
         specifier: edge
         version: 0.0.1-edge.10
+      "@types/node":
+        specifier: ^18.15.11
+        version: 18.15.11
       prettier:
         specifier: 2.8.4
         version: 2.8.4
@@ -21,6 +24,18 @@ importers:
       unbuild:
         specifier: 1.2.0
         version: 1.2.0
+
+  packages/api:
+    dependencies:
+      ofetch:
+        specifier: 1.0.1
+        version: 1.0.1
+
+  playground:
+    dependencies:
+      dotenv:
+        specifier: ^16.0.3
+        version: 16.0.3
 
 packages:
   /@ampproject/remapping@2.2.1:
@@ -886,6 +901,13 @@ packages:
       }
     dev: true
 
+  /@types/node@18.15.11:
+    resolution:
+      {
+        integrity: sha512-E5Kwq2n4SbMzQOn6wnmBjuK9ouqlURrcZDVfbo9ftDDTFt3nk7ZKK4GMOzoYgnpQJKcxwQw+lGaBvvlMo0qN/Q==,
+      }
+    dev: true
+
   /@types/resolve@1.20.2:
     resolution:
       {
@@ -1112,7 +1134,6 @@ packages:
       {
         integrity: sha512-lrbCJwD9saUQrqUfXvl6qoM+QN3W7tLV5pAOs+OqOmopCCz/JkE05MHedJR1xfk4IAnZuJXPVuN5+7jNA2ZCiA==,
       }
-    dev: true
 
   /dir-glob@3.0.1:
     resolution:
@@ -1130,7 +1151,6 @@ packages:
         integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==,
       }
     engines: { node: ">=12" }
-    dev: true
 
   /electron-to-chromium@1.4.359:
     resolution:
@@ -1699,7 +1719,6 @@ packages:
       {
         integrity: sha512-nl5goFCig93JZ9FIV8GHT9xpNqXbxQUzkOmKIMKmncsBH9jhg7qKex8hirpymkBFmNQ114chEEG5lS4wgK2I+Q==,
       }
-    dev: true
 
   /node-releases@2.0.10:
     resolution:
@@ -1707,6 +1726,17 @@ packages:
         integrity: sha512-5GFldHPXVG/YZmFzJvKK2zDSzPKhEp0+ZR5SVaoSag9fsL5YgHbUHDfnG5494ISANDcK4KwPXAx2xqVEydmd7w==,
       }
     dev: true
+
+  /ofetch@1.0.1:
+    resolution:
+      {
+        integrity: sha512-icBz2JYfEpt+wZz1FRoGcrMigjNKjzvufE26m9+yUiacRQRHwnNlGRPiDnW4op7WX/MR6aniwS8xw8jyVelF2g==,
+      }
+    dependencies:
+      destr: 1.2.2
+      node-fetch-native: 1.1.0
+      ufo: 1.1.1
+    dev: false
 
   /once@1.4.0:
     resolution:
@@ -1962,7 +1992,6 @@ packages:
       {
         integrity: sha512-MvlCc4GHrmZdAllBc0iUDowff36Q9Ndw/UzqmEKyrfSzokTd9ZCy1i+IIk5hrYKkjoYVQyNbrw7/F8XJ2rEwTg==,
       }
-    dev: true
 
   /unbuild@1.2.0:
     resolution:
