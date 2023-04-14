@@ -40,7 +40,7 @@
   },
   "homepage": "https://github.com/DemoMacro/tianditu#readme",
   "dependencies": {
-    "@stencil/core": "3.0.0"
+    "@stencil/core": "3.2.1"
   },
   "devDependencies": {
     "@stencil/vue-output-target": "0.8.2"
