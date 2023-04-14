@@ -1,0 +1,40 @@
+{
+  "name": "tianditu",
+  "version": "0.0.0",
+  "description": "Utility libraries for tianditu, powered by Demo Macro.",
+  "private": true,
+  "scripts": {
+    "build": "pnpm -r prepack",
+    "check": "rome check . --apply-unsafe && pnpm rome format . --write",
+    "format": "prettier --write --list-different . --ignore-path .gitignore",
+    "postinstall": "githooks install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DemoMacro/tianditu.git"
+  },
+  "keywords": [
+    "utility",
+    "libraries",
+    "tianditu",
+    "map"
+  ],
+  "author": {
+    "name": "Demo Macro",
+    "email": "abc@imst.xyz",
+    "url": "https://imst.xyz/"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DemoMacro/tianditu/issues"
+  },
+  "homepage": "https://github.com/DemoMacro/tianditu#readme",
+  "devDependencies": {
+    "@funish/githooks": "edge",
+    "@funish/githooks-config": "edge",
+    "@funish/lint": "edge",
+    "prettier": "2.8.4",
+    "rome": "12.0.0",
+    "unbuild": "1.2.0"
+  }
+}
