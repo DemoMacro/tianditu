@@ -6,33 +6,34 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-  interface TMap {
-    tk: string | undefined;
-  }
+    interface TMap {
+        "tk": string | undefined;
+    }
 }
 declare global {
-  interface HTMLTMapElement extends Components.TMap, HTMLStencilElement {}
-  let HTMLTMapElement: {
-    prototype: HTMLTMapElement;
-    new (): HTMLTMapElement;
-  };
-  interface HTMLElementTagNameMap {
-    "t-map": HTMLTMapElement;
-  }
+    interface HTMLTMapElement extends Components.TMap, HTMLStencilElement {
+    }
+    var HTMLTMapElement: {
+        prototype: HTMLTMapElement;
+        new (): HTMLTMapElement;
+    };
+    interface HTMLElementTagNameMap {
+        "t-map": HTMLTMapElement;
+    }
 }
 declare namespace LocalJSX {
-  interface TMap {
-    tk?: string | undefined;
-  }
-  interface IntrinsicElements {
-    "t-map": TMap;
-  }
+    interface TMap {
+        "tk"?: string | undefined;
+    }
+    interface IntrinsicElements {
+        "t-map": TMap;
+    }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
-  export namespace JSX {
-    interface IntrinsicElements {
-      "t-map": LocalJSX.TMap & JSXBase.HTMLAttributes<HTMLTMapElement>;
+    export namespace JSX {
+        interface IntrinsicElements {
+            "t-map": LocalJSX.TMap & JSXBase.HTMLAttributes<HTMLTMapElement>;
+        }
     }
-  }
 }

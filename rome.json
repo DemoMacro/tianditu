@@ -1,7 +1,12 @@
 {
   "$schema": "./node_modules/rome/configuration_schema.json",
   "files": {
-    "ignore": ["*/dist/*", "*/src/components.d.ts", "*/vue-component-lib/*"]
+    "ignore": [
+      "*/dist/*",
+      "*/src/components.d.ts",
+      "*/vue-component-lib/*",
+      "*/.nuxt/*"
+    ]
   },
   "formatter": {
     "indentStyle": "space"

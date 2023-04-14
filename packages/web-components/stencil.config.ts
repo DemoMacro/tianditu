@@ -6,14 +6,25 @@ export const config: Config = {
   outputTargets: [
     {
       type: "dist",
-      esmLoaderPath: "../dist/loader",
     },
     {
       type: "dist-custom-elements",
+    },
+    {
+      type: "dist-hydrate-script",
+      dir: "dist/hydrate",
     },
     vueOutputTarget({
       componentCorePackage: "@tianditu/web-components",
       proxiesFile: "../vue/src/components.ts",
     }),
+    {
+      type: "docs-json",
+      file: "dist/docs.json",
+    },
+    {
+      type: "docs-vscode",
+      file: "dist/docs.code.json",
+    },
   ],
 };

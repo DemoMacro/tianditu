@@ -15,7 +15,7 @@
   ],
   "scripts": {
     "prepack": "stencil build",
-    "dev": "stencil build --dev --watch",
+    "dev": "stencil build --watch",
     "generate": "stencil generate"
   },
   "repository": {

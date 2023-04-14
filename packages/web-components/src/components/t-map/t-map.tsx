@@ -9,7 +9,7 @@ export class TMap {
   connectedCallback() {
     const script = document.createElement("script");
     script.src = `http://api.tianditu.gov.cn/api?v=4.0&tk=${this.tk}`;
-    document.body.appendChild(script);
+    document.head.appendChild(script);
   }
 
   render() {
