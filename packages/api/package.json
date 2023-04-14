@@ -1,0 +1,34 @@
+{
+  "name": "@tianditu/api",
+  "version": "0.0.0",
+  "description": "Library for using the tianditu api, powered by Demo Macro.",
+  "main": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepack": "unbuild"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DemoMacro/tianditu.git"
+  },
+  "keywords": [
+    "utility",
+    "libraries",
+    "tianditu",
+    "map",
+    "api"
+  ],
+  "author": {
+    "name": "Demo Macro",
+    "email": "abc@imst.xyz",
+    "url": "https://imst.xyz/"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DemoMacro/tianditu/issues"
+  },
+  "homepage": "https://github.com/DemoMacro/tianditu#readme"
+}
