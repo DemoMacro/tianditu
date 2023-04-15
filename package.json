@@ -4,7 +4,7 @@
   "description": "Utility libraries for tianditu, powered by Demo Macro.",
   "private": true,
   "scripts": {
-    "build": "pnpm -r prepack",
+    "build": "pnpm -r prepack && pnpm check && pnpm format",
     "check": "rome check . --apply-unsafe && rome format . --write",
     "format": "prettier --write --list-different . --ignore-path .gitignore",
     "postinstall": "githooks install"
