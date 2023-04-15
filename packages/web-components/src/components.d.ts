@@ -6,34 +6,58 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface TMap {
-        "tk": string | undefined;
-    }
+  interface TControl {}
+  interface TMap {
+    center: number[];
+    maxBounds: T.MapOptions["maxBounds"];
+    maxZoom: T.MapOptions["maxZoom"];
+    minZoom: T.MapOptions["minZoom"];
+    projection: T.MapOptions["projection"];
+    tk: string;
+    zoom: T.MapOptions["zoom"];
+  }
 }
 declare global {
-    interface HTMLTMapElement extends Components.TMap, HTMLStencilElement {
-    }
-    var HTMLTMapElement: {
-        prototype: HTMLTMapElement;
-        new (): HTMLTMapElement;
-    };
-    interface HTMLElementTagNameMap {
-        "t-map": HTMLTMapElement;
-    }
+  interface HTMLTControlElement
+    extends Components.TControl,
+      HTMLStencilElement {}
+  var HTMLTControlElement: {
+    prototype: HTMLTControlElement;
+    new (): HTMLTControlElement;
+  };
+  interface HTMLTMapElement extends Components.TMap, HTMLStencilElement {}
+  var HTMLTMapElement: {
+    prototype: HTMLTMapElement;
+    new (): HTMLTMapElement;
+  };
+  interface HTMLElementTagNameMap {
+    "t-control": HTMLTControlElement;
+    "t-map": HTMLTMapElement;
+  }
 }
 declare namespace LocalJSX {
-    interface TMap {
-        "tk"?: string | undefined;
-    }
-    interface IntrinsicElements {
-        "t-map": TMap;
-    }
+  interface TControl {}
+  interface TMap {
+    center?: number[];
+    maxBounds: T.MapOptions["maxBounds"];
+    maxZoom: T.MapOptions["maxZoom"];
+    minZoom: T.MapOptions["minZoom"];
+    projection: T.MapOptions["projection"];
+    tk: string;
+    zoom: T.MapOptions["zoom"];
+  }
+  interface IntrinsicElements {
+    "t-control": TControl;
+    "t-map": TMap;
+  }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
-    export namespace JSX {
-        interface IntrinsicElements {
-            "t-map": LocalJSX.TMap & JSXBase.HTMLAttributes<HTMLTMapElement>;
-        }
+  export namespace JSX {
+    interface IntrinsicElements {
+      "t-control": LocalJSX.TControl &
+        JSXBase.HTMLAttributes<HTMLTControlElement>;
+      "t-map": LocalJSX.TMap & JSXBase.HTMLAttributes<HTMLTMapElement>;
     }
+  }
 }

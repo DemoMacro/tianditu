@@ -13,8 +13,9 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "jsx": "react",
-    "jsxFactory": "h"
+    "jsxFactory": "h",
+    "skipLibCheck": true
   },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  "include": ["src", "node_modules/@tianditu/types/**/*"]
+  // "exclude": ["node_modules"]
 }

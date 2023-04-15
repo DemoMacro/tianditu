@@ -1,13 +1,40 @@
 <script setup>
 const config = useRuntimeConfig();
+
+const center = ref([0, 0]);
+const zoom = ref(18);
+
+navigator.geolocation.getCurrentPosition(
+  (position) => {
+    center.value = [position.coords.longitude, position.coords.latitude];
+  },
+  null,
+  {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0,
+  }
+);
+
+useHead({
+  script: [
+    {
+      src: `https://api.tianditu.gov.cn/api?v=4.0&tk=${config.public.tianditu.browserKey}`,
+    },
+  ],
+});
 </script>
 
 <template>
-  <div style="height: 100vh; width: 100%">
+  <div class="h-screen">
     <t-map
       :tk="config.public.tianditu.browserKey"
-      id="mapDiv"
-      style="display: block; height: 100%; width: 100%"
-    ></t-map>
+      :center="center"
+      :zoom="zoom"
+      class="block"
+      style="width: 100%; height: 100%"
+    >
+      <t-control />
+    </t-map>
   </div>
 </template>

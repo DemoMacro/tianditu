@@ -17,4 +17,9 @@ export default defineNuxtConfig({
       },
     },
   },
+  css: [
+    "@unocss/reset/sanitize/sanitize.css",
+    "@unocss/reset/sanitize/assets.css",
+  ],
+  modules: ["@unocss/nuxt"],
 });

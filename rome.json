@@ -5,7 +5,8 @@
       "*/dist/*",
       "*/src/components.d.ts",
       "*/vue-component-lib/*",
-      "*/.nuxt/*"
+      "*/.nuxt/*",
+      "*/types/**/*.d.ts"
     ]
   },
   "formatter": {

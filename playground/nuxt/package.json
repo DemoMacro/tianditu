@@ -10,6 +10,8 @@
   "devDependencies": {
     "@tianditu/vue": "workspace:*",
     "@tianditu/web-components": "workspace:*",
+    "@unocss/nuxt": "0.51.4",
+    "@unocss/reset": "0.51.4",
     "nuxt": "3.3.1"
   }
 }
