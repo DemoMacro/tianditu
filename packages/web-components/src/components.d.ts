@@ -16,6 +16,7 @@ export namespace Components {
     tk: string;
     zoom: T.MapOptions["zoom"];
   }
+  interface TTilelayer {}
 }
 declare global {
   interface HTMLTControlElement
@@ -30,9 +31,17 @@ declare global {
     prototype: HTMLTMapElement;
     new (): HTMLTMapElement;
   };
+  interface HTMLTTilelayerElement
+    extends Components.TTilelayer,
+      HTMLStencilElement {}
+  var HTMLTTilelayerElement: {
+    prototype: HTMLTTilelayerElement;
+    new (): HTMLTTilelayerElement;
+  };
   interface HTMLElementTagNameMap {
     "t-control": HTMLTControlElement;
     "t-map": HTMLTMapElement;
+    "t-tilelayer": HTMLTTilelayerElement;
   }
 }
 declare namespace LocalJSX {
@@ -46,9 +55,11 @@ declare namespace LocalJSX {
     tk: string;
     zoom: T.MapOptions["zoom"];
   }
+  interface TTilelayer {}
   interface IntrinsicElements {
     "t-control": TControl;
     "t-map": TMap;
+    "t-tilelayer": TTilelayer;
   }
 }
 export { LocalJSX as JSX };
@@ -58,6 +69,8 @@ declare module "@stencil/core" {
       "t-control": LocalJSX.TControl &
         JSXBase.HTMLAttributes<HTMLTControlElement>;
       "t-map": LocalJSX.TMap & JSXBase.HTMLAttributes<HTMLTMapElement>;
+      "t-tilelayer": LocalJSX.TTilelayer &
+        JSXBase.HTMLAttributes<HTMLTTilelayerElement>;
     }
   }
 }

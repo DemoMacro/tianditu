@@ -44,9 +44,6 @@ importers:
 
   packages/web-components:
     devDependencies:
-      "@stencil/store":
-        specifier: 2.0.5
-        version: 2.0.5(@stencil/core@3.2.1)
       "@stencil/vue-output-target":
         specifier: 0.8.2
         version: 0.8.2(@stencil/core@3.2.1)
@@ -1739,17 +1736,6 @@ packages:
       }
     engines: { node: ">=14.10.0", npm: ">=6.0.0" }
     hasBin: true
-    dev: true
-
-  /@stencil/store@2.0.5(@stencil/core@3.2.1):
-    resolution:
-      {
-        integrity: sha512-5X6/GREyC30NmKCPn0oGENmVmvCb8pZZL81JR4dpS/0DM/+Z4YQZE8V+SOdJcwpkjqtUMOzPfxTnOCVr0n6Dog==,
-      }
-    peerDependencies:
-      "@stencil/core": ">=2.0.0 || >=3.0.0"
-    dependencies:
-      "@stencil/core": 3.2.1
     dev: true
 
   /@stencil/vue-output-target@0.8.2(@stencil/core@3.2.1):

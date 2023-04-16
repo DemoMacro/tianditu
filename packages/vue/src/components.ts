@@ -15,3 +15,8 @@ export const TMap = /*@__PURE__*/ defineContainer<JSX.TMap>(
   undefined,
   ["tk", "projection", "minZoom", "maxZoom", "maxBounds", "center", "zoom"]
 );
+
+export const TTilelayer = /*@__PURE__*/ defineContainer<JSX.TTilelayer>(
+  "t-tilelayer",
+  undefined
+);
