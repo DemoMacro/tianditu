@@ -34,7 +34,7 @@
     "@funish/githooks-config": "edge",
     "@funish/lint": "edge",
     "@types/node": "18.15.11",
-    "prettier": "2.8.4",
+    "prettier": "2.8.7",
     "rome": "12.0.0",
     "unbuild": "1.2.0"
   }
