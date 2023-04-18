@@ -6,6 +6,16 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+  interface TdtControl {
+    control: T.Control;
+  }
+  interface TdtControlZoom {
+    position: T.ControlPosition;
+    zoomInText: string;
+    zoomInTitle: string;
+    zoomOutText: string;
+    zoomOutTitle: string;
+  }
   interface TdtMap {
     center: number[];
     maxBounds: T.MapOptions["maxBounds"];
@@ -17,16 +27,42 @@ export namespace Components {
   }
 }
 declare global {
+  interface HTMLTdtControlElement
+    extends Components.TdtControl,
+      HTMLStencilElement {}
+  var HTMLTdtControlElement: {
+    prototype: HTMLTdtControlElement;
+    new (): HTMLTdtControlElement;
+  };
+  interface HTMLTdtControlZoomElement
+    extends Components.TdtControlZoom,
+      HTMLStencilElement {}
+  var HTMLTdtControlZoomElement: {
+    prototype: HTMLTdtControlZoomElement;
+    new (): HTMLTdtControlZoomElement;
+  };
   interface HTMLTdtMapElement extends Components.TdtMap, HTMLStencilElement {}
   var HTMLTdtMapElement: {
     prototype: HTMLTdtMapElement;
     new (): HTMLTdtMapElement;
   };
   interface HTMLElementTagNameMap {
+    "tdt-control": HTMLTdtControlElement;
+    "tdt-control-zoom": HTMLTdtControlZoomElement;
     "tdt-map": HTMLTdtMapElement;
   }
 }
 declare namespace LocalJSX {
+  interface TdtControl {
+    control: T.Control;
+  }
+  interface TdtControlZoom {
+    position?: T.ControlPosition;
+    zoomInText: string;
+    zoomInTitle: string;
+    zoomOutText: string;
+    zoomOutTitle: string;
+  }
   interface TdtMap {
     center?: number[];
     maxBounds: T.MapOptions["maxBounds"];
@@ -37,6 +73,8 @@ declare namespace LocalJSX {
     zoom: T.MapOptions["zoom"];
   }
   interface IntrinsicElements {
+    "tdt-control": TdtControl;
+    "tdt-control-zoom": TdtControlZoom;
     "tdt-map": TdtMap;
   }
 }
@@ -44,6 +82,10 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
+      "tdt-control": LocalJSX.TdtControl &
+        JSXBase.HTMLAttributes<HTMLTdtControlElement>;
+      "tdt-control-zoom": LocalJSX.TdtControlZoom &
+        JSXBase.HTMLAttributes<HTMLTdtControlZoomElement>;
       "tdt-map": LocalJSX.TdtMap & JSXBase.HTMLAttributes<HTMLTdtMapElement>;
     }
   }
