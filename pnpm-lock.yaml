@@ -45,7 +45,7 @@ importers:
   packages/web-components:
     dependencies:
       "@stencil/core":
-        specifier: ^3.2.1
+        specifier: 3.2.1
         version: 3.2.1
     devDependencies:
       "@stencil/vue-output-target":
