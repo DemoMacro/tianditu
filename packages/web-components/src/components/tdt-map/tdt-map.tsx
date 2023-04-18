@@ -16,8 +16,8 @@ export class TdtMap {
 
   @State() map!: T.Map;
 
-  render() {
-    window.onload = () => {
+  componentWillLoad() {
+    globalThis.onload = () => {
       this.map = new T.Map(this.el, {
         projection: this.projection,
         minZoom: this.minZoom,
@@ -31,8 +31,12 @@ export class TdtMap {
         new T.LngLat(this.center[0], this.center[1]),
         this.zoom || 18
       );
-    };
 
+      globalThis.map = this.map;
+    };
+  }
+
+  render() {
     return (
       <Host>
         <slot />
