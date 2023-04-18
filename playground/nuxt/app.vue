@@ -27,14 +27,13 @@ useHead({
 
 <template>
   <div class="h-screen">
-    <t-map
+    <tdt-map
       :tk="config.public.tianditu.browserKey"
       :center="center"
       :zoom="zoom"
       class="block"
       style="width: 100%; height: 100%"
     >
-      <t-control />
-    </t-map>
+    </tdt-map>
   </div>
 </template>

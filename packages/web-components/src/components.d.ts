@@ -6,8 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-  interface TControl {}
-  interface TMap {
+  interface TdtMap {
     center: number[];
     maxBounds: T.MapOptions["maxBounds"];
     maxZoom: T.MapOptions["maxZoom"];
@@ -16,37 +15,19 @@ export namespace Components {
     tk: string;
     zoom: T.MapOptions["zoom"];
   }
-  interface TTilelayer {}
 }
 declare global {
-  interface HTMLTControlElement
-    extends Components.TControl,
-      HTMLStencilElement {}
-  var HTMLTControlElement: {
-    prototype: HTMLTControlElement;
-    new (): HTMLTControlElement;
-  };
-  interface HTMLTMapElement extends Components.TMap, HTMLStencilElement {}
-  var HTMLTMapElement: {
-    prototype: HTMLTMapElement;
-    new (): HTMLTMapElement;
-  };
-  interface HTMLTTilelayerElement
-    extends Components.TTilelayer,
-      HTMLStencilElement {}
-  var HTMLTTilelayerElement: {
-    prototype: HTMLTTilelayerElement;
-    new (): HTMLTTilelayerElement;
+  interface HTMLTdtMapElement extends Components.TdtMap, HTMLStencilElement {}
+  var HTMLTdtMapElement: {
+    prototype: HTMLTdtMapElement;
+    new (): HTMLTdtMapElement;
   };
   interface HTMLElementTagNameMap {
-    "t-control": HTMLTControlElement;
-    "t-map": HTMLTMapElement;
-    "t-tilelayer": HTMLTTilelayerElement;
+    "tdt-map": HTMLTdtMapElement;
   }
 }
 declare namespace LocalJSX {
-  interface TControl {}
-  interface TMap {
+  interface TdtMap {
     center?: number[];
     maxBounds: T.MapOptions["maxBounds"];
     maxZoom: T.MapOptions["maxZoom"];
@@ -55,22 +36,15 @@ declare namespace LocalJSX {
     tk: string;
     zoom: T.MapOptions["zoom"];
   }
-  interface TTilelayer {}
   interface IntrinsicElements {
-    "t-control": TControl;
-    "t-map": TMap;
-    "t-tilelayer": TTilelayer;
+    "tdt-map": TdtMap;
   }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
-      "t-control": LocalJSX.TControl &
-        JSXBase.HTMLAttributes<HTMLTControlElement>;
-      "t-map": LocalJSX.TMap & JSXBase.HTMLAttributes<HTMLTMapElement>;
-      "t-tilelayer": LocalJSX.TTilelayer &
-        JSXBase.HTMLAttributes<HTMLTTilelayerElement>;
+      "tdt-map": LocalJSX.TdtMap & JSXBase.HTMLAttributes<HTMLTdtMapElement>;
     }
   }
 }

@@ -1,10 +1,11 @@
 import { Component, Element, Host, h, Prop, State } from "@stencil/core";
+
 @Component({
-  tag: "t-map",
+  tag: "tdt-map",
   shadow: true,
 })
-export class TMap {
-  @Element() el!: HTMLTMapElement;
+export class TdtMap {
+  @Element() el!: HTMLTdtMapElement;
   @Prop() tk!: string;
   @Prop({ reflect: true }) projection!: T.MapOptions["projection"];
   @Prop({ reflect: true }) minZoom!: T.MapOptions["minZoom"];
