@@ -42,5 +42,8 @@
   "devDependencies": {
     "@stencil/vue-output-target": "0.8.2",
     "@tianditu/types": "workspace:*"
+  },
+  "dependencies": {
+    "@stencil/core": "3.2.1"
   }
 }
