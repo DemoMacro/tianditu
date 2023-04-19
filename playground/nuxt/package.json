@@ -1,4 +1,5 @@
 {
+  "name": "@tianditu/playground-nuxt",
   "private": true,
   "scripts": {
     "build": "nuxt build",

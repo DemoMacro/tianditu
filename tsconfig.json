@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["dom"],
+    "moduleResolution": "node",
+    "strict": true
+  }
+}
