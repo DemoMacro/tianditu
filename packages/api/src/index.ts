@@ -2,7 +2,7 @@ import { TianDiTuWeb } from "./web";
 
 export class TianDiTu extends TianDiTuWeb {
   v: string = "4.0";
-  tk: string;
+  tk: string = "";
   baseURL: string = "https://api.tianditu.gov.cn";
 
   constructor({
