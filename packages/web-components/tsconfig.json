@@ -11,12 +11,13 @@
     "noImplicitAny": false,
     "strict": true,
     "target": "es2017",
+    "types": ["@tianditu/types"],
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "jsx": "react",
     "jsxFactory": "h",
     "skipLibCheck": true
   },
-  "include": ["src", "node_modules/@tianditu/types/**/*"]
-  // "exclude": ["node_modules"]
+  "include": ["src"],
+  "exclude": ["node_modules"]
 }
