@@ -9,6 +9,7 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@tianditu/types": "workspace:*",
     "@tianditu/vue": "workspace:*",
     "@tianditu/web-components": "workspace:*",
     "@unocss/nuxt": "0.51.4",
