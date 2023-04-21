@@ -8,8 +8,15 @@ import type { JSX } from "@tianditu/web-components";
 export const TdtControl = /*@__PURE__*/ defineContainer<JSX.TdtControl>(
   "tdt-control",
   undefined,
-  ["control"]
+  ["control", "position", "offset", "options"]
 );
+
+export const TdtControlScale =
+  /*@__PURE__*/ defineContainer<JSX.TdtControlScale>(
+    "tdt-control-scale",
+    undefined,
+    ["position", "color"]
+  );
 
 export const TdtControlZoom = /*@__PURE__*/ defineContainer<JSX.TdtControlZoom>(
   "tdt-control-zoom",

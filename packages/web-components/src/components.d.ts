@@ -8,13 +8,20 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
   interface TdtControl {
     control: T.Control;
+    offset?: T.Point;
+    options?: T.ControlOptions;
+    position?: T.ControlPosition;
+  }
+  interface TdtControlScale {
+    color?: string;
+    position: T.ControlPosition;
   }
   interface TdtControlZoom {
     position: T.ControlPosition;
-    zoomInText: string;
-    zoomInTitle: string;
-    zoomOutText: string;
-    zoomOutTitle: string;
+    zoomInText?: T.ControlZoomOptions["zoomInText"];
+    zoomInTitle?: T.ControlZoomOptions["zoomInTitle"];
+    zoomOutText?: T.ControlZoomOptions["zoomOutText"];
+    zoomOutTitle?: T.ControlZoomOptions["zoomOutTitle"];
   }
   interface TdtMap {
     center: number[];
@@ -34,6 +41,13 @@ declare global {
     prototype: HTMLTdtControlElement;
     new (): HTMLTdtControlElement;
   };
+  interface HTMLTdtControlScaleElement
+    extends Components.TdtControlScale,
+      HTMLStencilElement {}
+  var HTMLTdtControlScaleElement: {
+    prototype: HTMLTdtControlScaleElement;
+    new (): HTMLTdtControlScaleElement;
+  };
   interface HTMLTdtControlZoomElement
     extends Components.TdtControlZoom,
       HTMLStencilElement {}
@@ -48,6 +62,7 @@ declare global {
   };
   interface HTMLElementTagNameMap {
     "tdt-control": HTMLTdtControlElement;
+    "tdt-control-scale": HTMLTdtControlScaleElement;
     "tdt-control-zoom": HTMLTdtControlZoomElement;
     "tdt-map": HTMLTdtMapElement;
   }
@@ -55,13 +70,20 @@ declare global {
 declare namespace LocalJSX {
   interface TdtControl {
     control: T.Control;
+    offset?: T.Point;
+    options?: T.ControlOptions;
+    position?: T.ControlPosition;
+  }
+  interface TdtControlScale {
+    color?: string;
+    position?: T.ControlPosition;
   }
   interface TdtControlZoom {
     position?: T.ControlPosition;
-    zoomInText: string;
-    zoomInTitle: string;
-    zoomOutText: string;
-    zoomOutTitle: string;
+    zoomInText?: T.ControlZoomOptions["zoomInText"];
+    zoomInTitle?: T.ControlZoomOptions["zoomInTitle"];
+    zoomOutText?: T.ControlZoomOptions["zoomOutText"];
+    zoomOutTitle?: T.ControlZoomOptions["zoomOutTitle"];
   }
   interface TdtMap {
     center?: number[];
@@ -74,6 +96,7 @@ declare namespace LocalJSX {
   }
   interface IntrinsicElements {
     "tdt-control": TdtControl;
+    "tdt-control-scale": TdtControlScale;
     "tdt-control-zoom": TdtControlZoom;
     "tdt-map": TdtMap;
   }
@@ -84,6 +107,8 @@ declare module "@stencil/core" {
     interface IntrinsicElements {
       "tdt-control": LocalJSX.TdtControl &
         JSXBase.HTMLAttributes<HTMLTdtControlElement>;
+      "tdt-control-scale": LocalJSX.TdtControlScale &
+        JSXBase.HTMLAttributes<HTMLTdtControlScaleElement>;
       "tdt-control-zoom": LocalJSX.TdtControlZoom &
         JSXBase.HTMLAttributes<HTMLTdtControlZoomElement>;
       "tdt-map": LocalJSX.TdtMap & JSXBase.HTMLAttributes<HTMLTdtMapElement>;

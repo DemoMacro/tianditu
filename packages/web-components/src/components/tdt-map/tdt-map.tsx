@@ -6,7 +6,7 @@ import { Component, Element, Host, h, Prop, State } from "@stencil/core";
 })
 export class TdtMap {
   @Element() el!: HTMLTdtMapElement;
-  @Prop() tk!: string;
+  @Prop({ reflect: true }) tk!: string;
   @Prop({ reflect: true }) projection!: T.MapOptions["projection"];
   @Prop({ reflect: true }) minZoom!: T.MapOptions["minZoom"];
   @Prop({ reflect: true }) maxZoom!: T.MapOptions["maxZoom"];
@@ -16,7 +16,7 @@ export class TdtMap {
 
   @State() map!: T.Map;
 
-  componentWillLoad() {
+  connectedCallback() {
     globalThis.onload = () => {
       this.map = new T.Map(this.el, {
         projection: this.projection,

@@ -1,19 +1,25 @@
 import { Component, Host, h, State, Prop } from "@stencil/core";
-import { onload } from "../../utils/onload";
+import { onload } from "../../utils/use";
 
 @Component({
   tag: "tdt-control",
   shadow: true,
 })
 export class TdtControl {
-  @Prop() control!: T.Control;
+  @Prop({ reflect: true }) control!: T.Control;
+  @Prop({ reflect: true }) position?: T.ControlPosition;
+  // @Prop({ reflect: true }) visible?: boolean;
+  @Prop({ reflect: true }) offset?: T.Point;
+  @Prop({ reflect: true }) options?: T.ControlOptions;
 
   @State() map!: T.Map;
 
-  componentWillLoad() {
+  componentWillRender() {
     onload(() => {
-      this.map = globalThis.map;
-      this.map.addControl(this.control);
+      this.position && this.control.setPosition(this.position);
+      // this.visible ? this.control.show() : this.control.hide();
+      this.offset && this.control.setOffset(this.offset);
+      this.options && this.control.setOptions(this.options);
     });
   }
 
