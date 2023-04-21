@@ -35,6 +35,7 @@ useHead({
       style="width: 100%; height: 100%"
     >
       <tdt-control-zoom />
+      <tdt-control-scale />
     </tdt-map>
   </div>
 </template>
