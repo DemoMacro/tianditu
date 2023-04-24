@@ -54,6 +54,9 @@ importers:
 
   playground/nuxt:
     devDependencies:
+      "@tianditu/api":
+        specifier: workspace:^
+        version: link:../../packages/api
       "@tianditu/types":
         specifier: workspace:*
         version: link:../../packages/types
