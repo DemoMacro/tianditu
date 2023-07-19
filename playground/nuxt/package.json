@@ -15,6 +15,6 @@
     "@tianditu/web-components": "workspace:*",
     "@unocss/nuxt": "0.51.4",
     "@unocss/reset": "0.51.4",
-    "nuxt": "3.3.1"
+    "nuxt": "3.6.5"
   }
 }
