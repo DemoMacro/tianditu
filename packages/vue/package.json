@@ -35,6 +35,6 @@
   "homepage": "https://github.com/DemoMacro/tianditu#readme",
   "devDependencies": {
     "@tianditu/web-components": "workspace:*",
-    "vue": "3.2.47"
+    "vue": "3.3.4"
   }
 }
