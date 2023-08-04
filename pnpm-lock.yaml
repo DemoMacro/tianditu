@@ -47,12 +47,12 @@ importers:
   packages/web-components:
     dependencies:
       '@stencil/core':
-        specifier: 3.4.2
-        version: 3.4.2
+        specifier: 4.0.3
+        version: 4.0.3
     devDependencies:
       '@stencil/vue-output-target':
         specifier: 0.8.6
-        version: 0.8.6(@stencil/core@3.4.2)
+        version: 0.8.6(@stencil/core@4.0.3)
       '@tianditu/types':
         specifier: workspace:*
         version: link:../types
@@ -1437,17 +1437,17 @@ packages:
     dev: true
     optional: true
 
-  /@stencil/core@3.4.2:
-    resolution: {integrity: sha512-FAUhUVaakCy29nU2GwO/HQBRV1ihPRvncz3PUc8oR+UJLAxGabTmP8PLY7wvHfbw+Cvi4VXfJFTBvdfDu6iKPQ==}
-    engines: {node: '>=14.10.0', npm: '>=6.0.0'}
+  /@stencil/core@4.0.3:
+    resolution: {integrity: sha512-uWaH4tQ16So1feRu4tD0gupDEnzhRatS3Jp9uYkYlqjhx5BQ/ox5CTP+lxboochqkLlvkmXvhH9SsEV+UTsYTA==}
+    engines: {node: '>=16.0.0', npm: '>=7.10.0'}
     hasBin: true
 
-  /@stencil/vue-output-target@0.8.6(@stencil/core@3.4.2):
+  /@stencil/vue-output-target@0.8.6(@stencil/core@4.0.3):
     resolution: {integrity: sha512-B1gQW8FWeU7x/KBPm9R28jYFGN5NsZTZR4jwfDMhKBmU1Q2dIxFY52ARhbrfj5tJQxKoxr2tQJD2S14r9t1v7w==}
     peerDependencies:
       '@stencil/core': '>=2.0.0 || >=3 || >= 4.0.0-beta.0 || >= 4.0.0'
     dependencies:
-      '@stencil/core': 3.4.2
+      '@stencil/core': 4.0.3
     dev: true
 
   /@trysound/sax@0.2.0:
