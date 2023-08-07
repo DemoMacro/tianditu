@@ -26,7 +26,7 @@ export class TdtControlZoom {
           zoomInTitle: this.zoomInTitle,
           zoomOutText: this.zoomOutText,
           zoomOutTitle: this.zoomOutTitle,
-        })
+        }),
       );
       this.map.addControl(this.control);
     });

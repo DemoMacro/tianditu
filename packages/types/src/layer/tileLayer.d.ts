@@ -22,12 +22,12 @@ declare namespace T {
     /** 添加事件监听函数 */
     addEventListener<E extends keyof TileLayerEvents>(
       event: E,
-      handler: TileLayerEvents[E]
+      handler: TileLayerEvents[E],
     ): void;
     /** 移除事件监听函数 */
     removeEventListener<E extends keyof TileLayerEvents>(
       event: E,
-      handler: TileLayerEvents[E]
+      handler: TileLayerEvents[E],
     ): void;
   }
 

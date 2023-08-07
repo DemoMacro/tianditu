@@ -13,7 +13,7 @@ navigator.geolocation.getCurrentPosition(
     enableHighAccuracy: true,
     timeout: 5000,
     maximumAge: 0,
-  }
+  },
 );
 
 useHead({

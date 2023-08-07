@@ -2,7 +2,7 @@ import { ofetch, FetchRequest, FetchOptions } from "ofetch";
 
 export class TianDiTuWeb {
   tk: string;
-  baseURL: string = "https://api.tianditu.gov.cn";
+  baseURL = "https://api.tianditu.gov.cn";
 
   constructor(tk: string, baseURL?: string) {
     this.tk = tk;
