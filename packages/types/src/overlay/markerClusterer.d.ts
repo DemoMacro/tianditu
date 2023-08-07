@@ -47,10 +47,10 @@ declare namespace T {
     extends OverlayEvents<MarkerClusterer, LngLat, Marker> {
     dragstart(e: Pick<MarkerClustererEvent, "type" | "target" | "layer">): void;
     drag(
-      e: Pick<MarkerClustererEvent, "type" | "target" | "lnglat" | "layer">
+      e: Pick<MarkerClustererEvent, "type" | "target" | "lnglat" | "layer">,
     ): void;
     dragend(
-      e: Pick<MarkerClustererEvent, "type" | "target" | "lnglat" | "layer">
+      e: Pick<MarkerClustererEvent, "type" | "target" | "lnglat" | "layer">,
     ): void;
     clusterclick(e: MarkerClustererEvent): void;
   }

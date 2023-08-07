@@ -29,7 +29,7 @@ export class TdtMap {
 
       this.map.centerAndZoom(
         new T.LngLat(this.center[0], this.center[1]),
-        this.zoom || 18
+        this.zoom || 18,
       );
 
       globalThis.map = this.map;
