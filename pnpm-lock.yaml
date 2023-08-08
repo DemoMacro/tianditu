@@ -75,8 +75,8 @@ importers:
         specifier: 0.54.1
         version: 0.54.1(postcss@8.4.27)(rollup@3.27.2)(vite@4.4.8)(webpack@5.88.2)
       '@unocss/reset':
-        specifier: 0.54.1
-        version: 0.54.1
+        specifier: 0.54.2
+        version: 0.54.2
       nuxt:
         specifier: 3.6.5
         version: 3.6.5(@types/node@20.4.8)(rollup@3.27.2)(typescript@5.1.6)
@@ -1565,6 +1565,10 @@ packages:
     resolution: {integrity: sha512-qZcmybayQTX4QP7ya7jteN9IySU/ViK8HcCpixHA1ttUrsQeSURgdy01E74p+TsWDH0SY7vYmOy+HbYfQNycqQ==}
     dev: true
 
+  /@unocss/reset@0.54.2:
+    resolution: {integrity: sha512-awM74dNKWjl6p9mGqCGIzy3ivy8YJTX7OfQ4CywjyRjrhqZKTgEVV5W7lAr58cOCvariuskWtgfVcyM55uWM3Q==}
+    dev: true
+
   /@unocss/scope@0.54.1:
     resolution: {integrity: sha512-hwDyv0DEW5ImXlKvr3LLJifli1m/eAnvlEBb2n4l5kgs3rZMGJquqy7LAdxFlZWi54LR586uFdc5zZm2YAWADw==}
     dev: true
@@ -2207,7 +2211,7 @@ packages:
       ohash: 1.1.2
       pathe: 1.1.1
       perfect-debounce: 0.1.3
-      pkg-types: 1.0.2
+      pkg-types: 1.0.3
       rc9: 2.1.1
     transitivePeerDependencies:
       - supports-color
