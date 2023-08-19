@@ -75,8 +75,8 @@ importers:
         specifier: 0.55.0
         version: 0.55.0(postcss@8.4.27)(rollup@3.27.2)(vite@4.4.8)(webpack@5.88.2)
       '@unocss/reset':
-        specifier: 0.54.2
-        version: 0.54.2
+        specifier: 0.55.2
+        version: 0.55.2
       nuxt:
         specifier: 3.6.5
         version: 3.6.5(@types/node@20.4.8)(rollup@3.27.2)(typescript@5.1.6)
@@ -1567,12 +1567,12 @@ packages:
       '@unocss/preset-mini': 0.55.0
     dev: true
 
-  /@unocss/reset@0.54.2:
-    resolution: {integrity: sha512-awM74dNKWjl6p9mGqCGIzy3ivy8YJTX7OfQ4CywjyRjrhqZKTgEVV5W7lAr58cOCvariuskWtgfVcyM55uWM3Q==}
-    dev: true
-
   /@unocss/reset@0.55.0:
     resolution: {integrity: sha512-TzpcOCIr16IbFxQ4vrSfEV+A8k0N4mJkhl7J3SZfAxBpNDBKAWDB6VBW9iEQY5aBYDLN3wRx1LskgEoubqBCPQ==}
+    dev: true
+
+  /@unocss/reset@0.55.2:
+    resolution: {integrity: sha512-paInTGIhtI96fcJGZWbkPLW/7qiTlHxSbEIs1HGHcbf3WbwNuKrJUvKlQAhUs2HILNKhvsTXQl05Os8gtinLEA==}
     dev: true
 
   /@unocss/scope@0.55.0:
