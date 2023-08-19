@@ -13,7 +13,7 @@
     "@tianditu/types": "workspace:*",
     "@tianditu/vue": "workspace:*",
     "@tianditu/web-components": "workspace:*",
-    "@unocss/nuxt": "0.55.0",
+    "@unocss/nuxt": "0.55.2",
     "@unocss/reset": "0.54.2",
     "nuxt": "3.6.5"
   }
