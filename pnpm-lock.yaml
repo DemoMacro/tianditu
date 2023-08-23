@@ -30,8 +30,8 @@ importers:
   packages/api:
     dependencies:
       ofetch:
-        specifier: 1.1.1
-        version: 1.1.1
+        specifier: 1.2.1
+        version: 1.2.1
 
   packages/types: {}
 
@@ -1187,7 +1187,7 @@ packages:
       globby: 13.2.2
       hash-sum: 2.0.0
       ignore: 5.2.4
-      jiti: 1.19.1
+      jiti: 1.19.3
       knitwork: 1.0.0
       mlly: 1.4.0
       pathe: 1.1.1
@@ -1235,11 +1235,11 @@ packages:
       fs-extra: 11.1.1
       git-url-parse: 13.1.0
       is-docker: 3.0.0
-      jiti: 1.19.1
+      jiti: 1.19.3
       mri: 1.2.0
       nanoid: 4.0.2
       node-fetch: 3.3.2
-      ofetch: 1.1.1
+      ofetch: 1.2.1
       parse-git-config: 3.0.0
       rc9: 2.1.1
       std-env: 3.3.3
@@ -1842,7 +1842,7 @@ packages:
     dependencies:
       '@iconify/utils': 2.1.7
       '@unocss/core': 0.55.0
-      ofetch: 1.1.1
+      ofetch: 1.2.1
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -1879,7 +1879,7 @@ packages:
     resolution: {integrity: sha512-nFA5q0WinD/z7Iqv3uJQ8sTK7mQf18qbcFKmgWZ+QZXdI/wACOfExd6futsXj5EdACJwsEixYJe4DURTsD5XtA==}
     dependencies:
       '@unocss/core': 0.55.0
-      ofetch: 1.1.1
+      ofetch: 1.2.1
     dev: true
 
   /@unocss/preset-wind@0.55.0:
@@ -2535,7 +2535,7 @@ packages:
       defu: 6.1.2
       dotenv: 16.3.1
       giget: 1.1.2
-      jiti: 1.19.1
+      jiti: 1.19.3
       mlly: 1.4.0
       ohash: 1.1.2
       pathe: 1.1.1
@@ -2553,7 +2553,7 @@ packages:
       defu: 6.1.2
       dotenv: 16.3.1
       giget: 1.1.2
-      jiti: 1.19.1
+      jiti: 1.19.3
       mlly: 1.4.0
       ohash: 1.1.2
       pathe: 1.1.1
@@ -3921,7 +3921,7 @@ packages:
       get-port-please: 3.0.1
       h3: 1.8.0-rc.2
       http-shutdown: 1.2.2
-      jiti: 1.19.1
+      jiti: 1.19.3
       mlly: 1.4.0
       node-forge: 1.3.1
       pathe: 1.1.1
@@ -4270,7 +4270,7 @@ packages:
       http-graceful-shutdown: 3.1.13
       http-proxy: 1.18.1
       is-primitive: 3.0.1
-      jiti: 1.19.1
+      jiti: 1.19.3
       klona: 2.0.6
       knitwork: 1.0.0
       listhen: 1.2.2
@@ -4279,7 +4279,7 @@ packages:
       mlly: 1.4.0
       mri: 1.2.0
       node-fetch-native: 1.2.0
-      ofetch: 1.1.1
+      ofetch: 1.2.1
       ohash: 1.1.2
       openapi-typescript: 6.4.0
       pathe: 1.1.1
@@ -4322,6 +4322,10 @@ packages:
 
   /node-fetch-native@1.2.0:
     resolution: {integrity: sha512-5IAMBTl9p6PaAjYCnMv5FmqIF6GcZnawAVnzaCG0rX2aYZJ4CxEkZNtVPuTRug7fL7wyM5BQYTlAzcyMPi6oTQ==}
+    dev: true
+
+  /node-fetch-native@1.4.0:
+    resolution: {integrity: sha512-F5kfEj95kX8tkDhUCYdV8dg3/8Olx/94zB8+ZNthFs6Bz31UpUi8Xh40TN3thLwXgrwXry1pEg9lJ++tLWTcqA==}
 
   /node-fetch@2.6.12:
     resolution: {integrity: sha512-C/fGU2E8ToujUivIO0H+tpQ6HWo4eEmchoPIoXtxCrVghxdKq+QOHqEZW7tuP3KlV3bC8FRMO5nMCC7Zm1VP6g==}
@@ -4457,7 +4461,7 @@ packages:
       nitropack: 2.5.2
       nuxi: 3.6.5
       nypm: 0.2.2
-      ofetch: 1.1.1
+      ofetch: 1.2.1
       ohash: 1.1.2
       pathe: 1.1.1
       perfect-debounce: 1.0.0
@@ -4518,11 +4522,11 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /ofetch@1.1.1:
-    resolution: {integrity: sha512-SSMoktrp9SNLi20BWfB/BnnKcL0RDigXThD/mZBeQxkIRv1xrd9183MtLdsqRYLYSqW0eTr5t8w8MqjNhvoOQQ==}
+  /ofetch@1.2.1:
+    resolution: {integrity: sha512-WEX1TEfGuAFJhzRW6Qv9RcxCyek+YogEeXlCWl1XoqBSW2fc6jU4LTk3VotwC1YfXv8Uz06LSofU6uW/ZIT+6g==}
     dependencies:
       destr: 2.0.1
-      node-fetch-native: 1.2.0
+      node-fetch-native: 1.4.0
       ufo: 1.2.0
 
   /ohash@1.1.2:
@@ -5689,7 +5693,7 @@ packages:
     dependencies:
       '@antfu/utils': 0.7.5
       defu: 6.1.2
-      jiti: 1.19.1
+      jiti: 1.19.3
       mlly: 1.4.0
     dev: true
 
@@ -5890,7 +5894,7 @@ packages:
       lru-cache: 10.0.0
       mri: 1.2.0
       node-fetch-native: 1.2.0
-      ofetch: 1.1.1
+      ofetch: 1.2.1
       ufo: 1.2.0
     transitivePeerDependencies:
       - supports-color
@@ -5904,7 +5908,7 @@ packages:
       '@babel/standalone': 7.22.9
       '@babel/types': 7.22.5
       defu: 6.1.2
-      jiti: 1.19.1
+      jiti: 1.19.3
       mri: 1.2.0
       scule: 1.0.0
     transitivePeerDependencies:
@@ -6069,7 +6073,7 @@ packages:
       '@types/node': 20.4.8
       esbuild: 0.18.19
       postcss: 8.4.27
-      rollup: 3.27.2
+      rollup: 3.28.1
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
