@@ -33,6 +33,6 @@
   },
   "homepage": "https://github.com/DemoMacro/tianditu#readme",
   "dependencies": {
-    "ofetch": "1.1.1"
+    "ofetch": "1.2.1"
   }
 }
