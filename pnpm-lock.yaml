@@ -47,12 +47,12 @@ importers:
   packages/web-components:
     dependencies:
       '@stencil/core':
-        specifier: 4.1.0
-        version: 4.1.0
+        specifier: 4.3.0
+        version: 4.3.0
     devDependencies:
       '@stencil/vue-output-target':
         specifier: 0.8.6
-        version: 0.8.6(@stencil/core@4.1.0)
+        version: 0.8.6(@stencil/core@4.3.0)
       '@tianditu/types':
         specifier: workspace:*
         version: link:../types
@@ -1636,17 +1636,17 @@ packages:
     dev: true
     optional: true
 
-  /@stencil/core@4.1.0:
-    resolution: {integrity: sha512-yIpL+CX02fy5zvFXwXcHZjjEILRm3aiONbucpfLIWPS7zcBAuucdROssartEa+D7E1JRko97ydxn1Ntdu4GoWg==}
+  /@stencil/core@4.3.0:
+    resolution: {integrity: sha512-WYjftKg5fuqO7mf3nTl1aCRurkeMmfEF38WcBG4VLF6UPQ+MA76/koedGR2LGhATGByx+pbxR4iRxAr2Bspc9A==}
     engines: {node: '>=16.0.0', npm: '>=7.10.0'}
     hasBin: true
 
-  /@stencil/vue-output-target@0.8.6(@stencil/core@4.1.0):
+  /@stencil/vue-output-target@0.8.6(@stencil/core@4.3.0):
     resolution: {integrity: sha512-B1gQW8FWeU7x/KBPm9R28jYFGN5NsZTZR4jwfDMhKBmU1Q2dIxFY52ARhbrfj5tJQxKoxr2tQJD2S14r9t1v7w==}
     peerDependencies:
       '@stencil/core': '>=2.0.0 || >=3 || >= 4.0.0-beta.0 || >= 4.0.0'
     dependencies:
-      '@stencil/core': 4.1.0
+      '@stencil/core': 4.3.0
     dev: true
 
   /@trysound/sax@0.2.0:
@@ -3450,7 +3450,7 @@ packages:
       defu: 6.1.2
       https-proxy-agent: 5.0.1
       mri: 1.2.0
-      node-fetch-native: 1.2.0
+      node-fetch-native: 1.4.0
       pathe: 1.1.1
       tar: 6.1.15
     transitivePeerDependencies:
@@ -4278,7 +4278,7 @@ packages:
       mime: 3.0.0
       mlly: 1.4.0
       mri: 1.2.0
-      node-fetch-native: 1.2.0
+      node-fetch-native: 1.4.0
       ofetch: 1.2.1
       ohash: 1.1.2
       openapi-typescript: 6.4.0
@@ -4318,10 +4318,6 @@ packages:
   /node-domexception@1.0.0:
     resolution: {integrity: sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==}
     engines: {node: '>=10.5.0'}
-    dev: true
-
-  /node-fetch-native@1.2.0:
-    resolution: {integrity: sha512-5IAMBTl9p6PaAjYCnMv5FmqIF6GcZnawAVnzaCG0rX2aYZJ4CxEkZNtVPuTRug7fL7wyM5BQYTlAzcyMPi6oTQ==}
     dev: true
 
   /node-fetch-native@1.4.0:
@@ -5723,7 +5719,7 @@ packages:
       consola: 3.2.3
       defu: 6.1.2
       mime: 3.0.0
-      node-fetch-native: 1.2.0
+      node-fetch-native: 1.4.0
       pathe: 1.1.1
     dev: true
 
@@ -5893,7 +5889,7 @@ packages:
       listhen: 1.2.2
       lru-cache: 10.0.0
       mri: 1.2.0
-      node-fetch-native: 1.2.0
+      node-fetch-native: 1.4.0
       ofetch: 1.2.1
       ufo: 1.2.0
     transitivePeerDependencies:
