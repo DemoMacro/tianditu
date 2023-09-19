@@ -20,6 +20,18 @@ $ yarn add @tianditu/api
 $ pnpm add @tianditu/api
 ```
 
+## Usage
+
+```typescript
+import { defineTianditu } from "@tianditu/api";
+
+const tianditu = defineTianditu({
+  tk: "abc",
+});
+
+tianditu.apiLoadScript();
+```
+
 ## License
 
 - [MIT](LICENSE) &copy; [Demo Macro](https://imst.xyz/)

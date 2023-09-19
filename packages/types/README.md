@@ -20,6 +20,17 @@ $ yarn add -D @tianditu/types
 $ pnpm add -D @tianditu/types
 ```
 
+## Usage
+
+```json
+{
+  // tsconfig.json
+  "compilerOptions": {
+    "types": ["@tianditu/types"]
+  }
+}
+```
+
 ## Reference
 
 - [vue-tianditu](https://github.com/SoulLyoko/vue-tianditu/)
