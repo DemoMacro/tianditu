@@ -1,13 +1,13 @@
 // @ts-nocheck
 // It's easier and safer for Volar to disable typechecking and let the return type inference do its job.
 import {
+  Ref,
   VNode,
   defineComponent,
   getCurrentInstance,
   h,
   inject,
   ref,
-  Ref,
 } from "vue";
 
 export interface InputProps<T> {
