@@ -1,11 +1,11 @@
 import "./base";
 import "./control";
 import "./extra";
+import "./layer";
 import "./map";
 import "./mousetool";
 import "./overlay";
 import "./service";
-import "./layer";
 
 declare global {
   interface Window {

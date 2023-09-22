@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "build": "pnpm -r prepack && pnpm check && pnpm format",
-    "check": "rome check . --apply-unsafe && rome format . --write",
+    "check": "biome check . --apply-unsafe && biome format . --write",
     "format": "prettier --write --list-different . --ignore-path .gitignore",
     "postinstall": "githooks install"
   },

@@ -1,8 +1,8 @@
-import { Plugin } from "vue";
 import {
   applyPolyfills,
   defineCustomElements,
 } from "@tianditu/web-components/dist/loader";
+import { Plugin } from "vue";
 
 export const ComponentLibrary: Plugin = {
   async install() {
