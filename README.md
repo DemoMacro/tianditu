@@ -1,9 +1,15 @@
 # tianditu
 
 ![GitHub](https://img.shields.io/github/license/DemoMacro/tianditu)
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](https://www.contributor-covenant.org/version/2/1/code_of_conduct/)
 
 > Utility libraries for tianditu, powered by Demo Macro.
+
+## Packages
+
+- [@tianditu/api](./packages/api/README.md)
+- [@tianditu/types](./packages/types/README.md)
+- [@tianditu/vue](./packages/vue/README.md)
+- [@tianditu/web-components](./packages/web-components/README.md)
 
 ## License
 

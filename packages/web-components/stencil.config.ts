@@ -10,10 +10,10 @@ export const config: Config = {
     {
       type: "dist-custom-elements",
     },
-    // {
-    //   type: "dist-hydrate-script",
-    //   dir: "dist/hydrate",
-    // },
+    {
+      type: "dist-hydrate-script",
+      dir: "dist/hydrate",
+    },
     vueOutputTarget({
       componentCorePackage: "@tianditu/web-components",
       proxiesFile: "../vue/src/components.ts",
