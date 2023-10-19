@@ -9,7 +9,7 @@
 - [@tianditu/api](./packages/api/README.md)
 - [@tianditu/types](./packages/types/README.md)
 - [@tianditu/vue](./packages/vue/README.md)
-- [@tianditu/web-components](./packages/web-components/README.md)
+- [@tianditu/wc](./packages/wc/README.md)
 
 ## License
 

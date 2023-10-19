@@ -36,14 +36,14 @@ importers:
 
   packages/vue:
     devDependencies:
-      "@tianditu/web-components":
+      "@tianditu/wc":
         specifier: workspace:*
-        version: link:../web-components
+        version: link:../wc
       vue:
         specifier: 3.3.4
         version: 3.3.4
 
-  packages/web-components:
+  packages/wc:
     dependencies:
       "@stencil/core":
         specifier: 4.3.0
@@ -67,9 +67,9 @@ importers:
       "@tianditu/vue":
         specifier: workspace:*
         version: link:../../packages/vue
-      "@tianditu/web-components":
+      "@tianditu/wc":
         specifier: workspace:*
-        version: link:../../packages/web-components
+        version: link:../../packages/wc
       "@unocss/nuxt":
         specifier: 0.56.1
         version: 0.56.1(postcss@8.4.30)(rollup@3.29.3)(vite@4.4.9)(webpack@5.88.2)
