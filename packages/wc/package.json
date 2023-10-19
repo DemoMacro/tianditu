@@ -1,6 +1,6 @@
 {
-  "name": "@tianditu/web-components",
-  "version": "0.0.0",
+  "name": "@tianditu/wc",
+  "version": "0.0.1-edge.0",
   "description": "Web components for tianditu, powered by Demo Macro.",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",

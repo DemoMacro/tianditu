@@ -1,6 +1,6 @@
 {
   "name": "@tianditu/vue",
-  "version": "0.0.0",
+  "version": "0.0.1-edge.0",
   "description": "Vue components for tianditu, powered by Demo Macro.",
   "main": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -34,7 +34,7 @@
   },
   "homepage": "https://github.com/DemoMacro/tianditu#readme",
   "devDependencies": {
-    "@tianditu/web-components": "workspace:*",
+    "@tianditu/wc": "workspace:*",
     "vue": "3.3.4"
   }
 }

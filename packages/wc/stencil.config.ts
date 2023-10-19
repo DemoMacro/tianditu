@@ -15,7 +15,7 @@ export const config: Config = {
       dir: "dist/hydrate",
     },
     vueOutputTarget({
-      componentCorePackage: "@tianditu/web-components",
+      componentCorePackage: "@tianditu/wc",
       proxiesFile: "../vue/src/components.ts",
     }),
     {

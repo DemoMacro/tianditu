@@ -10,13 +10,13 @@
 
 ```bash
 # npm
-$ npm install -D @tianditu/web-components @tianditu/vue
+$ npm install -D @tianditu/wc @tianditu/vue
 
 # yarn
-$ yarn add -D @tianditu/web-components @tianditu/vue
+$ yarn add -D @tianditu/wc @tianditu/vue
 
 # pnpm
-$ pnpm add -D @tianditu/web-components @tianditu/vue
+$ pnpm add -D @tianditu/wc @tianditu/vue
 ```
 
 ## License

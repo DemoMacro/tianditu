@@ -3,7 +3,7 @@
 /* auto-generated vue proxies */
 import { defineContainer } from "./vue-component-lib/utils";
 
-import type { JSX } from "@tianditu/web-components";
+import type { JSX } from "@tianditu/wc";
 
 export const TdtControl = /*@__PURE__*/ defineContainer<JSX.TdtControl>(
   "tdt-control",
