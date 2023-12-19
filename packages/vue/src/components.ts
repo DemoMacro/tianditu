@@ -8,8 +8,22 @@ import type { JSX } from "@tianditu/wc";
 export const TdtControl = /*@__PURE__*/ defineContainer<JSX.TdtControl>(
   "tdt-control",
   undefined,
-  ["control", "position", "offset", "options"],
+  ["control", "position", "visible", "offset", "options"],
 );
+
+export const TdtControlCopyright =
+  /*@__PURE__*/ defineContainer<JSX.TdtControlCopyright>(
+    "tdt-control-copyright",
+    undefined,
+    ["position", "content"],
+  );
+
+export const TdtControlOverviewMap =
+  /*@__PURE__*/ defineContainer<JSX.TdtControlOverviewMap>(
+    "tdt-control-overview-map",
+    undefined,
+    ["position", "isOpen"],
+  );
 
 export const TdtControlScale =
   /*@__PURE__*/ defineContainer<JSX.TdtControlScale>(

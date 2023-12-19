@@ -31,11 +31,11 @@ useHead({
       :tk="config.public.tianditu.browserKey"
       :center="center"
       :zoom="zoom"
-      class="block"
-      style="width: 100%; height: 100%"
     >
       <tdt-control-zoom />
       <tdt-control-scale />
+      <tdt-control-copyright />
+      <tdt-control-overview-map />
     </tdt-map>
   </div>
 </template>

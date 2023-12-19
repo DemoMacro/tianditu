@@ -11,6 +11,15 @@ export namespace Components {
     offset?: T.Point;
     options?: T.ControlOptions;
     position?: T.ControlPosition;
+    visible: boolean;
+  }
+  interface TdtControlCopyright {
+    content?: string;
+    position: T.ControlPosition;
+  }
+  interface TdtControlOverviewMap {
+    isOpen: T.ControlOverviewMapOptions["isOpen"];
+    position: T.ControlPosition;
   }
   interface TdtControlScale {
     color?: string;
@@ -41,6 +50,20 @@ declare global {
     prototype: HTMLTdtControlElement;
     new (): HTMLTdtControlElement;
   };
+  interface HTMLTdtControlCopyrightElement
+    extends Components.TdtControlCopyright,
+      HTMLStencilElement {}
+  var HTMLTdtControlCopyrightElement: {
+    prototype: HTMLTdtControlCopyrightElement;
+    new (): HTMLTdtControlCopyrightElement;
+  };
+  interface HTMLTdtControlOverviewMapElement
+    extends Components.TdtControlOverviewMap,
+      HTMLStencilElement {}
+  var HTMLTdtControlOverviewMapElement: {
+    prototype: HTMLTdtControlOverviewMapElement;
+    new (): HTMLTdtControlOverviewMapElement;
+  };
   interface HTMLTdtControlScaleElement
     extends Components.TdtControlScale,
       HTMLStencilElement {}
@@ -62,6 +85,8 @@ declare global {
   };
   interface HTMLElementTagNameMap {
     "tdt-control": HTMLTdtControlElement;
+    "tdt-control-copyright": HTMLTdtControlCopyrightElement;
+    "tdt-control-overview-map": HTMLTdtControlOverviewMapElement;
     "tdt-control-scale": HTMLTdtControlScaleElement;
     "tdt-control-zoom": HTMLTdtControlZoomElement;
     "tdt-map": HTMLTdtMapElement;
@@ -72,6 +97,15 @@ declare namespace LocalJSX {
     control: T.Control;
     offset?: T.Point;
     options?: T.ControlOptions;
+    position?: T.ControlPosition;
+    visible?: boolean;
+  }
+  interface TdtControlCopyright {
+    content?: string;
+    position?: T.ControlPosition;
+  }
+  interface TdtControlOverviewMap {
+    isOpen?: T.ControlOverviewMapOptions["isOpen"];
     position?: T.ControlPosition;
   }
   interface TdtControlScale {
@@ -96,6 +130,8 @@ declare namespace LocalJSX {
   }
   interface IntrinsicElements {
     "tdt-control": TdtControl;
+    "tdt-control-copyright": TdtControlCopyright;
+    "tdt-control-overview-map": TdtControlOverviewMap;
     "tdt-control-scale": TdtControlScale;
     "tdt-control-zoom": TdtControlZoom;
     "tdt-map": TdtMap;
@@ -107,6 +143,10 @@ declare module "@stencil/core" {
     interface IntrinsicElements {
       "tdt-control": LocalJSX.TdtControl &
         JSXBase.HTMLAttributes<HTMLTdtControlElement>;
+      "tdt-control-copyright": LocalJSX.TdtControlCopyright &
+        JSXBase.HTMLAttributes<HTMLTdtControlCopyrightElement>;
+      "tdt-control-overview-map": LocalJSX.TdtControlOverviewMap &
+        JSXBase.HTMLAttributes<HTMLTdtControlOverviewMapElement>;
       "tdt-control-scale": LocalJSX.TdtControlScale &
         JSXBase.HTMLAttributes<HTMLTdtControlScaleElement>;
       "tdt-control-zoom": LocalJSX.TdtControlZoom &

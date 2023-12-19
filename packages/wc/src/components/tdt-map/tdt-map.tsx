@@ -17,6 +17,10 @@ export class TdtMap {
   @State() map!: T.Map;
 
   connectedCallback() {
+    this.el.style.display = "block";
+    this.el.style.height = "100%";
+    this.el.style.width = "100%";
+
     globalThis.onload = () => {
       this.map = new T.Map(this.el, {
         projection: this.projection,
