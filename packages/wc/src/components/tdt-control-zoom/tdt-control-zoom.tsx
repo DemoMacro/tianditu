@@ -28,6 +28,7 @@ export class TdtControlZoom {
           zoomOutTitle: this.zoomOutTitle,
         }),
       );
+
       this.map.addControl(this.control);
     });
   }
