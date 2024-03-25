@@ -34,7 +34,7 @@
     "@funish/githooks-config": "edge",
     "@funish/lint": "edge",
     "prettier": "3.0.3",
-    "@biomejs/biome": "1.2.2",
+    "@biomejs/biome": "1.6.3",
     "unbuild": "2.0.0"
   }
 }
