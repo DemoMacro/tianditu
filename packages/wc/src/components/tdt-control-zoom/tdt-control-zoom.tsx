@@ -11,13 +11,14 @@ export class TdtControlZoom {
   @Prop({ reflect: true }) zoomInTitle?: T.ControlZoomOptions["zoomInTitle"];
   @Prop({ reflect: true }) zoomOutText?: T.ControlZoomOptions["zoomOutText"];
   @Prop({ reflect: true }) zoomOutTitle?: T.ControlZoomOptions["zoomOutTitle"];
+  @Prop({ reflect: true }) uniqueId!: string;
 
   @State() control!: T.ControlZoom;
   @State() map!: T.Map;
 
   connectedCallback() {
     onload(() => {
-      this.map = globalThis.map;
+      this.map = globalThis[this.uniqueId];
 
       this.control = new T.Control.Zoom(
         filterProps({
@@ -36,7 +37,7 @@ export class TdtControlZoom {
   render() {
     return (
       <Host>
-        <tdt-control control={this.control} position={this.position} />
+        <slot />
       </Host>
     );
   }

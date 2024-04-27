@@ -13,6 +13,7 @@ export class TdtMap {
   @Prop({ reflect: true }) maxBounds!: T.MapOptions["maxBounds"];
   @Prop({ reflect: true }) center: number[] = [0, 0];
   @Prop({ reflect: true }) zoom!: T.MapOptions["zoom"];
+  @Prop({ reflect: true }) uniqueId = Math.random().toString(36).slice(2);
 
   @State() map!: T.Map;
 
@@ -36,7 +37,11 @@ export class TdtMap {
         this.zoom || 18,
       );
 
-      globalThis.map = this.map;
+      globalThis[this.uniqueId] = this.map;
+
+      this.el.querySelectorAll("*").forEach((el) => {
+        el.setAttribute("unique-id", this.uniqueId);
+      });
     };
   }
 
