@@ -8,13 +8,14 @@ import { onload } from "../../utils/use";
 export class TdtControlScale {
   @Prop({ reflect: true }) position: T.ControlPosition = "bottomleft";
   @Prop({ reflect: true }) color?: string;
+  @Prop({ reflect: true }) uniqueId!: string;
 
   @State() control!: T.ControlScale;
   @State() map!: T.Map;
 
   connectedCallback() {
     onload(() => {
-      this.map = globalThis.map;
+      this.map = globalThis[this.uniqueId];
 
       this.control = new T.Control.Scale({
         position: this.position,
@@ -33,7 +34,7 @@ export class TdtControlScale {
   render() {
     return (
       <Host>
-        <tdt-control control={this.control} position={this.position} />
+        <slot />
       </Host>
     );
   }

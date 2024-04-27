@@ -11,12 +11,13 @@ export class TdtControl {
   @Prop({ reflect: true }) visible = true;
   @Prop({ reflect: true }) offset?: T.Point;
   @Prop({ reflect: true }) options?: T.ControlOptions;
+  @Prop({ reflect: true }) uniqueId!: string;
 
   @State() map!: T.Map;
 
   connectedCallback() {
     onload(() => {
-      this.map = globalThis.map;
+      this.map = globalThis[this.uniqueId];
 
       if (!this.control) {
         this.control = new T.Control({

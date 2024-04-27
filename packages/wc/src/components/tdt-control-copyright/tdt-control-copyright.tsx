@@ -8,13 +8,14 @@ import { onload } from "../../utils/use";
 export class TdtControlCopyright {
   @Prop({ reflect: true }) position: T.ControlPosition = "topright";
   @Prop({ reflect: true }) content?: string;
+  @Prop({ reflect: true }) uniqueId!: string;
 
   @State() control!: T.ControlCopyright;
   @State() map!: T.Map;
 
   connectedCallback() {
     onload(() => {
-      this.map = globalThis.map;
+      this.map = globalThis[this.uniqueId];
 
       this.control = new T.Control.Copyright({
         position: this.position,
@@ -38,7 +39,7 @@ export class TdtControlCopyright {
   render() {
     return (
       <Host>
-        <tdt-control control={this.control} position={this.position} />
+        <slot />
       </Host>
     );
   }

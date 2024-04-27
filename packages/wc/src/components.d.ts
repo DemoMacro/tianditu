@@ -11,22 +11,27 @@ export namespace Components {
     offset?: T.Point;
     options?: T.ControlOptions;
     position?: T.ControlPosition;
+    uniqueId: string;
     visible: boolean;
   }
   interface TdtControlCopyright {
     content?: string;
     position: T.ControlPosition;
+    uniqueId: string;
   }
   interface TdtControlOverviewMap {
     isOpen: T.ControlOverviewMapOptions["isOpen"];
     position: T.ControlPosition;
+    uniqueId: string;
   }
   interface TdtControlScale {
     color?: string;
     position: T.ControlPosition;
+    uniqueId: string;
   }
   interface TdtControlZoom {
     position: T.ControlPosition;
+    uniqueId: string;
     zoomInText?: T.ControlZoomOptions["zoomInText"];
     zoomInTitle?: T.ControlZoomOptions["zoomInTitle"];
     zoomOutText?: T.ControlZoomOptions["zoomOutText"];
@@ -39,6 +44,7 @@ export namespace Components {
     minZoom: T.MapOptions["minZoom"];
     projection: T.MapOptions["projection"];
     tk: string;
+    uniqueId: string;
     zoom: T.MapOptions["zoom"];
   }
 }
@@ -98,22 +104,27 @@ declare namespace LocalJSX {
     offset?: T.Point;
     options?: T.ControlOptions;
     position?: T.ControlPosition;
+    uniqueId: string;
     visible?: boolean;
   }
   interface TdtControlCopyright {
     content?: string;
     position?: T.ControlPosition;
+    uniqueId: string;
   }
   interface TdtControlOverviewMap {
     isOpen?: T.ControlOverviewMapOptions["isOpen"];
     position?: T.ControlPosition;
+    uniqueId: string;
   }
   interface TdtControlScale {
     color?: string;
     position?: T.ControlPosition;
+    uniqueId: string;
   }
   interface TdtControlZoom {
     position?: T.ControlPosition;
+    uniqueId: string;
     zoomInText?: T.ControlZoomOptions["zoomInText"];
     zoomInTitle?: T.ControlZoomOptions["zoomInTitle"];
     zoomOutText?: T.ControlZoomOptions["zoomOutText"];
@@ -126,6 +137,7 @@ declare namespace LocalJSX {
     minZoom: T.MapOptions["minZoom"];
     projection: T.MapOptions["projection"];
     tk: string;
+    uniqueId?: string;
     zoom: T.MapOptions["zoom"];
   }
   interface IntrinsicElements {
