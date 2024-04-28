@@ -41,7 +41,7 @@
   },
   "homepage": "https://github.com/DemoMacro/tianditu#readme",
   "devDependencies": {
-    "@stencil/vue-output-target": "0.8.6",
+    "@stencil/vue-output-target": "0.8.8",
     "@tianditu/types": "workspace:*"
   },
   "dependencies": {
