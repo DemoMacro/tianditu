@@ -1,4 +1,4 @@
-import { FetchOptions, FetchRequest, ofetch } from "ofetch";
+import { type FetchOptions, type FetchRequest, ofetch } from "ofetch";
 
 export class TianDiTuWeb {
   tk: string;

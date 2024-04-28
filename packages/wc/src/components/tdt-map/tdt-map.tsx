@@ -39,9 +39,11 @@ export class TdtMap {
 
       globalThis[this.uniqueId] = this.map;
 
-      this.el.querySelectorAll("*").forEach((el) => {
-        el.setAttribute("unique-id", this.uniqueId);
-      });
+      const childElements = this.el.querySelectorAll("*");
+
+      for (let i = 0; i < childElements.length; i++) {
+        childElements[i].setAttribute("unique-id", this.uniqueId);
+      }
     };
   }
 

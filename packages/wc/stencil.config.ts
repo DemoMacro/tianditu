@@ -1,4 +1,4 @@
-import { Config } from "@stencil/core";
+import type { Config } from "@stencil/core";
 import { vueOutputTarget } from "@stencil/vue-output-target";
 
 export const config: Config = {
