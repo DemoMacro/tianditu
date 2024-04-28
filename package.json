@@ -30,11 +30,11 @@
   },
   "homepage": "https://github.com/DemoMacro/tianditu#readme",
   "devDependencies": {
-    "@funish/githooks": "edge",
-    "@funish/githooks-config": "edge",
-    "@funish/lint": "edge",
-    "prettier": "3.0.3",
-    "@biomejs/biome": "1.2.2",
+    "@biomejs/biome": "1.7.1",
+    "@funish/githooks": "0.0.5",
+    "@funish/githooks-config": "0.0.2",
+    "@funish/lint": "0.0.2",
+    "prettier": "3.2.5",
     "unbuild": "2.0.0"
   }
 }
