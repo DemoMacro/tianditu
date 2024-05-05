@@ -45,6 +45,6 @@
     "@tianditu/types": "workspace:*"
   },
   "dependencies": {
-    "@stencil/core": "4.17.1"
+    "@stencil/core": "4.17.2"
   }
 }

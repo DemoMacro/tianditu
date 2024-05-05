@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/DemoMacro/tianditu#readme",
   "devDependencies": {
-    "@biomejs/biome": "1.7.1",
+    "@biomejs/biome": "1.7.2",
     "@funish/githooks": "0.0.5",
     "@funish/githooks-config": "0.0.2",
     "@funish/lint": "0.0.2",
