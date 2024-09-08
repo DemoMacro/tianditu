@@ -15,7 +15,7 @@
   },
   "javascript": {
     "formatter": {
-      "trailingComma": "es5"
+      "trailingCommas": "es5"
     }
   }
 }

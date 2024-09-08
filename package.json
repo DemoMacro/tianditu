@@ -5,9 +5,12 @@
   "private": true,
   "scripts": {
     "build": "pnpm -r prepack && pnpm check && pnpm format",
-    "check": "biome check . --apply-unsafe && biome format . --write",
+    "check": "biome check . --write --unsafe && biome format . --write",
     "format": "prettier --write --list-different . --ignore-path .gitignore",
-    "postinstall": "githooks install"
+    "edge": "pnpm -r exec bump version",
+    "release": "pnpm -r exec bump version -r patch",
+    "public": "pnpm -r --no-bail exec bump publish",
+    "postinstall": "githooks install && pnpm build"
   },
   "repository": {
     "type": "git",

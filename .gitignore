@@ -128,3 +128,8 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Stencil's output
+packages/wc/src/components.d.ts
+packages/vue/src/vue-component-lib
+packages/vue/src/components.ts
