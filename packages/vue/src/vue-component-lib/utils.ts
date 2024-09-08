@@ -43,10 +43,10 @@ const getComponentClasses = (classes: unknown) => {
 const getElementClasses = (
   ref: Ref<HTMLElement | undefined>,
   componentClasses: Set<string>,
-  defaultClasses: string[] = [],
+  defaultClasses: string[] = []
 ) => {
   return [...Array.from(ref.value?.classList || []), ...defaultClasses].filter(
-    (c: string, i, self) => !componentClasses.has(c) && self.indexOf(c) === i,
+    (c: string, i, self) => !componentClasses.has(c) && self.indexOf(c) === i
   );
 };
 
@@ -67,7 +67,7 @@ export const defineContainer = <Props, VModelType = string | number | boolean>(
   defineCustomElement: any,
   componentProps: string[] = [],
   modelProp?: string,
-  modelUpdateEvent?: string,
+  modelUpdateEvent?: string
 ) => {
   /**
    * Create a Vue component wrapper around a Web Component.
@@ -128,6 +128,16 @@ export const defineContainer = <Props, VModelType = string | number | boolean>(
         if (routerLink === EMPTY_PROP) return;
 
         if (navManager !== undefined) {
+          /**
+           * This prevents the browser from
+           * performing a page reload when pressing
+           * an Ionic component with routerLink.
+           * The page reload interferes with routing
+           * and causes ion-back-button to disappear
+           * since the local history is wiped on reload.
+           */
+          ev.preventDefault();
+
           let navigationPayload: any = { event: ev };
           for (const key in props) {
             const value = props[key];
@@ -143,7 +153,7 @@ export const defineContainer = <Props, VModelType = string | number | boolean>(
           navManager.navigate(navigationPayload);
         } else {
           console.warn(
-            "Tried to navigate, but no router was found. Make sure you have mounted Vue Router.",
+            "Tried to navigate, but no router was found. Make sure you have mounted Vue Router."
           );
         }
       };
@@ -207,6 +217,17 @@ export const defineContainer = <Props, VModelType = string | number | boolean>(
           }
         }
 
+        // If router link is defined, add href to props
+        // in order to properly render an anchor tag inside
+        // of components that should become activatable and
+        // focusable with router link.
+        if (props[ROUTER_LINK_VALUE] !== EMPTY_PROP) {
+          propsToAdd = {
+            ...propsToAdd,
+            href: props[ROUTER_LINK_VALUE],
+          };
+        }
+
         /**
          * vModelDirective is only needed on components that support v-model.
          * As a result, we conditionally call withDirectives with v-model components.
@@ -216,7 +237,7 @@ export const defineContainer = <Props, VModelType = string | number | boolean>(
           ? node
           : withDirectives(node, [[vModelDirective]]);
       };
-    },
+    }
   );
 
   if (typeof Container !== "function") {
