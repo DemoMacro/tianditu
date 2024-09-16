@@ -22,29 +22,37 @@ export class TdtMap {
     this.el.style.height = "100%";
     this.el.style.width = "100%";
 
-    globalThis.onload = () => {
-      this.map = new T.Map(this.el, {
-        projection: this.projection,
-        minZoom: this.minZoom,
-        maxZoom: this.maxZoom,
-        maxBounds: this.maxBounds,
-        center: new T.LngLat(this.center[0], this.center[1]),
-        zoom: this.zoom,
-      });
+    if (!globalThis.T) {
+      const script = globalThis.document.createElement("script");
+      script.src = `https://api.tianditu.gov.cn/api?v=4.0&tk=${this.tk}`;
+      script.async = true;
+      script.defer = true;
 
-      this.map.centerAndZoom(
-        new T.LngLat(this.center[0], this.center[1]),
-        this.zoom || 18,
-      );
+      globalThis.document.body.appendChild(script);
+      script.onload = () => {
+        this.map = new T.Map(this.el, {
+          projection: this.projection,
+          minZoom: this.minZoom,
+          maxZoom: this.maxZoom,
+          maxBounds: this.maxBounds,
+          center: new T.LngLat(this.center[0], this.center[1]),
+          zoom: this.zoom,
+        });
 
-      globalThis[this.uniqueId] = this.map;
+        globalThis[this.uniqueId] = this.map;
 
-      const childElements = this.el.querySelectorAll("*");
+        const childElements = this.el.querySelectorAll("*");
 
-      for (let i = 0; i < childElements.length; i++) {
-        childElements[i].setAttribute("unique-id", this.uniqueId);
-      }
-    };
+        for (let i = 0; i < childElements.length; i++) {
+          childElements[i].setAttribute("unique-id", this.uniqueId);
+        }
+      };
+    }
+
+    this.map.centerAndZoom(
+      new T.LngLat(this.center[0], this.center[1]),
+      this.zoom || 18,
+    );
   }
 
   render() {

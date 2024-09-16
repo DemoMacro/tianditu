@@ -15,14 +15,6 @@ navigator.geolocation.getCurrentPosition(
     maximumAge: 0,
   },
 );
-
-useHead({
-  script: [
-    {
-      src: `https://api.tianditu.gov.cn/api?v=4.0&tk=${config.public.tianditu.browserKey}`,
-    },
-  ],
-});
 </script>
 
 <template>
