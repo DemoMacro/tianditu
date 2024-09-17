@@ -1,6 +1,6 @@
 {
   "name": "@tianditu/vue",
-  "version": "0.0.3-edge.0",
+  "version": "0.0.3-edge.1",
   "description": "Vue components for tianditu, powered by Demo Macro.",
   "main": "dist/index.mjs",
   "types": "dist/index.d.ts",

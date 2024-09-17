@@ -43,10 +43,10 @@ const getComponentClasses = (classes: unknown) => {
 const getElementClasses = (
   ref: Ref<HTMLElement | undefined>,
   componentClasses: Set<string>,
-  defaultClasses: string[] = []
+  defaultClasses: string[] = [],
 ) => {
   return [...Array.from(ref.value?.classList || []), ...defaultClasses].filter(
-    (c: string, i, self) => !componentClasses.has(c) && self.indexOf(c) === i
+    (c: string, i, self) => !componentClasses.has(c) && self.indexOf(c) === i,
   );
 };
 
@@ -67,7 +67,7 @@ export const defineContainer = <Props, VModelType = string | number | boolean>(
   defineCustomElement: any,
   componentProps: string[] = [],
   modelProp?: string,
-  modelUpdateEvent?: string
+  modelUpdateEvent?: string,
 ) => {
   /**
    * Create a Vue component wrapper around a Web Component.
@@ -153,7 +153,7 @@ export const defineContainer = <Props, VModelType = string | number | boolean>(
           navManager.navigate(navigationPayload);
         } else {
           console.warn(
-            "Tried to navigate, but no router was found. Make sure you have mounted Vue Router."
+            "Tried to navigate, but no router was found. Make sure you have mounted Vue Router.",
           );
         }
       };
@@ -237,7 +237,7 @@ export const defineContainer = <Props, VModelType = string | number | boolean>(
           ? node
           : withDirectives(node, [[vModelDirective]]);
       };
-    }
+    },
   );
 
   if (typeof Container !== "function") {
