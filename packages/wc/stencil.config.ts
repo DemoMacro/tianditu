@@ -4,6 +4,10 @@ import { vueOutputTarget } from "@stencil/vue-output-target";
 export const config: Config = {
   namespace: "web-components",
   preamble: "MIT © Demo Macro",
+  extras: {
+    enableImportInjection: true,
+    experimentalSlotFixes: true,
+  },
   outputTargets: [
     {
       type: "dist",

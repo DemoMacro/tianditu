@@ -1,6 +1,6 @@
 {
   "name": "@tianditu/types",
-  "version": "0.0.3-edge.0",
+  "version": "0.0.3-edge.1",
   "description": "Type definitions for using the tianditu api, powered by Demo Macro.",
   "main": "",
   "types": "src/index.d.ts",
