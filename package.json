@@ -4,13 +4,12 @@
   "description": "Utility libraries for tianditu, powered by Demo Macro.",
   "private": true,
   "scripts": {
-    "build": "pnpm -r prepack && pnpm check && pnpm format",
-    "check": "biome check . --write --unsafe && biome format . --write",
-    "format": "prettier --write --list-different . --ignore-path .gitignore",
-    "edge": "pnpm -r exec bump version",
-    "release": "pnpm -r exec bump version -r patch",
-    "public": "pnpm -r --no-bail exec bump publish",
-    "postinstall": "githooks install && pnpm build && pnpm check && pnpm format"
+    "dev": "pnpm --filter \"./packages/**\" -r dev",
+    "build": "pnpm --filter \"./packages/**\" -r build",
+    "check": "vp check --fix",
+    "version": "pnpm --filter \"./packages/**\" -r exec basis version",
+    "publish": "pnpm --filter \"./packages/**\" -r exec basis publish",
+    "postinstall": "pnpm build && vp config && basis git setup"
   },
   "repository": {
     "type": "git",
@@ -33,11 +32,8 @@
   },
   "homepage": "https://github.com/DemoMacro/tianditu#readme",
   "devDependencies": {
-    "@biomejs/biome": "1.8.3",
-    "@funish/githooks": "0.0.5",
-    "@funish/githooks-config": "0.0.2",
-    "@funish/lint": "0.0.2",
-    "prettier": "3.3.3",
-    "unbuild": "2.0.0"
+    "@funish/basis": "0.3.0",
+    "@types/node": "26.1.2",
+    "vite-plus": "0.2.8"
   }
 }

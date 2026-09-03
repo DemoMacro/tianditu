@@ -3,13 +3,13 @@
   "version": "0.0.3-edge.1",
   "description": "Vue components for tianditu, powered by Demo Macro.",
   "main": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "types": "dist/index.d.mts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "prepack": "unbuild",
-    "dev": "unbuild --stub"
+    "build": "vp pack",
+    "prepack": "pnpm build"
   },
   "repository": {
     "type": "git",
