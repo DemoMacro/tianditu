@@ -10,9 +10,9 @@ declare namespace T {
 
   interface CircleToolEvents {
     /** 用户拖动绘制圆时触发 */
-    draw(e: CircleToolEvent);
+    draw(e: CircleToolEvent): void;
     /** 用户完成绘制圆时触发 */
-    drawend(e: CircleToolEvent);
+    drawend(e: CircleToolEvent): void;
   }
 
   interface CircleToolEvent extends ToolEvent<Circle> {

@@ -43,15 +43,10 @@ declare namespace T {
     styles?: MarkerClustererStyle[];
   }
 
-  interface MarkerClustererEvents
-    extends OverlayEvents<MarkerClusterer, LngLat, Marker> {
+  interface MarkerClustererEvents extends OverlayEvents<MarkerClusterer, LngLat, Marker> {
     dragstart(e: Pick<MarkerClustererEvent, "type" | "target" | "layer">): void;
-    drag(
-      e: Pick<MarkerClustererEvent, "type" | "target" | "lnglat" | "layer">,
-    ): void;
-    dragend(
-      e: Pick<MarkerClustererEvent, "type" | "target" | "lnglat" | "layer">,
-    ): void;
+    drag(e: Pick<MarkerClustererEvent, "type" | "target" | "lnglat" | "layer">): void;
+    dragend(e: Pick<MarkerClustererEvent, "type" | "target" | "lnglat" | "layer">): void;
     clusterclick(e: MarkerClustererEvent): void;
   }
 

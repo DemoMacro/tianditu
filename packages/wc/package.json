@@ -2,48 +2,48 @@
   "name": "@tianditu/wc",
   "version": "0.0.3-edge.1",
   "description": "Web components for tianditu, powered by Demo Macro.",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.js",
-  "es2015": "dist/esm/index.mjs",
-  "es2017": "dist/esm/index.mjs",
-  "types": "dist/types/index.d.ts",
-  "collection": "dist/collection/collection-manifest.json",
-  "collection:main": "dist/collection/index.js",
-  "unpkg": "dist/web-components/web-components.esm.js",
-  "files": [
-    "dist/"
-  ],
-  "scripts": {
-    "prepack": "stencil build",
-    "dev": "stencil build --watch",
-    "generate": "stencil generate"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/DemoMacro/tianditu.git"
-  },
   "keywords": [
-    "utility",
     "libraries",
-    "tianditu",
     "map",
+    "tianditu",
+    "utility",
     "web-components"
   ],
+  "homepage": "https://github.com/DemoMacro/tianditu#readme",
+  "bugs": {
+    "url": "https://github.com/DemoMacro/tianditu/issues"
+  },
+  "license": "MIT",
   "author": {
     "name": "Demo Macro",
     "email": "abc@imst.xyz",
     "url": "https://imst.xyz/"
   },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/DemoMacro/tianditu/issues"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DemoMacro/tianditu.git"
   },
-  "homepage": "https://github.com/DemoMacro/tianditu#readme",
+  "files": [
+    "dist/"
+  ],
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "types": "dist/types/index.d.ts",
+  "unpkg": "dist/web-components/web-components.esm.js",
+  "es2015": "dist/esm/index.mjs",
+  "scripts": {
+    "prepack": "stencil build",
+    "dev": "stencil build --watch",
+    "generate": "stencil generate"
+  },
+  "dependencies": {
+    "@stencil/core": "4.20.0"
+  },
   "devDependencies": {
     "@stencil/vue-output-target": "0.8.9",
     "@tianditu/types": "workspace:*"
   },
-  "dependencies": {
-    "@stencil/core": "4.20.0"
-  }
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "es2017": "dist/esm/index.mjs"
 }

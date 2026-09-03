@@ -2,7 +2,7 @@
   "compilerOptions": {
     "forceConsistentCasingInFileNames": true,
     "lib": ["dom"],
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "strict": true
   }
 }

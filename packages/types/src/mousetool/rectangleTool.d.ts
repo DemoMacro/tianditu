@@ -10,7 +10,7 @@ declare namespace T {
 
   interface RectangleToolEvents {
     /** 用户每次完成拉框操作时触发事件 */
-    draw(e: RectangleToolEvent);
+    draw(e: RectangleToolEvent): void;
   }
 
   interface RectangleToolEvent extends ToolEvent<Rectangle> {

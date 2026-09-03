@@ -26,14 +26,7 @@ declare namespace T {
      * BIGGER 很大，宽高为20px * 20px；
      * BIG 超大，宽高为30px * 30px
      */
-    SizeType?:
-      | "TINY"
-      | "SMALLER"
-      | "SMALL"
-      | "NORMAL"
-      | "HUGE"
-      | "BIGGER"
-      | "BIG";
+    SizeType?: "TINY" | "SMALLER" | "SMALL" | "NORMAL" | "HUGE" | "BIGGER" | "BIG";
     /**
      * 海量点的颜色，默认为'#fa937e'。
      * 同时支持颜色字符串，如'red'；

@@ -185,15 +185,9 @@ declare namespace T {
      */
 
     /** 添加地图事件监听 */
-    addEventListener<EE extends keyof MapEvents>(
-      event: EE,
-      handler: MapEvents[EE],
-    ): void;
+    addEventListener<EE extends keyof MapEvents>(event: EE, handler: MapEvents[EE]): void;
     /** 移除地图事件监听 */
-    removeEventListener<EE extends keyof MapEvents>(
-      event: EE,
-      handler: MapEvents[EE],
-    ): void;
+    removeEventListener<EE extends keyof MapEvents>(event: EE, handler: MapEvents[EE]): void;
   }
 
   interface MapOptions {

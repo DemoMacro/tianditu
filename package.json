@@ -1,8 +1,28 @@
 {
   "name": "tianditu",
   "version": "0.0.0",
-  "description": "Utility libraries for tianditu, powered by Demo Macro.",
   "private": true,
+  "description": "Utility libraries for tianditu, powered by Demo Macro.",
+  "keywords": [
+    "libraries",
+    "map",
+    "tianditu",
+    "utility"
+  ],
+  "homepage": "https://github.com/DemoMacro/tianditu#readme",
+  "bugs": {
+    "url": "https://github.com/DemoMacro/tianditu/issues"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Demo Macro",
+    "email": "abc@imst.xyz",
+    "url": "https://imst.xyz/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DemoMacro/tianditu.git"
+  },
   "scripts": {
     "dev": "pnpm --filter \"./packages/**\" -r dev",
     "build": "pnpm --filter \"./packages/**\" -r build",
@@ -11,26 +31,6 @@
     "publish": "pnpm --filter \"./packages/**\" -r exec basis publish",
     "postinstall": "pnpm build && vp config && basis git setup"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/DemoMacro/tianditu.git"
-  },
-  "keywords": [
-    "utility",
-    "libraries",
-    "tianditu",
-    "map"
-  ],
-  "author": {
-    "name": "Demo Macro",
-    "email": "abc@imst.xyz",
-    "url": "https://imst.xyz/"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/DemoMacro/tianditu/issues"
-  },
-  "homepage": "https://github.com/DemoMacro/tianditu#readme",
   "devDependencies": {
     "@funish/basis": "0.3.0",
     "@types/node": "26.1.2",

@@ -1,15 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  ssr: false,
-
-  vue: {
-    compilerOptions: {
-      isCustomElement: (tag: string) => tag.includes("-"),
-    },
-  },
+  ssr: true,
 
   build: {
-    transpile: ["@tianditu/vue"],
+    transpile: ["@tianditu/vue", "@tianditu/core"],
   },
 
   runtimeConfig: {
@@ -21,10 +15,7 @@ export default defineNuxtConfig({
     },
   },
 
-  css: [
-    "@unocss/reset/sanitize/sanitize.css",
-    "@unocss/reset/sanitize/assets.css",
-  ],
+  css: ["@unocss/reset/sanitize/sanitize.css", "@unocss/reset/sanitize/assets.css"],
 
   modules: ["@unocss/nuxt"],
   compatibilityDate: "2024-09-16",

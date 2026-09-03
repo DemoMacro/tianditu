@@ -49,37 +49,29 @@ export namespace Components {
   }
 }
 declare global {
-  interface HTMLTdtControlElement
-    extends Components.TdtControl,
-      HTMLStencilElement {}
+  interface HTMLTdtControlElement extends Components.TdtControl, HTMLStencilElement {}
   var HTMLTdtControlElement: {
     prototype: HTMLTdtControlElement;
     new (): HTMLTdtControlElement;
   };
   interface HTMLTdtControlCopyrightElement
-    extends Components.TdtControlCopyright,
-      HTMLStencilElement {}
+    extends Components.TdtControlCopyright, HTMLStencilElement {}
   var HTMLTdtControlCopyrightElement: {
     prototype: HTMLTdtControlCopyrightElement;
     new (): HTMLTdtControlCopyrightElement;
   };
   interface HTMLTdtControlOverviewMapElement
-    extends Components.TdtControlOverviewMap,
-      HTMLStencilElement {}
+    extends Components.TdtControlOverviewMap, HTMLStencilElement {}
   var HTMLTdtControlOverviewMapElement: {
     prototype: HTMLTdtControlOverviewMapElement;
     new (): HTMLTdtControlOverviewMapElement;
   };
-  interface HTMLTdtControlScaleElement
-    extends Components.TdtControlScale,
-      HTMLStencilElement {}
+  interface HTMLTdtControlScaleElement extends Components.TdtControlScale, HTMLStencilElement {}
   var HTMLTdtControlScaleElement: {
     prototype: HTMLTdtControlScaleElement;
     new (): HTMLTdtControlScaleElement;
   };
-  interface HTMLTdtControlZoomElement
-    extends Components.TdtControlZoom,
-      HTMLStencilElement {}
+  interface HTMLTdtControlZoomElement extends Components.TdtControlZoom, HTMLStencilElement {}
   var HTMLTdtControlZoomElement: {
     prototype: HTMLTdtControlZoomElement;
     new (): HTMLTdtControlZoomElement;
@@ -153,8 +145,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
-      "tdt-control": LocalJSX.TdtControl &
-        JSXBase.HTMLAttributes<HTMLTdtControlElement>;
+      "tdt-control": LocalJSX.TdtControl & JSXBase.HTMLAttributes<HTMLTdtControlElement>;
       "tdt-control-copyright": LocalJSX.TdtControlCopyright &
         JSXBase.HTMLAttributes<HTMLTdtControlCopyrightElement>;
       "tdt-control-overview-map": LocalJSX.TdtControlOverviewMap &

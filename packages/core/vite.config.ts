@@ -2,8 +2,9 @@ import { defineConfig } from "vite-plus";
 
 export default defineConfig({
   pack: {
-    entry: [
-      "src/index.ts",
-    ],
+    entry: ["src/index.ts"],
+    deps: {
+      neverBundle: true,
+    },
   },
 });

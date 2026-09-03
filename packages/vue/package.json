@@ -2,38 +2,42 @@
   "name": "@tianditu/vue",
   "version": "0.0.3-edge.1",
   "description": "Vue components for tianditu, powered by Demo Macro.",
-  "main": "dist/index.mjs",
-  "types": "dist/index.d.mts",
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "build": "vp pack",
-    "prepack": "pnpm build"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/DemoMacro/tianditu.git"
-  },
   "keywords": [
-    "utility",
     "libraries",
-    "tianditu",
     "map",
+    "tianditu",
+    "utility",
     "vue"
   ],
+  "homepage": "https://github.com/DemoMacro/tianditu#readme",
+  "bugs": {
+    "url": "https://github.com/DemoMacro/tianditu/issues"
+  },
+  "license": "MIT",
   "author": {
     "name": "Demo Macro",
     "email": "abc@imst.xyz",
     "url": "https://imst.xyz/"
   },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/DemoMacro/tianditu/issues"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DemoMacro/tianditu.git"
   },
-  "homepage": "https://github.com/DemoMacro/tianditu#readme",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.mjs",
+  "types": "dist/index.d.mts",
+  "scripts": {
+    "build": "vp pack",
+    "prepack": "pnpm build"
+  },
   "devDependencies": {
-    "@tianditu/wc": "workspace:*",
+    "@tianditu/core": "workspace:*",
+    "@tianditu/types": "workspace:*",
     "vue": "3.4.37"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.0"
   }
 }

@@ -1,0 +1,41 @@
+{
+  "name": "@tianditu/core",
+  "version": "0.0.3-edge.1",
+  "description": "Headless core for tianditu, powered by Demo Macro.",
+  "keywords": [
+    "core",
+    "libraries",
+    "map",
+    "tianditu",
+    "utility"
+  ],
+  "homepage": "https://github.com/DemoMacro/tianditu#readme",
+  "bugs": {
+    "url": "https://github.com/DemoMacro/tianditu/issues"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Demo Macro",
+    "email": "abc@imst.xyz",
+    "url": "https://imst.xyz/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DemoMacro/tianditu.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.mjs",
+  "types": "dist/index.d.mts",
+  "scripts": {
+    "build": "vp pack",
+    "prepack": "pnpm build"
+  },
+  "dependencies": {
+    "@vue/reactivity": "3.4.37"
+  },
+  "devDependencies": {
+    "@tianditu/types": "workspace:*"
+  }
+}

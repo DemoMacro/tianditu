@@ -1,4 +1,10 @@
 declare namespace T {
+  /**
+   * 检索类型："1" 普通搜索（含地铁公交）、"2" 不换乘公交、
+   * "3" 普通搜索、"4" 地铁检索、"7" 地址检索。
+   */
+  type QueryType = string;
+
   class LocalSearch {
     /** 创建一个搜索类实例用于位置检索、周边检索和范围检索 */
     constructor(map: Map, opts: LocalSearchOptions);

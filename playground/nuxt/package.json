@@ -8,12 +8,13 @@
     "preview": "nuxt preview"
   },
   "devDependencies": {
-    "@tianditu/api": "workspace:*",
+    "@tianditu/core": "workspace:*",
+    "@tianditu/services": "workspace:*",
     "@tianditu/types": "workspace:*",
     "@tianditu/vue": "workspace:*",
-    "@tianditu/wc": "workspace:*",
     "@unocss/nuxt": "0.62.1",
     "@unocss/reset": "0.62.1",
-    "nuxt": "3.12.4"
+    "nuxt": "3.12.4",
+    "unocss": "0.62.1"
   }
 }

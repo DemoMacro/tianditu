@@ -15,7 +15,7 @@ declare namespace T {
     /** 获得所有绘制的多边形 */
     getPolygons(): Polygon[];
     /** 完成一个多边形的绘制，运行此方法相当于用户点击双击结束当前多边形的绘制 */
-    endDraw();
+    endDraw(): void;
   }
 
   interface PolygonToolOptions extends PolygonOptions {
@@ -25,9 +25,9 @@ declare namespace T {
 
   interface PolygonToolEvents {
     /** 用户双击完成一次折线绘制时触发事件 */
-    draw(e: PolygonToolEvent);
+    draw(e: PolygonToolEvent): void;
     /** 用户在多边形绘制过程中，每次点击底图添加节点时触发事件 */
-    addpoint(e: PolygonToolEvent);
+    addpoint(e: PolygonToolEvent): void;
   }
 
   interface PolygonToolEvent extends ToolEvent<Polygon> {

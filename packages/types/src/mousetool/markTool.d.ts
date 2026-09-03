@@ -22,7 +22,7 @@ declare namespace T {
 
   interface MarkToolEvents {
     /** 在用户每完成一次标注时触发事件 */
-    mouseup(e: MarkToolEvent);
+    mouseup(e: MarkToolEvent): void;
   }
 
   interface MarkToolEvent extends ToolEvent<Marker> {

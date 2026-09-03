@@ -4,17 +4,16 @@ export class TianDiTuWeb {
   tk: string;
   baseURL = "https://api.tianditu.gov.cn";
 
+  private client: ReturnType<typeof ofetch.create>;
+
   constructor(tk: string, baseURL?: string) {
     this.tk = tk;
     this.baseURL = baseURL || this.baseURL;
+    this.client = ofetch.create({ baseURL: this.baseURL });
   }
 
   public apiFetch(request: FetchRequest, options?: FetchOptions) {
-    const apiFetch = ofetch.create({
-      baseURL: this.baseURL,
-    });
-
-    return apiFetch(request, options);
+    return this.client(request, options);
   }
 
   // http://lbs.tianditu.gov.cn/server/search.html
@@ -63,11 +62,7 @@ export class TianDiTuWeb {
   }
 
   // http://lbs.tianditu.gov.cn/server/bus.html
-  public async busLine(postStr: {
-    startPosition: string;
-    endPosition: string;
-    lineType: string;
-  }) {
+  public async busLine(postStr: { startPosition: string; endPosition: string; lineType: string }) {
     return await this.apiFetch("/bus", {
       params: {
         tk: this.tk,
@@ -88,11 +83,7 @@ export class TianDiTuWeb {
   }
 
   // http://lbs.tianditu.gov.cn/server/geocoding.html
-  public async reverseGeoCoding(postStr: {
-    lon: number;
-    lat: number;
-    ver?: number;
-  }) {
+  public async reverseGeoCoding(postStr: { lon: number; lat: number; ver?: number }) {
     return await this.apiFetch("/geocoder", {
       params: {
         tk: this.tk,
