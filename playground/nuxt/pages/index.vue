@@ -229,6 +229,8 @@ onMounted(() => {
       </button>
       <button class="btn" @click="startCarTrack">轨迹回放 start</button>
       <button class="btn" @click="pauseCarTrack">轨迹回放 pause</button>
+      <NuxtLink to="/military" class="btn">标绘演示 →</NuxtLink>
+      <NuxtLink to="/web" class="btn">REST 服务演示 →</NuxtLink>
     </div>
   </div>
 </template>

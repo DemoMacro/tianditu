@@ -17,12 +17,10 @@ async function search() {
   try {
     result.value = await tianditu.search({
       keyWord: keyword.value,
-      // 北京行政区划范围的地图Bound
-      mapBound: "115.9,39.5,117.0,40.2",
-      level: "12",
-      queryType: "1",
-      start: "0",
-      count: "10",
+      // 地名搜索V2.0：普通搜索（含地铁公交）
+      queryType: 1,
+      start: 0,
+      count: 10,
     });
   } catch (err) {
     error.value = err;
