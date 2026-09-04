@@ -2,6 +2,9 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "lib": ["dom", "es2017"],
-    "types": ["@tianditu/types"]
+    "types": [],
+    "allowImportingTsExtensions": true,
+    "emitDeclarationOnly": true,
+    "declaration": true
   }
 }

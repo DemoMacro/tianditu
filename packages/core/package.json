@@ -24,18 +24,26 @@
     "url": "git+https://github.com/DemoMacro/tianditu.git"
   },
   "files": [
-    "dist"
+    "dist",
+    "types"
   ],
   "main": "dist/index.mjs",
   "types": "dist/index.d.mts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
+    },
+    "./modular": {
+      "types": "./types/modular.d.ts"
+    }
+  },
   "scripts": {
-    "build": "vp pack",
+    "build": "vp pack && node ./scripts/inject-types.mjs",
     "prepack": "pnpm build"
   },
   "dependencies": {
     "@vue/reactivity": "3.4.37"
   },
-  "devDependencies": {
-    "@tianditu/types": "workspace:*"
-  }
+  "devDependencies": {}
 }

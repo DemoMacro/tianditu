@@ -1,3 +1,6 @@
+// 全局 SDK 类型声明（declare global { namespace T }）随包分发，import 即得
+import type {} from "../types/index.d.ts";
+
 export { EventBridge, bindEventNames, type EventTargetLike } from "./events";
 export { getTdt, isTdtLoaded, loadTdt, type LoadTdtOptions } from "./loader";
 export { createAttachable, type Attachable, type AttachContext } from "./attach";

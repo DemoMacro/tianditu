@@ -11,7 +11,7 @@
     "noImplicitAny": false,
     "strict": true,
     "target": "es2017",
-    "types": ["@tianditu/types"],
+    "types": [],
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "jsx": "react",
@@ -19,5 +19,6 @@
     "skipLibCheck": true
   },
   "include": ["src"],
+  "files": ["../core/types/index.d.ts"],
   "exclude": ["node_modules"]
 }

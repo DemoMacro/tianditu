@@ -23,10 +23,6 @@ importers:
       '@vue/reactivity':
         specifier: 3.4.37
         version: 3.4.37
-    devDependencies:
-      '@tianditu/types':
-        specifier: workspace:*
-        version: link:../types
 
   packages/services:
     dependencies:
@@ -34,17 +30,12 @@ importers:
         specifier: 1.3.4
         version: 1.3.4
 
-  packages/types: {}
-
   packages/vue:
     dependencies:
       '@tianditu/core':
         specifier: workspace:*
         version: link:../core
     devDependencies:
-      '@tianditu/types':
-        specifier: workspace:*
-        version: link:../types
       vue:
         specifier: 3.4.37
         version: 3.4.37(typescript@5.4.5)
@@ -58,9 +49,6 @@ importers:
       '@stencil/vue-output-target':
         specifier: 0.8.9
         version: 0.8.9(@stencil/core@4.20.0)
-      '@tianditu/types':
-        specifier: workspace:*
-        version: link:../types
 
   playground/nuxt:
     devDependencies:
@@ -70,9 +58,6 @@ importers:
       '@tianditu/services':
         specifier: workspace:*
         version: link:../../packages/services
-      '@tianditu/types':
-        specifier: workspace:*
-        version: link:../../packages/types
       '@tianditu/vue':
         specifier: workspace:*
         version: link:../../packages/vue

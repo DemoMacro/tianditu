@@ -36,7 +36,6 @@
     "@tianditu/core": "workspace:*"
   },
   "devDependencies": {
-    "@tianditu/types": "workspace:*",
     "vue": "3.4.37"
   },
   "peerDependencies": {
