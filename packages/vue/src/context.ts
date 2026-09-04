@@ -19,3 +19,7 @@ export const OVERLAY_KEY: InjectionKey<ShallowRef<unknown | undefined>> =
 export type MarkerCollector = OverlayCollector;
 
 export const CLUSTER_KEY: InjectionKey<MarkerCollector> = Symbol("tianditu:cluster");
+
+/** ContextMenu 向子级 MenuItem 注入的菜单实例 */
+export const CONTEXT_MENU_KEY: InjectionKey<ShallowRef<T.ContextMenu | undefined>> =
+  Symbol("tianditu:context-menu");

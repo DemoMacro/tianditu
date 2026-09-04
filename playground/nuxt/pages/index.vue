@@ -2,6 +2,8 @@
 import {
   TdtCarTrack,
   TdtCircle,
+  TdtContextMenu,
+  TdtContextMenuItem,
   TdtControlCopyright,
   TdtControlOverviewMap,
   TdtControlScale,
@@ -111,6 +113,17 @@ onMounted(() => {
         <TdtControlScale />
         <TdtControlCopyright />
         <TdtControlOverviewMap />
+
+        <TdtContextMenu @open="() => console.log('[demo] context menu open')">
+          <TdtContextMenuItem
+            text="居中到此点"
+            @select="(lnglat) => (center = [lnglat.lng, lnglat.lat])"
+          />
+          <TdtContextMenuItem
+            text="只有日志"
+            @select="(p) => console.log('[demo] menu select', p)"
+          />
+        </TdtContextMenu>
 
         <TdtTileLayer v-if="showAnnoLayer" :url="`http://t0.tianditu.gov.cn/cva_w/wmts?tk=${tk}`" />
 

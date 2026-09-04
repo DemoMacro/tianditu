@@ -136,9 +136,9 @@ declare namespace T {
      */
 
     /** 将覆盖物添加到地图中，一个覆盖物实例只能向地图中添加一次 */
-    addOverLay(overlay: Overlay | OverlayBase<any>): void;
+    addOverLay(overlay: Overlay | OverlayBase<any> | ContextMenu): void;
     /** 从地图中移除覆盖物。如果覆盖物从未被添加到地图中，则该移除不起任何作用 */
-    removeOverLay(overlay: Overlay | OverlayBase<any>): void;
+    removeOverLay(overlay: Overlay | OverlayBase<any> | ContextMenu): void;
     /** 清除地图上所有覆盖物 */
     clearOverLays(): void;
     /** 返回地图上的所有覆盖物 */

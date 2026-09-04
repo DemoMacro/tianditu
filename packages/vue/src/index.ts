@@ -11,6 +11,7 @@ export { TdtRectangle } from "./overlays/rectangle";
 export { TdtLabel } from "./overlays/label";
 export { TdtMarkerCluster } from "./overlays/markerClusterer";
 export { TdtInfoWindow } from "./overlays/infoWindow";
+export { TdtContextMenu, TdtContextMenuItem } from "./overlays/contextMenu";
 
 export { TdtControlZoom } from "./controls/zoom";
 export { TdtControlScale } from "./controls/scale";
