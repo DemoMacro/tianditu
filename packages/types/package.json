@@ -28,5 +28,13 @@
   ],
   "main": "",
   "types": "src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts"
+    },
+    "./modular": {
+      "types": "./src/modular.d.ts"
+    }
+  },
   "scripts": {}
 }
