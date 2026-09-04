@@ -14,7 +14,7 @@ declare namespace T {
      * 设置控件的位置。参数请参见ControlPosition常量。
      * @param position "topleft" | "topright" | "bottomleft" | "bottomright"
      */
-    setPosition(position?: ControlPosition): void;
+    setPosition(position: ControlPosition): void;
     /** 返回控件的位置 */
     getPosition(): ControlPosition;
     /** 向地图上添加叠加物。当调用map.addControl时，API将调用此方法。自定义控件时需要实现此方法。自定义控件时需要将控件对应的HTML元素返回 */

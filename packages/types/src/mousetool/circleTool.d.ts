@@ -19,7 +19,7 @@ declare namespace T {
     /** 中心点的地理坐标 */
     currentCenter: LngLat;
     /** 半径，单位为米 */
-    currentRadius: LngLat;
+    currentRadius: number;
     /** 用户最后绘制的圆对象 */
     currentCircle: Circle;
     /** 用户所有绘制的圆对象 */

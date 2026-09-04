@@ -8,7 +8,7 @@ declare namespace T {
      */
     setPointImage(url: string): void;
     /** 获取用户标注点的坐标，如果用户尚未操作，则返回 null */
-    getMarkControlPoint(): LngLat;
+    getMarkControlPoint(): LngLat | null;
     /** 获取所有工具绘制的标注图标 */
     getMarkers(): Marker[];
   }

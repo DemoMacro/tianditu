@@ -10,7 +10,12 @@ declare namespace T {
     constructor(opts?: ControlMapTypeOptions);
   }
 
-  type ControlMapTypeOptions = ControlMapTypeOptionsMapType[];
+  type TMapTypeControlOptions = ControlMapTypeOptions;
+
+  interface ControlMapTypeOptions extends T.ControlOptions {
+    /** 控件展示的地图类型，默认为普通图、卫星图、卫星加路网混合图 */
+    mapTypes?: ControlMapTypeOptionsMapType[];
+  }
 
   /**
    * ```

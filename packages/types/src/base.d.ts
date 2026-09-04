@@ -15,7 +15,7 @@ declare namespace T {
     /** 获取地理坐标点的经度 */
     getLat(): number;
     /** 计算当前地理坐标点与给定坐标点之间的距离 */
-    distanceTo(lnglat: LngLat): boolean;
+    distanceTo(lnglat: LngLat): number;
     /** 判断坐标点是否相等，当且仅当两点的经度和纬度均相等时返回true */
     equals(other: LngLat): boolean;
   }

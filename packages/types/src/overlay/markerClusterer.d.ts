@@ -9,7 +9,7 @@ declare namespace T {
     /** 获取聚合的总数量 */
     getClustersCount(): number;
     /** 从地图上彻底清除所有的标记 */
-    clearMarkers(): void;
+    clearMarkers(): number;
     /** 获取网格大小 */
     getGridSize(): number;
     /** 获取所有的标记数组 */
@@ -21,9 +21,9 @@ declare namespace T {
     /** 获取聚合的样式风格集合 */
     getStyles(): MarkerClustererStyle[];
     /** 删除单个标记 */
-    removeMarker(marker: Marker): void;
+    removeMarker(marker: Marker): boolean;
     /** 删除一组标记 */
-    removeMarkers(markers: Marker[]): void;
+    removeMarkers(markers: Marker[]): boolean;
     /** 设置网格大小 */
     setGridSize(gridSize: number): void;
     /** 设置聚合的最大缩放级别 */

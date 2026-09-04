@@ -32,7 +32,7 @@ declare namespace T {
 
   interface PolylineToolEvent extends ToolEvent<Polyline> {
     /** 用户当前绘制的折线的点坐标数组 */
-    currentLnglats: LngLat;
+    currentLnglats: LngLat[];
     /** 用户当前绘制的折线的地理长度 */
     currentDistance: number;
     /** 当前测距所画线的对象 */

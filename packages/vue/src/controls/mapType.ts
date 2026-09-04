@@ -1,11 +1,25 @@
-import { defineControlComponent } from "./defineControlComponent";
+import { type PropType } from "vue";
 
-/**
- * 地图类型切换控件。SDK 的 ControlMapTypeOptions 为数组类型且 position
- * 不在其中（types 包待核对），此处无参构造使用 SDK 默认类型列表。
- */
-export const TdtControlMapType = defineControlComponent({
+import { controlPositionProp, defineControlComponent } from "./defineControlComponent";
+
+export interface ControlMapTypeProps {
+  position?: T.ControlPosition;
+  /** 控件展示的地图类型，缺省为 SDK 默认列表 */
+  mapTypes?: T.ControlMapTypeOptionsMapType[];
+}
+
+export const TdtControlMapType = defineControlComponent<ControlMapTypeProps>({
   name: "TdtControlMapType",
-  props: {},
-  create: () => new T.Control.MapType(),
+  props: {
+    ...controlPositionProp,
+    mapTypes: {
+      type: Array as unknown as PropType<T.ControlMapTypeOptionsMapType[]>,
+      default: undefined,
+    },
+  },
+  create: (props) =>
+    new T.Control.MapType({
+      position: props.position,
+      mapTypes: props.mapTypes,
+    }),
 });

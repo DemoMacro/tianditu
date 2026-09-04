@@ -1,5 +1,5 @@
 declare namespace T {
-  class Marker extends OverlayBase<MakerEvents> {
+  class Marker extends OverlayBase<MarkerEvents> {
     /** 创建一个图像标注实例。lnglat参数指定了图像标注所在的地理位置 */
     constructor(lnglat: LngLat, opts?: MarkerOptions);
     /** 设置标注所在的地理位置坐标 */
@@ -33,11 +33,14 @@ declare namespace T {
     [index: string]: any;
   }
 
-  interface MakerEvents extends OverlayEvents<Marker, LngLat> {
+  interface MarkerEvents extends OverlayEvents<Marker, LngLat> {
     dragstart(e: Pick<MarkerEvent, "type" | "target">): void;
     drag(e: Pick<MarkerEvent, "type" | "target" | "lnglat">): void;
     dragend(e: Pick<MarkerEvent, "type" | "target" | "lnglat">): void;
   }
+
+  /** @deprecated 拼写笔误，请使用 {@linkcode MarkerEvents} */
+  type MakerEvents = MarkerEvents;
 
   type MarkerEvent = OverlayEvent<Marker, LngLat>;
 }

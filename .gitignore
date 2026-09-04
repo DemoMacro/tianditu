@@ -128,3 +128,9 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Nuxt build output
+.output/
+
+# Playwright MCP snapshots
+.playwright-mcp/

@@ -32,7 +32,7 @@ declare namespace T {
 
   interface PolygonToolEvent extends ToolEvent<Polygon> {
     /** 用户当前绘制的多边形的点坐标数组 */
-    currentLnglats: LngLat;
+    currentLnglats: LngLat[];
     /** 用户最后绘制的多边形的地理面积 */
     currentArea: number;
     /** 当前所画多边形的对象 */

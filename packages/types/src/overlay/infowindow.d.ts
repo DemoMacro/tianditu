@@ -13,6 +13,11 @@ declare namespace T {
     /** 返回信息浮窗的显示 HTML 内容 */
     getContent(): string | HTMLElement;
     /** 重绘信息窗口，当信息窗口内容发生变化时进行调用 */
+    /** 设置信息浮窗显示时向右下角偏移量（像素） */
+    setOffset(offset: Point): void;
+    /** 返回信息浮窗显示时向右下角偏移量 */
+    getOffset(): Point;
+    /** 重绘信息窗口，当信息窗口内容发生变化时进行调用 */
     update(): void;
   }
 
