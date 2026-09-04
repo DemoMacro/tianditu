@@ -24,7 +24,7 @@ export const TdtCircle = defineOverlayComponent<CircleProps, T.Circle>({
     fillOpacity: { type: Number, default: undefined },
   },
   events: ["click", "dblclick", "mousedown", "mouseup", "mouseover", "mouseout"] as const,
-  create(props, { map }) {
+  create(props) {
     const circle = new T.Circle(toLngLatProp(props.center), props.radius, {
       color: props.color,
       weight: props.weight,
@@ -32,7 +32,6 @@ export const TdtCircle = defineOverlayComponent<CircleProps, T.Circle>({
       fillColor: props.fillColor,
       fillOpacity: props.fillOpacity,
     });
-    map.addOverLay(circle);
     return circle;
   },
   sync: {

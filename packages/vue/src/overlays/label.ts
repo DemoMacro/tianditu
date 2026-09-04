@@ -24,12 +24,11 @@ export const TdtLabel = defineOverlayComponent<LabelProps, T.Label>({
     title: { type: String, default: undefined },
   },
   events: ["click", "dblclick", "mousedown", "mouseup", "mouseover", "mouseout"] as const,
-  create(props, { map }) {
+  create(props) {
     const label = new T.Label({
       text: props.text,
       position: toLngLatProp(props.lnglat),
     });
-    map.addOverLay(label);
     if (props.fontColor) label.setFontColor(props.fontColor);
     if (props.fontSize) label.setFontSize(props.fontSize);
     if (props.backgroundColor) label.setBackgroundColor(props.backgroundColor);

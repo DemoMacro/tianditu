@@ -19,14 +19,13 @@ export const TdtRectangle = defineOverlayComponent<RectangleProps, T.Rectangle>(
     fillOpacity: { type: Number, default: undefined },
   },
   events: ["click", "dblclick", "mousedown", "mouseup", "mouseover", "mouseout"] as const,
-  create(props, { map }) {
+  create(props) {
     const rectangle = new T.Rectangle(toBoundsProp(props.bounds), {
       color: props.color,
       weight: props.weight,
       fillColor: props.fillColor,
       fillOpacity: props.fillOpacity,
     });
-    map.addOverLay(rectangle);
     return rectangle;
   },
   sync: {

@@ -1,4 +1,4 @@
-import { bindEventNames } from "@tianditu/core";
+import { mountOverlay, type OverlayHandle } from "@tianditu/core";
 import { defineComponent, inject, onBeforeUnmount, provide, shallowRef, watch } from "vue";
 
 import { CONTEXT_MENU_KEY, MAP_KEY } from "../context";
@@ -14,20 +14,24 @@ export const TdtContextMenu = defineComponent({
   setup(_props, { emit, expose, slots }) {
     const { map } = inject(MAP_KEY)!;
     const menu = shallowRef<T.ContextMenu>();
-    let unbind: (() => void) | undefined;
+    let handle: OverlayHandle<T.ContextMenu> | undefined;
 
     watch(
       map,
       (current) => {
-        if (!current || menu.value) {
+        if (!current || handle) {
           return;
         }
-        const created = new T.ContextMenu();
-        unbind = bindEventNames(created, ["open", "close"], (name, event) =>
-          emit(name as never, event),
+        handle = mountOverlay(
+          { map: current },
+          {
+            props: () => ({}),
+            events: ["open", "close"],
+            dispatch: (name, event) => emit(name as never, event),
+            create: () => new T.ContextMenu(),
+          },
         );
-        current.addOverLay(created);
-        menu.value = created;
+        menu.value = handle.instance;
       },
       { immediate: true },
     );
@@ -35,11 +39,8 @@ export const TdtContextMenu = defineComponent({
     provide(CONTEXT_MENU_KEY, menu);
 
     onBeforeUnmount(() => {
-      unbind?.();
-      if (menu.value && map.value) {
-        map.value.removeOverLay(menu.value);
-      }
-      unbind = undefined;
+      handle?.destroy();
+      handle = undefined;
       menu.value = undefined;
     });
 

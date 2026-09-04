@@ -1,0 +1,53 @@
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+.layout {
+  display: flex;
+  height: 100%;
+}
+
+.map {
+  flex: 1;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 260px;
+  padding: 16px;
+  overflow: auto;
+  box-sizing: border-box;
+}
+
+.panel h1 {
+  font-size: 16px;
+  margin: 0;
+}
+
+.panel button {
+  text-align: left;
+  padding: 6px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.panel button:hover {
+  background: #f3f4f6;
+}
+
+.result {
+  font-size: 13px;
+  color: #374151;
+  margin: 0;
+}
+
+.win {
+  padding: 4px;
+}

@@ -30,7 +30,8 @@
   "types": "dist/index.d.mts",
   "scripts": {
     "build": "vp pack",
-    "prepack": "pnpm build"
+    "prepack": "pnpm build",
+    "demo": "vp dev"
   },
   "dependencies": {
     "@tianditu/core": "workspace:*"

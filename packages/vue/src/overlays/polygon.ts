@@ -17,7 +17,7 @@ export const TdtPolygon = defineOverlayComponent<PolygonProps, T.Polygon>({
     fillOpacity: { type: Number, default: undefined },
   },
   events: ["click", "dblclick", "mousedown", "mouseup", "mouseover", "mouseout"] as const,
-  create(props, { map }) {
+  create(props) {
     const polygon = new T.Polygon(toLngLatsProp(props.path), {
       color: props.color,
       weight: props.weight,
@@ -26,7 +26,6 @@ export const TdtPolygon = defineOverlayComponent<PolygonProps, T.Polygon>({
       fillColor: props.fillColor,
       fillOpacity: props.fillOpacity,
     });
-    map.addOverLay(polygon);
     return polygon;
   },
   sync: {

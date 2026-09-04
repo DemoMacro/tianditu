@@ -27,14 +27,13 @@ export const TdtPolyline = defineOverlayComponent<PolylineProps, T.Polyline>({
     ...lineStyleProps,
   },
   events: ["click", "dblclick", "mousedown", "mouseup", "mouseover", "mouseout"] as const,
-  create(props, { map }) {
+  create(props) {
     const polyline = new T.Polyline(toLngLatsProp(props.path), {
       color: props.color,
       weight: props.weight,
       opacity: props.opacity,
       lineStyle: props.lineStyle,
     });
-    map.addOverLay(polyline);
     return polyline;
   },
   sync: {
