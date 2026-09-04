@@ -1,4 +1,4 @@
-import { createPropsSync, type SyncDef } from "@tianditu/core";
+import { mountOverlay, type OverlayHandle, type SyncDef } from "@tianditu/core";
 import {
   defineComponent,
   inject,
@@ -12,12 +12,6 @@ import {
 
 import { CLUSTER_KEY, MAP_KEY, OVERLAY_KEY } from "./context";
 
-export interface OverlayContext {
-  map: T.Map;
-  /** 存在时表示当前处于 MarkerClusterer 内部，覆盖物应加入聚合而非直接上屏 */
-  collector?: { addMarker(marker: T.Marker): void; removeMarker(marker: T.Marker): void };
-}
-
 export interface OverlayComponentOptions<P extends object, O> {
   name: string;
   /** 运行时 props 定义；静态形状由泛型 P 声明并与其对齐 */
@@ -26,17 +20,20 @@ export interface OverlayComponentOptions<P extends object, O> {
   events?: readonly string[];
   /** 额外的 setup 逻辑（在 setup 同步上下文内调用，可 provide 子级所需上下文） */
   setup?(context: { instance: ShallowRef<O | undefined> }): void;
-  /** 构造覆盖物，须在其中完成上屏或加入聚合 */
-  create(props: P, context: OverlayContext): O;
-  /** 卸载覆盖物，默认 map.removeOverLay */
-  destroy?(instance: O, context: OverlayContext): void;
+  /** 构造覆盖物；上屏由 core 的 attach 编排 */
+  create(props: P, ctx: { map: T.Map }): O;
+  /** 覆盖缺省挂载（非常规上屏时） */
+  attach?(instance: O, ctx: { map: T.Map }): void;
+  /** 覆盖缺省卸载（如 MarkerClusterer.clearMarkers） */
+  detach?(instance: O, ctx: { map: T.Map }): void;
   /** 响应式 props → 覆盖物 setter 的同步定义 */
   sync?: SyncDef<O, P>;
 }
 
 /**
- * 覆盖物组件工厂：统一处理"等待地图就绪 → 创建挂载 → props 同步 →
- * 事件转发 → 卸载清理"的生命周期，各覆盖物组件只声明差异部分。
+ * 覆盖物组件工厂：纯响应式胶水。生命周期编排（创建挂载 → props 同步 →
+ * 事件转发 → 卸载清理）全部在 core 的 mountOverlay，此处只剩
+ * inject 上下文 → watch(map) → mount → unmount destroy。
  */
 export function defineOverlayComponent<P extends object, O>(
   options: OverlayComponentOptions<P, O>,
@@ -52,58 +49,40 @@ export function defineOverlayComponent<P extends object, O>(
       provide(OVERLAY_KEY, instance);
       options.setup?.({ instance });
 
-      let context: OverlayContext | undefined;
-      let stopSync: (() => void) | undefined;
-      let stopEvents: Array<() => void> = [];
+      let handle: OverlayHandle<O> | undefined;
 
       // setup 内注册的 watch 随组件实例自动停止
       watch(
         map,
         (current) => {
-          if (!current || instance.value) {
+          if (!current || handle) {
             return;
           }
-          context = collector ? { map: current, collector } : { map: current };
-          const created = options.create(props as P, context);
-          instance.value = created;
-
-          if (options.sync) {
-            stopSync = createPropsSync(
-              () => instance.value,
-              () => props as P,
-              options.sync,
-            );
-          }
-
-          if (options.events) {
-            for (const name of options.events) {
-              const target = created as unknown as {
-                addEventListener(event: string, handler: (e: unknown) => void): void;
-                removeEventListener(event: string, handler: (e: unknown) => void): void;
-              };
-              const handler = (event: unknown) => emit(name, event);
-              target.addEventListener(name, handler);
-              stopEvents.push(() => target.removeEventListener(name, handler));
-            }
-          }
+          handle = mountOverlay(
+            { map: current, collector },
+            {
+              props: () => props as P,
+              sync: options.sync,
+              events: options.events,
+              dispatch: (name, event) => emit(name, event),
+              create: () => options.create(props as P, { map: current }),
+              attach: options.attach
+                ? (target, ctx) => options.attach!(target, { map: ctx.map })
+                : undefined,
+              detach: options.detach
+                ? (target, ctx) => options.detach!(target, { map: ctx.map })
+                : undefined,
+            },
+          );
+          instance.value = handle.instance;
         },
         { immediate: true },
       );
 
       onBeforeUnmount(() => {
-        stopSync?.();
-        for (const stop of stopEvents.splice(0)) {
-          stop();
-        }
-        if (instance.value && context) {
-          const destroy =
-            options.destroy ??
-            ((target: O, ctx: OverlayContext) => {
-              ctx.map.removeOverLay(target as unknown as T.Overlay);
-            });
-          destroy(instance.value, context);
-          instance.value = undefined;
-        }
+        handle?.destroy();
+        handle = undefined;
+        instance.value = undefined;
       });
 
       return () => slots.default?.();

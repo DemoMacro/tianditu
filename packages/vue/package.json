@@ -32,8 +32,10 @@
     "build": "vp pack",
     "prepack": "pnpm build"
   },
+  "dependencies": {
+    "@tianditu/core": "workspace:*"
+  },
   "devDependencies": {
-    "@tianditu/core": "workspace:*",
     "@tianditu/types": "workspace:*",
     "vue": "3.4.37"
   },

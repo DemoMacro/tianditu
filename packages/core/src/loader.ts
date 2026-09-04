@@ -5,7 +5,7 @@
  * Promise 缓存保证并发调用共享同一次加载，脚本加载失败时重置缓存以便重试。
  */
 
-export interface LoadTOptions {
+export interface LoadTdtOptions {
   /** 开发者密钥（tk） */
   tk: string;
   /** SDK 版本，默认 "4.0" */
@@ -20,17 +20,17 @@ const LOAD_TIMEOUT = 30_000;
 
 let pending: Promise<typeof T> | undefined;
 
-/** 读取已就绪的全局 T 对象，不触发加载 */
-export function getT(): typeof T | undefined {
+/** 读取已就绪的全局 SDK 对象，不触发加载 */
+export function getTdt(): typeof T | undefined {
   return globalThis.T;
 }
 
 /** SDK 是否已加载完成 */
-export function isTLoaded(): boolean {
+export function isTdtLoaded(): boolean {
   return Boolean(globalThis.T);
 }
 
-export function loadT(options: LoadTOptions): Promise<typeof T> {
+export function loadTdt(options: LoadTdtOptions): Promise<typeof T> {
   if (globalThis.T) {
     return Promise.resolve(globalThis.T);
   }
@@ -40,7 +40,7 @@ export function loadT(options: LoadTOptions): Promise<typeof T> {
 
   pending = new Promise<typeof T>((resolve, reject) => {
     if (typeof document === "undefined") {
-      reject(new Error("[tianditu] loadT 只能在浏览器环境中调用"));
+      reject(new Error("[tianditu] loadTdt 只能在浏览器环境中调用"));
       return;
     }
 

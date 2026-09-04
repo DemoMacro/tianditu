@@ -1,3 +1,4 @@
+import { createInfoWindow, type InfoWindowHandle } from "@tianditu/core";
 import {
   computed,
   defineComponent,
@@ -13,8 +14,9 @@ import {
 import { MAP_KEY, OVERLAY_KEY } from "../context";
 
 /**
- * 信息窗组件。slot 内容经 Teleport 渲染进 T.InfoWindow 的 DOM 容器，
- * 保留当前应用的组件上下文（provide/inject、全局组件可用）。
+ * 信息窗组件。窗体构造与开关在 core 的 createInfoWindow（转发官方
+ * host.openInfoWindow / closeInfoWindow），slot 内容经 Teleport 渲染进
+ * 窗体 DOM 容器，保留当前应用的组件上下文。
  * 嵌套在 TdtMarker 内时通过父级打开；也可直接传 lnglat 由地图打开。
  */
 export const TdtInfoWindow = defineComponent({
@@ -32,97 +34,77 @@ export const TdtInfoWindow = defineComponent({
     closeButton: { type: Boolean, default: undefined },
     offset: { type: Object as PropType<T.Point>, default: undefined },
   },
-  emits: ["update:open", "open", "close"],
+  emits: ["update:open", "open", "close", "clickclose"],
   setup(props, { emit, slots }) {
     const { map } = inject(MAP_KEY)!;
     const host = inject(OVERLAY_KEY, undefined) as { value: T.Marker | undefined } | undefined;
-    const container = shallowRef<HTMLDivElement>();
-    const win = shallowRef<T.InfoWindow>();
+    const container = shallowRef<HTMLElement>();
+    let handle: InfoWindowHandle | undefined;
 
     const target = computed(() => (props.lnglat ? map.value : host?.value));
 
     watch(
-      [target, props],
-      ([current]) => {
+      [target, () => props.open],
+      ([current, open]) => {
         if (!current) {
           return;
         }
-        if (!win.value) {
-          container.value = document.createElement("div");
-          win.value = new T.InfoWindow(container.value, {
-            minWidth: props.minWidth,
-            maxWidth: props.maxWidth,
-            maxHeight: props.maxHeight,
-            autoPan: props.autoPan,
-            closeButton: props.closeButton,
-            offset: props.offset,
-          });
-          const offOpen = bindEvent(win.value, "open", () => emit("open"));
-          const offClose = bindEvent(win.value, "close", () => {
-            emit("close");
-            emit("update:open", false);
-          });
-          cleanup.push(offOpen, offClose);
+        if (!handle) {
+          handle = createInfoWindow(
+            {
+              minWidth: props.minWidth,
+              maxWidth: props.maxWidth,
+              maxHeight: props.maxHeight,
+              autoPan: props.autoPan,
+              closeButton: props.closeButton,
+              offset: props.offset,
+            },
+            (name) => {
+              emit(name);
+              if (name === "close") {
+                emit("update:open", false);
+              }
+            },
+          );
+          container.value = handle.container;
         }
-        applyOpen(win.value, current, props);
+        syncOpen(open, current);
       },
       { immediate: true },
     );
 
+    // 已打开时坐标变化即重定位（官方 openInfoWindow 幂等重开）
     watch(
-      () => props.open,
-      (open) => {
-        const current = target.value;
-        if (win.value && current) {
-          applyOpen(win.value, current, { ...props, open });
+      () => props.lnglat,
+      () => {
+        if (handle && target.value && props.open) {
+          syncOpen(true, target.value);
         }
       },
     );
 
-    const cleanup: Array<() => void> = [];
-    onBeforeUnmount(() => {
-      for (const off of cleanup.splice(0)) {
-        off();
+    function syncOpen(open: boolean, current: T.Map | T.Marker) {
+      if (!handle) {
+        return;
       }
-      win.value = undefined;
+      if (open) {
+        handle.openOn(current, props.lnglat ? toLngLatValue(props.lnglat) : undefined);
+      } else if (handle.isOpen()) {
+        handle.close();
+      }
+    }
+
+    function toLngLatValue(value: [number, number] | T.LngLat): T.LngLat {
+      return Array.isArray(value) ? new T.LngLat(value[0], value[1]) : value;
+    }
+
+    onBeforeUnmount(() => {
+      handle?.destroy();
+      handle = undefined;
       container.value = undefined;
     });
-
-    function bindEvent(
-      target: T.InfoWindow,
-      event: "open" | "close",
-      handler: () => void,
-    ): () => void {
-      const events = target as unknown as {
-        addEventListener(event: string, handler: () => void): void;
-        removeEventListener(event: string, handler: () => void): void;
-      };
-      events.addEventListener(event, handler);
-      return () => events.removeEventListener(event, handler);
-    }
 
     return () =>
       container.value && slots.default ? h(Teleport, { to: container.value }, slots.default) : null;
   },
 });
-
-function applyOpen(
-  win: T.InfoWindow,
-  host: T.Map | T.Marker,
-  props: { open: boolean; lnglat?: [number, number] | T.LngLat },
-): void {
-  if (props.open) {
-    if (host instanceof T.Map) {
-      const lnglat = props.lnglat ? toLngLatValue(props.lnglat) : host.getCenter();
-      host.openInfoWindow(win, lnglat);
-    } else {
-      host.openInfoWindow(win);
-    }
-  } else if (win.isOpen()) {
-    (host instanceof T.Map ? host : host.getMap()).closeInfoWindow();
-  }
-}
-
-function toLngLatValue(value: [number, number] | T.LngLat): T.LngLat {
-  return Array.isArray(value) ? new T.LngLat(value[0], value[1]) : value;
-}

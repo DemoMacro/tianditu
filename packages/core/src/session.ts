@@ -1,5 +1,5 @@
 import { EventBridge } from "./events";
-import { loadT } from "./loader";
+import { loadTdt } from "./loader";
 
 /**
  * 地图会话：一个容器元素内 `T.Map` 实例的完整生命周期。
@@ -32,7 +32,7 @@ export async function createMapSession(
   el: HTMLElement,
   options: CreateMapSessionOptions,
 ): Promise<MapSession> {
-  await loadT({ tk: options.tk, version: options.version, baseURL: options.baseURL });
+  await loadTdt({ tk: options.tk, version: options.version, baseURL: options.baseURL });
 
   const map = new T.Map(el, {
     projection: options.projection,

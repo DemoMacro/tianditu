@@ -1,5 +1,6 @@
 <script setup>
 import {
+  TdtCarTrack,
   TdtCircle,
   TdtControlCopyright,
   TdtControlOverviewMap,
@@ -12,7 +13,10 @@ import {
   TdtMarkerCluster,
   TdtPolygon,
   TdtPolyline,
+  TdtPolygonTool,
+  TdtPolylineTool,
   TdtRectangle,
+  TdtTileLayer,
   useMap,
 } from "@tianditu/vue";
 
@@ -24,6 +28,33 @@ const zoom = ref(12);
 const showOverlays = ref(true);
 const openWindow = ref(false);
 const mapRef = ref();
+const activeTool = ref("none");
+const showAnnoLayer = ref(false);
+const carTrackRef = ref();
+
+const carTrackDatas = [
+  [116.404, 39.915],
+  [116.418, 39.92],
+  [116.43, 39.925],
+  [116.44, 39.91],
+  [116.42, 39.9],
+];
+
+function toggleLineTool() {
+  activeTool.value = activeTool.value === "line" ? "none" : "line";
+}
+
+function togglePolygonTool() {
+  activeTool.value = activeTool.value === "polygon" ? "none" : "polygon";
+}
+
+function startCarTrack() {
+  carTrackRef.value?.start();
+}
+
+function pauseCarTrack() {
+  carTrackRef.value?.pause();
+}
 
 const markers = [
   { lnglat: [116.4, 39.92], name: "聚合点 A" },
@@ -80,6 +111,28 @@ onMounted(() => {
         <TdtControlScale />
         <TdtControlCopyright />
         <TdtControlOverviewMap />
+
+        <TdtTileLayer v-if="showAnnoLayer" :url="`http://t0.tianditu.gov.cn/cva_w/wmts?tk=${tk}`" />
+
+        <TdtPolylineTool
+          :active="activeTool === 'line'"
+          color="#f97316"
+          @draw="(e) => console.log('[demo] line drawn', e.currentDistance)"
+        />
+        <TdtPolygonTool
+          :active="activeTool === 'polygon'"
+          fill-color="#f97316"
+          @draw="(e) => console.log('[demo] polygon drawn', e.currentArea)"
+        />
+
+        <TdtCarTrack
+          ref="carTrackRef"
+          :datas="carTrackDatas"
+          :interval="500"
+          :speed="0"
+          :dynamic-line="true"
+          @pass-one-node="(p) => console.log('[demo] car node', p.index, '/', p.length)"
+        />
 
         <template v-if="showOverlays">
           <TdtMarker :lnglat="[116.404, 39.915]" draggable>
@@ -152,6 +205,17 @@ onMounted(() => {
       <button class="btn" @click="openWindow = !openWindow">
         {{ openWindow ? "关闭" : "打开" }} InfoWindow
       </button>
+      <button class="btn" @click="toggleLineTool">
+        {{ activeTool === "line" ? "关闭" : "开启" }}测距工具
+      </button>
+      <button class="btn" @click="togglePolygonTool">
+        {{ activeTool === "polygon" ? "关闭" : "开启" }}测面工具
+      </button>
+      <button class="btn" @click="showAnnoLayer = !showAnnoLayer">
+        {{ showAnnoLayer ? "移除" : "叠加" }}注记瓦片层
+      </button>
+      <button class="btn" @click="startCarTrack">轨迹回放 start</button>
+      <button class="btn" @click="pauseCarTrack">轨迹回放 pause</button>
     </div>
   </div>
 </template>

@@ -2,6 +2,8 @@ declare namespace T {
   class InfoWindow extends OverlayBase<InfoWindowEvents> {
     /** 创建一个信息窗实例 */
     constructor(content: string | HTMLElement, opts?: InfoWindowOptions);
+    /** 关闭信息浮窗 */
+    closeInfoWindow(): void;
     /** 设置或改变信息浮窗所指向的地理位置坐标 */
     setLngLat(lnglat: LngLat): void;
     /** 返回信息浮窗所指向的地理位置坐标 */

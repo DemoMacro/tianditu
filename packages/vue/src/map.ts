@@ -1,4 +1,10 @@
-import { createMapSession, toLngLat, type MapSession } from "@tianditu/core";
+import {
+  applyMapInteractions,
+  createMapSession,
+  MAP_EVENT_NAMES,
+  toLngLat,
+  type MapSession,
+} from "@tianditu/core";
 import {
   defineComponent,
   h,
@@ -13,32 +19,10 @@ import {
 import { MAP_KEY, type MapContext } from "./context";
 
 /**
- * 转发给 SDK 的地图事件名。采用原生事件名直发（@click / @zoomend ...），
- * 不建命名映射层，payload 为原生 T 事件对象。
+ * 转发给 SDK 的地图事件名。以官方 Map 文档页的 14 个事件为准（原生事件名
+ * 直发，payload 为原生 T 事件对象）；文档外事件经 useMap 命令式监听。
  */
-export const MAP_EVENT_NAMES = [
-  "click",
-  "dblclick",
-  "contextmenu",
-  "mousemove",
-  "mouseover",
-  "mouseout",
-  "movestart",
-  "move",
-  "moveend",
-  "zoomstart",
-  "zoomend",
-  "dragstart",
-  "drag",
-  "dragend",
-  "load",
-  "resize",
-  "levels",
-  "touchstart",
-  "touchmove",
-  "touchend",
-  "longpress",
-] as const;
+export { MAP_EVENT_NAMES } from "@tianditu/core";
 
 export type TdtMapProps = {
   /** 开发者密钥，仅初始化时生效 */
@@ -51,8 +35,6 @@ export type TdtMapProps = {
   maxZoom?: number;
   /** 投影，仅初始化时生效 */
   projection?: string;
-  /** 地图类型，如 window.TMAP_NORMAL_MAP */
-  mapType?: T.MapType;
   /** 显示范围限制 */
   limitBounds?: T.LngLatBounds;
   dragging?: boolean;
@@ -62,6 +44,7 @@ export type TdtMapProps = {
   inertia?: boolean;
   continuousZoom?: boolean;
   pinchToZoom?: boolean;
+  autoResize?: boolean;
 };
 
 export const TdtMap = defineComponent({
@@ -76,10 +59,6 @@ export const TdtMap = defineComponent({
     minZoom: { type: Number, default: undefined },
     maxZoom: { type: Number, default: undefined },
     projection: { type: String, default: undefined },
-    mapType: {
-      type: Object as PropType<T.MapType>,
-      default: undefined,
-    },
     limitBounds: {
       type: Object as PropType<T.LngLatBounds>,
       default: undefined,
@@ -91,6 +70,7 @@ export const TdtMap = defineComponent({
     inertia: { type: Boolean, default: true },
     continuousZoom: { type: Boolean, default: true },
     pinchToZoom: { type: Boolean, default: true },
+    autoResize: { type: Boolean, default: undefined },
   },
   emits: ["ready", ...MAP_EVENT_NAMES],
   setup(props, { emit, slots, expose }) {
@@ -98,7 +78,7 @@ export const TdtMap = defineComponent({
     const map = shallowRef<T.Map>();
     const session = shallowRef<MapSession>();
     const ready = shallowRef(false);
-    let stopWatchers: Array<() => void> = [];
+    let stopEvents: Array<() => void> = [];
 
     const context: MapContext = { map, ready };
     provide(MAP_KEY, context);
@@ -121,23 +101,27 @@ export const TdtMap = defineComponent({
         on(event: string, handler: (event: unknown) => void): () => void;
       };
       for (const name of MAP_EVENT_NAMES) {
-        stopWatchers.push(events.on(name, (event) => emit(name, event)));
+        stopEvents.push(events.on(name, (event) => emit(name, event)));
       }
 
       // 交互开关仅在初始化时整体应用一次；这些开关变更不重建地图
-      applyInteractions(created.map, props);
-
-      if (props.mapType) {
-        // types 包暂未声明 setMapType，SDK 实际提供该方法
-        (created.map as unknown as { setMapType(type: T.MapType): void }).setMapType(props.mapType);
-      }
+      applyMapInteractions(created.map, {
+        dragging: props.dragging,
+        scrollWheelZoom: props.scrollWheelZoom,
+        doubleClickZoom: props.doubleClickZoom,
+        keyboard: props.keyboard,
+        inertia: props.inertia,
+        continuousZoom: props.continuousZoom,
+        pinchToZoom: props.pinchToZoom,
+        autoResize: props.autoResize,
+      });
 
       ready.value = true;
       emit("ready", created.map);
     });
 
     onBeforeUnmount(() => {
-      for (const stop of stopWatchers.splice(0)) {
+      for (const stop of stopEvents.splice(0)) {
         stop();
       }
       session.value?.destroy();
@@ -155,21 +139,3 @@ export const TdtMap = defineComponent({
     return () => h("div", { ref: el, style: { width: "100%", height: "100%" } }, slots.default?.());
   },
 });
-
-function applyInteractions(map: T.Map, props: TdtMapProps): void {
-  const toggles = [
-    ["dragging", "Drag"],
-    ["scrollWheelZoom", "ScrollWheelZoom"],
-    ["doubleClickZoom", "DoubleClickZoom"],
-    ["keyboard", "Keyboard"],
-    ["inertia", "Inertia"],
-    ["continuousZoom", "ContinuousZoom"],
-    ["pinchToZoom", "PinchToZoom"],
-  ] as const;
-
-  for (const [prop, method] of toggles) {
-    const enable = props[prop] !== false;
-    const prefix = enable ? "enable" : "disable";
-    (map as unknown as Record<string, () => void>)[prefix + method]();
-  }
-}

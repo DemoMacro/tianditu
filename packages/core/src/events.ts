@@ -35,3 +35,30 @@ export class EventBridge<E> {
     }
   }
 }
+
+/**
+ * 以宽松事件签名挂接命名事件集。SDK 侧（Mousetool/TileLayer 等）的事件
+ * 方法为泛型签名（keyof E），跨实体统一挂接时按宽签名收口；
+ * 目标缺少事件 API 时静默跳过。
+ */
+export function bindEventNames(
+  target: unknown,
+  names: readonly string[],
+  dispatch: (name: string, event: unknown) => void,
+): () => void {
+  const bridge = target as {
+    addEventListener?(event: string, handler: (e: unknown) => void): void;
+    removeEventListener?(event: string, handler: (e: unknown) => void): void;
+  };
+  const listeners: Array<[string, (e: unknown) => void]> = [];
+  for (const name of names) {
+    const handler = (event: unknown) => dispatch(name, event);
+    bridge.addEventListener?.(name, handler);
+    listeners.push([name, handler]);
+  }
+  return () => {
+    for (const [name, handler] of listeners.splice(0)) {
+      bridge.removeEventListener?.(name, handler);
+    }
+  };
+}

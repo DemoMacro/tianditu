@@ -3,7 +3,7 @@ declare namespace T {
     constructor(url: string, opts?: TileLayerWMSOptions);
   }
 
-  interface TileLayerWMSOptions {
+  interface TileLayerWMSOptions extends TileLayerOptions {
     /** 用","分隔的多个图层列表 */
     layers?: string;
     /** 每个请求图层的用","分隔的描述样式 */

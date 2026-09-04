@@ -20,7 +20,7 @@ export const TdtMarkerCluster = defineOverlayComponent<MarkerClusterProps, T.Mar
   },
   events: ["clusterclick", "dragstart", "drag", "dragend"] as const,
   // 点聚合在 SDK 内自行管理展示，不走 removeOverLay
-  destroy(cluster) {
+  detach(cluster) {
     cluster.clearMarkers();
   },
   setup({ instance }) {

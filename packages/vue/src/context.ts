@@ -1,3 +1,4 @@
+import type { OverlayCollector } from "@tianditu/core";
 import type { InjectionKey, ShallowRef } from "vue";
 
 /** TdtMap 组件向子组件注入的地图上下文 */
@@ -14,10 +15,7 @@ export const MAP_KEY: InjectionKey<MapContext> = Symbol("tianditu:map");
 export const OVERLAY_KEY: InjectionKey<ShallowRef<unknown | undefined>> =
   Symbol("tianditu:overlay");
 
-/** MarkerClusterer 向子级 Marker 提供的收集器 */
-export interface MarkerCollector {
-  addMarker(marker: T.Marker): void;
-  removeMarker(marker: T.Marker): void;
-}
+/** MarkerClusterer 向子级 Marker 提供的收集器（形状同 core 的 OverlayCollector） */
+export type MarkerCollector = OverlayCollector;
 
 export const CLUSTER_KEY: InjectionKey<MarkerCollector> = Symbol("tianditu:cluster");

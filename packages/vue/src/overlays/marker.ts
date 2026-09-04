@@ -31,27 +31,14 @@ export const TdtMarker = defineOverlayComponent<MarkerProps, T.Marker>({
     "drag",
     "dragend",
   ] as const,
-  create(props, context) {
-    const marker = new T.Marker(toLngLat(props.lnglat), {
+  // 挂载/卸载走 core 缺省编排：collector 存在时加入聚合，否则 addOverLay
+  create: (props) =>
+    new T.Marker(toLngLat(props.lnglat), {
       draggable: props.draggable,
       title: props.title,
       zIndexOffset: props.zIndexOffset,
       opacity: props.opacity,
-    });
-    if (context.collector) {
-      context.collector.addMarker(marker);
-    } else {
-      context.map.addOverLay(marker);
-    }
-    return marker;
-  },
-  destroy(marker, context) {
-    if (context.collector) {
-      context.collector.removeMarker(marker);
-    } else {
-      context.map.removeOverLay(marker);
-    }
-  },
+    }),
   sync: {
     lnglat: (marker, value) => marker.setLngLat(toLngLatProp(value)),
     draggable: (marker, value) =>
