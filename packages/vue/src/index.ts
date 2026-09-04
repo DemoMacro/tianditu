@@ -13,6 +13,13 @@ export { TdtMarkerCluster } from "./overlays/markerClusterer";
 export { TdtInfoWindow } from "./overlays/infoWindow";
 export { TdtContextMenu, TdtContextMenuItem } from "./overlays/contextMenu";
 
+export { useLocalSearch } from "./service/useLocalSearch";
+export { useGeocoder } from "./service/useGeocoder";
+export { useGeolocation } from "./service/useGeolocation";
+export { useDrivingRoute } from "./service/useDrivingRoute";
+export { useTransitRoute } from "./service/useTransitRoute";
+export { useBusLineSearch } from "./service/useBusLineSearch";
+
 export { TdtControlZoom } from "./controls/zoom";
 export { TdtControlScale } from "./controls/scale";
 export { TdtControlCopyright } from "./controls/copyright";
