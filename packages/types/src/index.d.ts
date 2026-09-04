@@ -3,6 +3,7 @@ import "./control";
 import "./extra";
 import "./layer";
 import "./map";
+import "./militarySymbols";
 import "./mousetool";
 import "./overlay";
 import "./service";
