@@ -1,5 +1,22 @@
 import { type FetchOptions, type FetchRequest, ofetch } from "ofetch";
 
+import type { AdministrativeParams, AdministrativeResult } from "./types/administrative";
+import type { DrivePostStr, DriveResult } from "./types/drive";
+import type {
+  GeoCodingDs,
+  GeoCodingResult,
+  ReverseGeoCodingPostStr,
+  ReverseGeoCodingResult,
+} from "./types/geocoder";
+import type { SearchPostStr, SearchResult } from "./types/search";
+import type { StaticImageParams } from "./types/staticImage";
+import type {
+  TransitLineInfo,
+  TransitBusStation,
+  TransitPostStr,
+  TransitResult,
+} from "./types/transit";
+
 export class TianDiTuWeb {
   tk: string;
   baseURL = "https://api.tianditu.gov.cn";
@@ -12,126 +29,83 @@ export class TianDiTuWeb {
     this.client = ofetch.create({ baseURL: this.baseURL });
   }
 
-  public apiFetch(request: FetchRequest, options?: FetchOptions) {
-    return this.client(request, options);
+  public apiFetch<T>(request: FetchRequest, options?: FetchOptions<"json">): Promise<T> {
+    return this.client<T>(request, options);
   }
 
-  // http://lbs.tianditu.gov.cn/server/search.html
-  public async search(postStr: {
-    keyWord: string;
-    mapBound: string;
-    level: string;
-    specifyAdminCode?: string;
-    queryRadius?: string;
-    pointLonlat?: string;
-    queryType: string;
-    start: string;
-    count: string;
-    lonlat?: string;
-    bound?: string;
-    zoom?: string;
-    layers?: string;
-    projection?: string;
-  }) {
-    return await this.apiFetch("/search", {
+  /** 地名搜索 V2.0（官方 server/search2.html） */
+  public async search(postStr: SearchPostStr) {
+    return await this.apiFetch<SearchResult>("/v2/search", {
       params: {
         tk: this.tk,
         type: "query",
-        postStr: postStr,
+        postStr: JSON.stringify(postStr),
       },
     });
   }
 
-  // http://lbs.tianditu.gov.cn/server/search2.html
-  // public async search2(postStr) {}
-
-  // http://lbs.tianditu.gov.cn/server/drive.html
-  public async drive(postStr: {
-    orig: string;
-    dest: string;
-    mid?: string;
-    style?: "0" | "1" | "2" | "3";
-  }) {
-    return await this.apiFetch("/driving", {
+  /** 驾车规划（官方 server/drive.html） */
+  public async drive(postStr: DrivePostStr) {
+    return await this.apiFetch<DriveResult>("/drive", {
       params: {
         tk: this.tk,
         type: "search",
-        postStr: postStr,
+        postStr: JSON.stringify(postStr),
       },
     });
   }
 
-  // http://lbs.tianditu.gov.cn/server/bus.html
-  public async busLine(postStr: { startPosition: string; endPosition: string; lineType: string }) {
-    return await this.apiFetch("/bus", {
+  /** 公交规划 / 公交 uuid 详情查询 / 站点返程查询（官方 server/bus.html） */
+  public async transit(postStr: TransitPostStr) {
+    return await this.apiFetch<TransitResult | TransitLineInfo | TransitBusStation>("/transit", {
       params: {
         tk: this.tk,
         type: "busline",
-        postStr: postStr,
+        postStr: JSON.stringify(postStr),
       },
     });
   }
 
-  // http://lbs.tianditu.gov.cn/server/geocodinginterface.html
-  public async geoCoding(ds: { keyWord: string }) {
-    return await this.apiFetch("/geocoder", {
+  /** 正向地理编码：地址转坐标（官方 server/geocodinginterface.html） */
+  public async geoCoding(ds: GeoCodingDs) {
+    return await this.apiFetch<GeoCodingResult>("/geocoder", {
       params: {
         tk: this.tk,
-        ds: ds,
+        ds: JSON.stringify(ds),
       },
     });
   }
 
-  // http://lbs.tianditu.gov.cn/server/geocoding.html
-  public async reverseGeoCoding(postStr: { lon: number; lat: number; ver?: number }) {
-    return await this.apiFetch("/geocoder", {
+  /** 逆地理编码：坐标转地址（官方 server/geocoding.html） */
+  public async reverseGeoCoding(postStr: ReverseGeoCodingPostStr) {
+    return await this.apiFetch<ReverseGeoCodingResult>("/geocoder", {
       params: {
         tk: this.tk,
         type: "geocode",
-        postStr: {
-          lon: postStr.lon,
-          lat: postStr.lat,
-          ver: postStr.ver || 1,
-        },
+        postStr: JSON.stringify({ ver: 1, ...postStr }),
       },
     });
   }
 
-  // http://lbs.tianditu.gov.cn/server/administrative.html
-  public async administrative(postStr: {
-    searchWord: string;
-    searchType?: "0" | "1";
-    needSubInfo?: boolean;
-    needAllInfo?: boolean;
-    needPolygon?: boolean;
-    needPre?: boolean;
-  }) {
-    return await this.apiFetch("/administrative", {
-      params: {
-        tk: this.tk,
-        postStr: postStr,
-      },
-    });
-  }
-
-  // http://lbs.tianditu.gov.cn/staticapi/static.html
-  public async staticImage(params: {
-    width?: number;
-    height?: number;
-    center?: string;
-    zoom?: number;
-    markers?: string;
-    markerStyles?: string;
-    paths?: string;
-    pathStyles?: string;
-    layers?: string;
-    pixLocation?: string;
-  }) {
-    return await this.apiFetch("/staticimage", {
+  /** 行政区划 V2.0（官方 server/administrative2.html） */
+  public async administrative(params: AdministrativeParams) {
+    return await this.apiFetch<AdministrativeResult>("/v2/administrative", {
       params: {
         tk: this.tk,
         ...params,
       },
     });
+  }
+
+  /**
+   * 静态地图 URL（官方 staticapi/static.html）：服务返回 PNG 图片本体，
+   * 此处只构造 URL，直接用于 <img src>，不做请求。
+   */
+  public staticImage(params: StaticImageParams = {}) {
+    const search = new URLSearchParams({
+      tk: this.tk,
+      ...Object.fromEntries(Object.entries(params).filter(([, value]) => value !== undefined)),
+    });
+    return `${this.baseURL}/staticimage?${search}`;
   }
 }
