@@ -28,7 +28,12 @@ export const TdtContextMenu = defineComponent({
             props: () => ({}),
             events: ["open", "close"],
             dispatch: (name, event) => emit(name as never, event),
-            create: () => new T.ContextMenu(),
+            // SDK 无参构造内部炸（读 options.width），必须传 options 对象
+            create: () => new T.ContextMenu({ width: 160 }),
+            // ContextMenu 不是常规 overlay：挂载走 map.addContextMenu；
+            // SDK 未提供卸载方法，销毁时仅停同步、解绑事件
+            attach: (instance, ctx) => ctx.map.addContextMenu(instance),
+            detach: () => {},
           },
         );
         menu.value = handle.instance;

@@ -1,3 +1,5 @@
+import { compact } from "@tianditu/core";
+
 import { defineToolComponent } from "./defineToolComponent";
 
 export interface PaintBrushToolProps {
@@ -18,12 +20,15 @@ export const TdtPaintBrushTool = defineToolComponent<PaintBrushToolProps>({
     opacity: { type: Number, default: undefined },
   },
   create: (props, map) =>
-    new T.PaintBrushTool(map, {
-      keepdrawing: props.keepdrawing,
-      style: {
-        color: props.color,
-        weight: props.weight,
-        opacity: props.opacity,
-      },
-    }),
+    new T.PaintBrushTool(
+      map,
+      compact({
+        keepdrawing: props.keepdrawing,
+        style: {
+          color: props.color,
+          weight: props.weight,
+          opacity: props.opacity,
+        },
+      }),
+    ),
 });

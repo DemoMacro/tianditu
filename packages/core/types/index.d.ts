@@ -1,6 +1,5 @@
 import "./base";
 import "./control";
-import "./extra";
 import "./layer";
 import "./map";
 import "./militarySymbols";

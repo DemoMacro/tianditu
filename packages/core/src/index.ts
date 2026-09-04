@@ -2,6 +2,7 @@
 import type {} from "../types/index.d.ts";
 
 export { EventBridge, bindEventNames, type EventTargetLike } from "./events";
+export { compact } from "./compact";
 export { getTdt, isTdtLoaded, loadTdt, type LoadTdtOptions } from "./loader";
 export { createAttachable, type Attachable, type AttachContext } from "./attach";
 export {
@@ -27,4 +28,3 @@ export {
 } from "./infoWindow";
 export { mountTool, type ToolLike, type ToolSession } from "./tools";
 export { mountTileLayer, TILE_LAYER_EVENT_NAMES } from "./layer";
-export { mountCarTrack, type CarTrackSession, type CarTrackSpec } from "./carTrack";

@@ -1,3 +1,4 @@
+import { compact } from "./compact";
 import { bindEventNames } from "./events";
 import { toLngLat } from "./session";
 
@@ -17,6 +18,8 @@ export interface InfoWindowSpec {
   autoPan?: boolean;
   closeButton?: boolean;
   offset?: T.Point;
+  autoPanPadding?: T.Point;
+  closeOnClick?: boolean;
 }
 
 export type InfoWindowHost = T.Map | T.Marker;
@@ -41,14 +44,21 @@ export function createInfoWindow(
 ): InfoWindowHandle {
   const container =
     spec.content instanceof HTMLElement ? spec.content : document.createElement("div");
-  const win = new T.InfoWindow(container, {
-    minWidth: spec.minWidth,
-    maxWidth: spec.maxWidth,
-    maxHeight: spec.maxHeight,
-    autoPan: spec.autoPan,
-    closeButton: spec.closeButton,
-    offset: spec.offset,
-  });
+  // SDK setOptions 会把显式 undefined 字段覆盖到内部缺省值上（如 offset），
+  // 随后 open 时内部读缺省字段报错，因此构造前剔除 undefined 字段
+  const win = new T.InfoWindow(
+    container,
+    compact({
+      minWidth: spec.minWidth,
+      maxWidth: spec.maxWidth,
+      maxHeight: spec.maxHeight,
+      autoPan: spec.autoPan,
+      closeButton: spec.closeButton,
+      offset: spec.offset,
+      autoPanPadding: spec.autoPanPadding,
+      closeOnClick: spec.closeOnClick,
+    }),
+  );
   const unbind = bindEventNames(win, INFO_WINDOW_EVENT_NAMES, (name, event) =>
     dispatch(name as (typeof INFO_WINDOW_EVENT_NAMES)[number], event),
   );

@@ -1,3 +1,5 @@
+import { compact } from "@tianditu/core";
+
 import { controlPositionProp, defineControlComponent } from "./defineControlComponent";
 
 export interface ControlScaleProps {
@@ -12,7 +14,7 @@ export const TdtControlScale = defineControlComponent<ControlScaleProps>({
     color: { type: String, default: undefined },
   },
   create: (props) => {
-    const control = new T.Control.Scale({ position: props.position });
+    const control = new T.Control.Scale(compact({ position: props.position }));
     if (props.color !== undefined) {
       control.setColor(props.color);
     }

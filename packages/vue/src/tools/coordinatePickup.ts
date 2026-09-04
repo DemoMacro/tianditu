@@ -1,3 +1,5 @@
+import { compact } from "@tianditu/core";
+
 import { defineToolComponent } from "./defineToolComponent";
 
 export interface CoordinatePickupProps {
@@ -11,7 +13,7 @@ export const TdtCoordinatePickup = defineToolComponent<CoordinatePickupProps>({
   props: {
     anchor: { type: String, default: undefined },
   },
-  create: (props, map) => new T.CoordinatePickup(map, { anchor: props.anchor }),
+  create: (props, map) => new T.CoordinatePickup(map, compact({ anchor: props.anchor })),
   activate: (tool) => tool.addEvent?.(),
   deactivate: (tool) => tool.removeEvent?.(),
 });

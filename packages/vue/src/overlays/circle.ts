@@ -1,3 +1,5 @@
+import { compact } from "@tianditu/core";
+
 import { defineOverlayComponent } from "../defineOverlayComponent";
 import { toLngLatProp } from "./utils";
 
@@ -25,13 +27,17 @@ export const TdtCircle = defineOverlayComponent<CircleProps, T.Circle>({
   },
   events: ["click", "dblclick", "mousedown", "mouseup", "mouseover", "mouseout"] as const,
   create(props) {
-    const circle = new T.Circle(toLngLatProp(props.center), props.radius, {
-      color: props.color,
-      weight: props.weight,
-      opacity: props.opacity,
-      fillColor: props.fillColor,
-      fillOpacity: props.fillOpacity,
-    });
+    const circle = new T.Circle(
+      toLngLatProp(props.center),
+      props.radius,
+      compact({
+        color: props.color,
+        weight: props.weight,
+        opacity: props.opacity,
+        fillColor: props.fillColor,
+        fillOpacity: props.fillOpacity,
+      }),
+    );
     return circle;
   },
   sync: {

@@ -1,3 +1,5 @@
+import { compact } from "@tianditu/core";
+
 import { defineOverlayComponent } from "../defineOverlayComponent";
 import { toLngLatsProp } from "./utils";
 
@@ -28,12 +30,15 @@ export const TdtPolyline = defineOverlayComponent<PolylineProps, T.Polyline>({
   },
   events: ["click", "dblclick", "mousedown", "mouseup", "mouseover", "mouseout"] as const,
   create(props) {
-    const polyline = new T.Polyline(toLngLatsProp(props.path), {
-      color: props.color,
-      weight: props.weight,
-      opacity: props.opacity,
-      lineStyle: props.lineStyle,
-    });
+    const polyline = new T.Polyline(
+      toLngLatsProp(props.path),
+      compact({
+        color: props.color,
+        weight: props.weight,
+        opacity: props.opacity,
+        lineStyle: props.lineStyle,
+      }),
+    );
     return polyline;
   },
   sync: {

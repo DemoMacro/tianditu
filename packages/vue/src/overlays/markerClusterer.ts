@@ -1,3 +1,4 @@
+import { compact } from "@tianditu/core";
 import { provide } from "vue";
 
 import { CLUSTER_KEY } from "../context";
@@ -31,11 +32,14 @@ export const TdtMarkerCluster = defineOverlayComponent<MarkerClusterProps, T.Mar
     });
   },
   create(props, { map }) {
-    return new T.MarkerClusterer(map, {
-      girdSize: props.gridSize,
-      maxZoom: props.maxZoom,
-      styles: props.styles,
-    });
+    return new T.MarkerClusterer(
+      map,
+      compact({
+        girdSize: props.gridSize,
+        maxZoom: props.maxZoom,
+        styles: props.styles,
+      }),
+    );
   },
   sync: {
     gridSize: (cluster, value) => {

@@ -1,3 +1,4 @@
+import { compact } from "@tianditu/core";
 import { type PropType } from "vue";
 
 import { controlPositionProp, defineControlComponent } from "./defineControlComponent";
@@ -18,8 +19,10 @@ export const TdtControlMapType = defineControlComponent<ControlMapTypeProps>({
     },
   },
   create: (props) =>
-    new T.Control.MapType({
-      position: props.position,
-      mapTypes: props.mapTypes,
-    }),
+    new T.Control.MapType(
+      compact({
+        position: props.position,
+        mapTypes: props.mapTypes,
+      }),
+    ),
 });

@@ -13,6 +13,7 @@ import {
   provide,
   ref,
   shallowRef,
+  watch,
   type PropType,
 } from "vue";
 
@@ -83,6 +84,26 @@ export const TdtMap = defineComponent({
     const context: MapContext = { map, ready };
     provide(MAP_KEY, context);
 
+    // zoom/center 的响应式同步：地图就绪前变更由初始化吸收，就绪后直发 SDK
+    watch(
+      () => props.zoom,
+      (value) => {
+        if (map.value) {
+          map.value.setZoom(value);
+        }
+      },
+    );
+    watch(
+      () => props.center,
+      (value) => {
+        // SDK 无 setCenter，以当前级别 centerAndZoom 实现仅改中心；
+        // 此时 SDK 必已加载完成（map 就绪是 loadTdt 之后的信号）
+        if (map.value && value) {
+          map.value.centerAndZoom(toLngLat(value), map.value.getZoom());
+        }
+      },
+    );
+
     onMounted(async () => {
       const created = await createMapSession(el.value!, {
         tk: props.tk,
@@ -90,7 +111,9 @@ export const TdtMap = defineComponent({
         minZoom: props.minZoom,
         maxZoom: props.maxZoom,
         maxBounds: props.limitBounds,
-        center: toLngLat(props.center ?? [116.404, 39.915]),
+        // center 保持数组直传：SDK 值（T.LngLat）构造必须发生在 loadTdt 完成后，
+        // 由 createMapSession 内部转换，组件 setup/mounted 同步段不得触碰全局 T
+        center: props.center ?? [116.404, 39.915],
         zoom: props.zoom,
       });
       session.value = created;

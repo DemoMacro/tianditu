@@ -2,12 +2,21 @@ export {};
 
 declare global {
   namespace T {
+    interface ContextMenuOptions {
+      /** 菜单宽度（像素） */
+      width?: number;
+    }
+
     /**
      * 右键菜单
      */
     class ContextMenu {
-      /** 创建一个右键菜单实例 */
-      constructor();
+      /**
+       * 创建一个右键菜单实例。
+       * SDK 实现不判空：无参调用会在内部读 options.width 报错，
+       * 调用时至少传入一个 options 对象。
+       */
+      constructor(options?: ContextMenuOptions);
       /** 添加菜单项 */
       addItem(item: MenuItem): void;
       /** 返回指定索引位置的菜单项，第一个菜单项的索引为 0 */
@@ -20,8 +29,8 @@ declare global {
       removeSeparator(index: number): void;
       /** 返回所有菜单项 */
       getItems(): MenuItem[];
-      /** 返回所有分割线（官方拼写即为 getAllSeparato） */
-      getAllSeparato(): unknown[];
+      /** 返回所有分割线 */
+      getAllSeparator(): unknown[];
       /** 添加事件监听函数 */
       addEventListener<E extends keyof ContextMenuEvents>(
         event: E,

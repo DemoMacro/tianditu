@@ -1,7 +1,8 @@
 import {
+  TILE_LAYER_EVENT_NAMES,
+  compact,
   createPropsSync,
   mountTileLayer,
-  TILE_LAYER_EVENT_NAMES,
   type SyncDef,
 } from "@tianditu/core";
 import {
@@ -99,12 +100,15 @@ export const TdtTileLayer = createTileLayerComponent<TileLayerProps>({
   name: "TdtTileLayer",
   props: tileLayerProps(),
   create: (props) =>
-    new T.TileLayer(props.url, {
-      minZoom: props.minZoom,
-      maxZoom: props.maxZoom,
-      opacity: props.opacity,
-      zIndex: props.zIndex,
-    }),
+    new T.TileLayer(
+      props.url,
+      compact({
+        minZoom: props.minZoom,
+        maxZoom: props.maxZoom,
+        opacity: props.opacity,
+        zIndex: props.zIndex,
+      }),
+    ),
 });
 
 export interface TileLayerWMSProps extends TileLayerProps {
@@ -132,16 +136,19 @@ export const TdtTileLayerWMS = createTileLayerComponent<TileLayerWMSProps>({
     srs: { type: String, default: undefined },
   },
   create: (props) =>
-    new T.TileLayerWMS(props.url, {
-      minZoom: props.minZoom,
-      maxZoom: props.maxZoom,
-      opacity: props.opacity,
-      zIndex: props.zIndex,
-      layers: props.layers,
-      styles: props.styles,
-      format: props.format,
-      transparent: props.transparent,
-      version: props.version,
-      srs: props.srs,
-    }),
+    new T.TileLayerWMS(
+      props.url,
+      compact({
+        minZoom: props.minZoom,
+        maxZoom: props.maxZoom,
+        opacity: props.opacity,
+        zIndex: props.zIndex,
+        layers: props.layers,
+        styles: props.styles,
+        format: props.format,
+        transparent: props.transparent,
+        version: props.version,
+        srs: props.srs,
+      }),
+    ),
 });

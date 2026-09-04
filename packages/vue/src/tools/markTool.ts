@@ -1,3 +1,5 @@
+import { compact } from "@tianditu/core";
+
 import { defineToolComponent } from "./defineToolComponent";
 
 export interface MarkToolProps {
@@ -15,8 +17,11 @@ export const TdtMarkTool = defineToolComponent<MarkToolProps>({
   },
   events: ["mouseup"] as const,
   create: (props, map) =>
-    new T.MarkTool(map, {
-      icon: props.icon,
-      follow: props.follow,
-    }),
+    new T.MarkTool(
+      map,
+      compact({
+        icon: props.icon,
+        follow: props.follow,
+      }),
+    ),
 });

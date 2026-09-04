@@ -1,3 +1,4 @@
+import { compact } from "@tianditu/core";
 import { inject, shallowRef, watch } from "vue";
 
 import { MAP_KEY } from "../context";
@@ -18,14 +19,17 @@ export function useBusLineSearch() {
       if (!current || searcher.value) {
         return;
       }
-      searcher.value = new T.BusLineSearch(current, {
-        onGetBusListComplete: (result) => {
-          busList.value = result;
-        },
-        onGetBusLineComplete: (result) => {
-          busLine.value = result;
-        },
-      });
+      searcher.value = new T.BusLineSearch(
+        current,
+        compact({
+          onGetBusListComplete: (result) => {
+            busList.value = result;
+          },
+          onGetBusLineComplete: (result) => {
+            busLine.value = result;
+          },
+        }),
+      );
     },
     { immediate: true },
   );

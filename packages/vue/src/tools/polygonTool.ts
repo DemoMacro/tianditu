@@ -1,3 +1,5 @@
+import { compact } from "@tianditu/core";
+
 import { lineStyleProps } from "../overlays/polyline";
 import { defineToolComponent } from "./defineToolComponent";
 
@@ -18,11 +20,14 @@ export const TdtPolygonTool = defineToolComponent<PolygonToolProps>({
   },
   events: ["draw", "addpoint"] as const,
   create: (props, map) =>
-    new T.PolygonTool(map, {
-      showLabel: props.showLabel,
-      color: props.color,
-      weight: props.weight,
-      opacity: props.opacity,
-      lineStyle: props.lineStyle,
-    }),
+    new T.PolygonTool(
+      map,
+      compact({
+        showLabel: props.showLabel,
+        color: props.color,
+        weight: props.weight,
+        opacity: props.opacity,
+        lineStyle: props.lineStyle,
+      }),
+    ),
 });

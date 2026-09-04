@@ -54,7 +54,11 @@ export function mountOverlay<P extends object, O>(
 
   attach(instance, ctx);
   const unbind = bindEventNames(instance, spec.events ?? [], spec.dispatch);
-  const stopSync = spec.sync ? createPropsSync(() => instance, spec.props, spec.sync) : undefined;
+  // 实例由 create 携带全部 props 构造，首轮全量同步是冗余的，
+  // 且会触发 SDK 部分 setter（如 setLngLat）的内部缺陷
+  const stopSync = spec.sync
+    ? createPropsSync(() => instance, spec.props, spec.sync, { skipInitialApply: true })
+    : undefined;
 
   return {
     instance,

@@ -1,3 +1,5 @@
+import { compact } from "@tianditu/core";
+
 import { defineToolComponent } from "./defineToolComponent";
 
 export interface RectangleToolProps {
@@ -21,12 +23,15 @@ export const TdtRectangleTool = defineToolComponent<RectangleToolProps>({
   },
   events: ["draw"] as const,
   create: (props, map) =>
-    new T.RectangleTool(map, {
-      color: props.color,
-      weight: props.weight,
-      opacity: props.opacity,
-      fillColor: props.fillColor,
-      fillOpacity: props.fillOpacity,
-      lineStyle: props.lineStyle,
-    }),
+    new T.RectangleTool(
+      map,
+      compact({
+        color: props.color,
+        weight: props.weight,
+        opacity: props.opacity,
+        fillColor: props.fillColor,
+        fillOpacity: props.fillOpacity,
+        lineStyle: props.lineStyle,
+      }),
+    ),
 });

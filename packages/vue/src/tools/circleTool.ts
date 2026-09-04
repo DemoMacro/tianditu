@@ -1,3 +1,5 @@
+import { compact } from "@tianditu/core";
+
 import { defineToolComponent } from "./defineToolComponent";
 
 export interface CircleToolProps {
@@ -21,12 +23,15 @@ export const TdtCircleTool = defineToolComponent<CircleToolProps>({
   },
   events: ["draw", "drawend"] as const,
   create: (props, map) =>
-    new T.CircleTool(map, {
-      color: props.color,
-      weight: props.weight,
-      opacity: props.opacity,
-      fillColor: props.fillColor,
-      fillOpacity: props.fillOpacity,
-      lineStyle: props.lineStyle,
-    }),
+    new T.CircleTool(
+      map,
+      compact({
+        color: props.color,
+        weight: props.weight,
+        opacity: props.opacity,
+        fillColor: props.fillColor,
+        fillOpacity: props.fillOpacity,
+        lineStyle: props.lineStyle,
+      }),
+    ),
 });

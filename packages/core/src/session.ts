@@ -1,3 +1,4 @@
+import { compact } from "./compact";
 import { EventBridge } from "./events";
 import { loadTdt } from "./loader";
 
@@ -34,14 +35,22 @@ export async function createMapSession(
 ): Promise<MapSession> {
   await loadTdt({ tk: options.tk, version: options.version, baseURL: options.baseURL });
 
-  const map = new T.Map(el, {
-    projection: options.projection,
-    minZoom: options.minZoom,
-    maxZoom: options.maxZoom,
-    maxBounds: options.maxBounds,
-    center: options.center ? toLngLat(options.center) : undefined,
-    zoom: options.zoom,
-  });
+  const center = toLngLat(options.center ?? [116.404, 39.915]);
+  const zoom = options.zoom ?? 12;
+  const map = new T.Map(
+    el,
+    compact({
+      projection: options.projection,
+      minZoom: options.minZoom,
+      maxZoom: options.maxZoom,
+      maxBounds: options.maxBounds,
+      center,
+      zoom,
+    }),
+  );
+  // 官方约定：new T.Map 后必须显式 centerAndZoom 完成初始化，
+  // 否则地图未就绪，addControl 等操作会直接报错。
+  map.centerAndZoom(center, zoom);
   const events = new EventBridge<T.MapEvents>(map);
 
   return {

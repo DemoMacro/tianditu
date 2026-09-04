@@ -3,51 +3,87 @@ body,
 #app {
   height: 100%;
   margin: 0;
+  font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
 }
 
-.layout {
-  display: flex;
-  height: 100%;
-}
-
-.map {
-  flex: 1;
-}
-
+/* 官方示例风格：左侧 zTree 式功能列表与地图并排 */
 .panel {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 260px;
-  padding: 16px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 999;
+  width: 230px;
+  padding: 10px 5px;
   overflow: auto;
+  font-size: 12px;
+  color: #333;
   box-sizing: border-box;
+  background: #fff;
+  border-right: 1px solid #e5e5e5;
 }
 
 .panel h1 {
-  font-size: 16px;
+  margin: 4px 8px 10px;
+  font-size: 15px;
+  color: #595858;
+}
+
+.panel .desc {
+  margin: 0 8px 10px;
+  font-size: 12px;
+  color: #999;
+  line-height: 1.7;
+}
+
+.panel .group {
   margin: 0;
+  padding: 6px 8px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #595858;
+  line-height: 16px;
 }
 
-.panel button {
-  text-align: left;
-  padding: 6px 10px;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  background: #fff;
-  cursor: pointer;
-}
-
-.panel button:hover {
-  background: #f3f4f6;
-}
-
-.result {
+.panel .item {
+  display: block;
+  padding: 3px 8px 3px 26px;
   font-size: 13px;
-  color: #374151;
-  margin: 0;
+  color: #595858;
+  line-height: 17px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.panel .item:hover {
+  color: #1a6fb5;
+}
+
+.panel .item.active {
+  background: #ffe6b0;
+  border: 1px solid #ffb951;
+  color: #000;
+  opacity: 0.8;
+}
+
+.panel .status {
+  margin: 10px 8px 0;
+  font-size: 12px;
+  color: #999;
+}
+
+.panel .result {
+  margin: 8px;
+  padding: 6px;
+  font-size: 12px;
+  color: #595858;
+  line-height: 1.6;
+  word-break: break-all;
+  background: #f7f7f7;
 }
 
 .win {
   padding: 4px;
+  font-size: 13px;
+  line-height: 1.6;
 }

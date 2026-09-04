@@ -1,3 +1,5 @@
+import { compact } from "@tianditu/core";
+
 import { controlPositionProp, defineControlComponent } from "./defineControlComponent";
 
 export interface ControlCopyrightProps {
@@ -16,9 +18,11 @@ export const TdtControlCopyright = defineControlComponent<ControlCopyrightProps>
     content: { type: String, default: undefined },
   },
   create: (props) =>
-    new T.Control.Copyright({
-      position: props.position,
-      id: props.id,
-      content: props.content,
-    }),
+    new T.Control.Copyright(
+      compact({
+        position: props.position,
+        id: props.id,
+        content: props.content,
+      }),
+    ),
 });

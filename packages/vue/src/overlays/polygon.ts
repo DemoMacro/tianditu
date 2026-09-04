@@ -1,3 +1,5 @@
+import { compact } from "@tianditu/core";
+
 import { defineOverlayComponent } from "../defineOverlayComponent";
 import { lineStyleProps, type LineStyleProps } from "./polyline";
 import { toLngLatsProp } from "./utils";
@@ -18,14 +20,17 @@ export const TdtPolygon = defineOverlayComponent<PolygonProps, T.Polygon>({
   },
   events: ["click", "dblclick", "mousedown", "mouseup", "mouseover", "mouseout"] as const,
   create(props) {
-    const polygon = new T.Polygon(toLngLatsProp(props.path), {
-      color: props.color,
-      weight: props.weight,
-      opacity: props.opacity,
-      lineStyle: props.lineStyle,
-      fillColor: props.fillColor,
-      fillOpacity: props.fillOpacity,
-    });
+    const polygon = new T.Polygon(
+      toLngLatsProp(props.path),
+      compact({
+        color: props.color,
+        weight: props.weight,
+        opacity: props.opacity,
+        lineStyle: props.lineStyle,
+        fillColor: props.fillColor,
+        fillOpacity: props.fillOpacity,
+      }),
+    );
     return polygon;
   },
   sync: {

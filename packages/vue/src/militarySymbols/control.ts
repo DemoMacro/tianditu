@@ -1,3 +1,5 @@
+import { compact } from "@tianditu/core";
+
 import { controlPositionProp, defineControlComponent } from "../controls/defineControlComponent";
 
 /** 标绘控件（官方 Control.militarySymbols）：地图上加载标绘工具条 */
@@ -6,5 +8,5 @@ export const TdtControlMilitarySymbols = defineControlComponent<{
 }>({
   name: "TdtControlMilitarySymbols",
   props: { ...controlPositionProp },
-  create: (props) => new T.ControlMilitarySymbols({ position: props.position }),
+  create: (props) => new T.Control.militarySymbols(compact({ position: props.position })),
 });

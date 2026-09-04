@@ -1,3 +1,4 @@
+import { compact } from "@tianditu/core";
 import { type PropType } from "vue";
 
 import { controlPositionProp, defineControlComponent } from "./defineControlComponent";
@@ -21,9 +22,11 @@ export const TdtControlOverviewMap = defineControlComponent<ControlOverviewMapPr
     isOpen: { type: Boolean, default: undefined },
   },
   create: (props) =>
-    new T.Control.OverviewMap({
-      anchor: props.position,
-      size: props.size ? new T.Point(props.size[0], props.size[1]) : undefined,
-      isOpen: props.isOpen,
-    }),
+    new T.Control.OverviewMap(
+      compact({
+        anchor: props.position,
+        size: props.size ? new T.Point(props.size[0], props.size[1]) : undefined,
+        isOpen: props.isOpen,
+      }),
+    ),
 });

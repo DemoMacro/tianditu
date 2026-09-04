@@ -11,6 +11,8 @@ declare global {
       static Copyright: typeof ControlCopyright;
       static OverviewMap: typeof ControlOverviewMap;
       static MapType: typeof ControlMapType;
+      /** 标绘工具条（官方命名 Control.militarySymbols，末段即为小写） */
+      static militarySymbols: typeof ControlMilitarySymbols;
 
       constructor(opts?: ControlOptions);
       /**

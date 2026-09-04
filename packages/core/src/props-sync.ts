@@ -13,15 +13,18 @@ export type SyncDef<T, P> = {
 /**
  * 跟踪 target 与 props 两个响应式源：props 变化时按 key 浅比较后调用对应
  * setter；首次执行或 target 就绪（从未就绪变为就绪）时对所有 key 做一次
- * 全量应用。返回 stop 函数，由适配层在卸载时调用。
+ * 全量应用（skipInitialApply 为 true 时跳过，适用于构造时已携带全部
+ * props 的实例，避免冗余 setter 调用）。返回 stop 函数，由适配层在卸载时调用。
  */
 export function createPropsSync<T, P extends object>(
   target: () => T | undefined,
   props: () => P,
   defs: SyncDef<T, P>,
+  options?: { skipInitialApply?: boolean },
 ): () => void {
   let prevTarget: T | undefined;
   let prevProps: P | undefined;
+  let initialDone = !options?.skipInitialApply;
 
   const runner = effect(() => {
     const nextTarget = target();
@@ -33,8 +36,12 @@ export function createPropsSync<T, P extends object>(
       return;
     }
 
-    // target 首次就绪时全量应用，此后走 diff
-    const fullApply = !prevTarget;
+    // target 首次就绪时全量应用，此后走 diff；skipInitialApply 的首轮仅
+    // 记录基线，不触发任何 setter
+    const firstReady = !prevTarget;
+    const fullApply = firstReady && initialDone;
+    const skipApply = firstReady && !initialDone;
+    initialDone = true;
     for (const key in defs) {
       const apply = defs[key];
       if (!apply) {
@@ -42,6 +49,9 @@ export function createPropsSync<T, P extends object>(
       }
       const value = next[key];
       const prev = prevProps?.[key];
+      if (skipApply) {
+        continue;
+      }
       if (fullApply || !Object.is(value, prev)) {
         apply(nextTarget, value, prev);
       }

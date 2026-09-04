@@ -1,3 +1,5 @@
+import { compact } from "@tianditu/core";
+
 import { defineOverlayComponent } from "../defineOverlayComponent";
 import { toLngLatsProp } from "../overlays/utils";
 
@@ -42,12 +44,15 @@ export const TdtArc = defineOverlayComponent<MilitaryEntityProps, T.Arc>({
     ...lineStyleProp,
   },
   create: (props) =>
-    new T.Arc(toLngLatsProp(props.path), {
-      color: props.color,
-      weight: props.weight,
-      opacity: props.opacity,
-      lineStyle: props.lineStyle,
-    }),
+    new T.Arc(
+      toLngLatsProp(props.path),
+      compact({
+        color: props.color,
+        weight: props.weight,
+        opacity: props.opacity,
+        lineStyle: props.lineStyle,
+      }),
+    ),
   sync: lineSync,
 });
 
@@ -61,12 +66,15 @@ export const TdtBezierCurve2 = defineOverlayComponent<MilitaryEntityProps, T.Bez
     ...lineStyleProp,
   },
   create: (props) =>
-    new T.BezierCurve2(toLngLatsProp(props.path), {
-      color: props.color,
-      weight: props.weight,
-      opacity: props.opacity,
-      lineStyle: props.lineStyle,
-    }),
+    new T.BezierCurve2(
+      toLngLatsProp(props.path),
+      compact({
+        color: props.color,
+        weight: props.weight,
+        opacity: props.opacity,
+        lineStyle: props.lineStyle,
+      }),
+    ),
   sync: lineSync,
 });
 
@@ -80,12 +88,15 @@ export const TdtBezierCurve3 = defineOverlayComponent<MilitaryEntityProps, T.Bez
     ...lineStyleProp,
   },
   create: (props) =>
-    new T.BezierCurve3(toLngLatsProp(props.path), {
-      color: props.color,
-      weight: props.weight,
-      opacity: props.opacity,
-      lineStyle: props.lineStyle,
-    }),
+    new T.BezierCurve3(
+      toLngLatsProp(props.path),
+      compact({
+        color: props.color,
+        weight: props.weight,
+        opacity: props.opacity,
+        lineStyle: props.lineStyle,
+      }),
+    ),
   sync: lineSync,
 });
 
@@ -99,12 +110,15 @@ export const TdtBezierCurveArrow = defineOverlayComponent<MilitaryEntityProps, T
     ...lineStyleProp,
   },
   create: (props) =>
-    new T.BezierCurveArrow(toLngLatsProp(props.path), {
-      color: props.color,
-      weight: props.weight,
-      opacity: props.opacity,
-      lineStyle: props.lineStyle,
-    }),
+    new T.BezierCurveArrow(
+      toLngLatsProp(props.path),
+      compact({
+        color: props.color,
+        weight: props.weight,
+        opacity: props.opacity,
+        lineStyle: props.lineStyle,
+      }),
+    ),
   sync: lineSync,
 });
 
@@ -118,12 +132,15 @@ export const TdtBezierCurveN = defineOverlayComponent<MilitaryEntityProps, T.Bez
     ...lineStyleProp,
   },
   create: (props) =>
-    new T.BezierCurveN(toLngLatsProp(props.path), {
-      color: props.color,
-      weight: props.weight,
-      opacity: props.opacity,
-      lineStyle: props.lineStyle,
-    }),
+    new T.BezierCurveN(
+      toLngLatsProp(props.path),
+      compact({
+        color: props.color,
+        weight: props.weight,
+        opacity: props.opacity,
+        lineStyle: props.lineStyle,
+      }),
+    ),
   sync: lineSync,
 });
 
@@ -137,12 +154,15 @@ export const TdtCardinalCurve = defineOverlayComponent<MilitaryEntityProps, T.Ca
     ...lineStyleProp,
   },
   create: (props) =>
-    new T.CardinalCurve(toLngLatsProp(props.path), {
-      color: props.color,
-      weight: props.weight,
-      opacity: props.opacity,
-      lineStyle: props.lineStyle,
-    }),
+    new T.CardinalCurve(
+      toLngLatsProp(props.path),
+      compact({
+        color: props.color,
+        weight: props.weight,
+        opacity: props.opacity,
+        lineStyle: props.lineStyle,
+      }),
+    ),
   sync: lineSync,
 });
 
@@ -159,12 +179,15 @@ export const TdtCardinalCurveArrow = defineOverlayComponent<
     ...lineStyleProp,
   },
   create: (props) =>
-    new T.CardinalCurveArrow(toLngLatsProp(props.path), {
-      color: props.color,
-      weight: props.weight,
-      opacity: props.opacity,
-      lineStyle: props.lineStyle,
-    }),
+    new T.CardinalCurveArrow(
+      toLngLatsProp(props.path),
+      compact({
+        color: props.color,
+        weight: props.weight,
+        opacity: props.opacity,
+        lineStyle: props.lineStyle,
+      }),
+    ),
   sync: lineSync,
 });
 
@@ -180,14 +203,17 @@ export const TdtCloseCurve = defineOverlayComponent<MilitaryEntityProps, T.Close
     ...fillOpacityProp,
   },
   create: (props) =>
-    new T.CloseCurve(toLngLatsProp(props.path), {
-      color: props.color,
-      weight: props.weight,
-      opacity: props.opacity,
-      lineStyle: props.lineStyle,
-      fillColor: props.fillColor,
-      fillOpacity: props.fillOpacity,
-    }),
+    new T.CloseCurve(
+      toLngLatsProp(props.path),
+      compact({
+        color: props.color,
+        weight: props.weight,
+        opacity: props.opacity,
+        lineStyle: props.lineStyle,
+        fillColor: props.fillColor,
+        fillOpacity: props.fillOpacity,
+      }),
+    ),
   sync: lineSync,
 });
 
@@ -203,14 +229,17 @@ export const TdtCurveFlag = defineOverlayComponent<MilitaryEntityProps, T.CurveF
     ...fillOpacityProp,
   },
   create: (props) =>
-    new T.CurveFlag(toLngLatsProp(props.path), {
-      color: props.color,
-      weight: props.weight,
-      opacity: props.opacity,
-      lineStyle: props.lineStyle,
-      fillColor: props.fillColor,
-      fillOpacity: props.fillOpacity,
-    }),
+    new T.CurveFlag(
+      toLngLatsProp(props.path),
+      compact({
+        color: props.color,
+        weight: props.weight,
+        opacity: props.opacity,
+        lineStyle: props.lineStyle,
+        fillColor: props.fillColor,
+        fillOpacity: props.fillOpacity,
+      }),
+    ),
   sync: lineSync,
 });
 
@@ -226,14 +255,17 @@ export const TdtDiagonalArrow = defineOverlayComponent<MilitaryEntityProps, T.Di
     ...fillOpacityProp,
   },
   create: (props) =>
-    new T.DiagonalArrow(toLngLatsProp(props.path), {
-      color: props.color,
-      weight: props.weight,
-      opacity: props.opacity,
-      lineStyle: props.lineStyle,
-      fillColor: props.fillColor,
-      fillOpacity: props.fillOpacity,
-    }),
+    new T.DiagonalArrow(
+      toLngLatsProp(props.path),
+      compact({
+        color: props.color,
+        weight: props.weight,
+        opacity: props.opacity,
+        lineStyle: props.lineStyle,
+        fillColor: props.fillColor,
+        fillOpacity: props.fillOpacity,
+      }),
+    ),
   sync: lineSync,
 });
 
@@ -249,14 +281,17 @@ export const TdtDoubleArrow = defineOverlayComponent<MilitaryEntityProps, T.Doub
     ...fillOpacityProp,
   },
   create: (props) =>
-    new T.DoubleArrow(toLngLatsProp(props.path), {
-      color: props.color,
-      weight: props.weight,
-      opacity: props.opacity,
-      lineStyle: props.lineStyle,
-      fillColor: props.fillColor,
-      fillOpacity: props.fillOpacity,
-    }),
+    new T.DoubleArrow(
+      toLngLatsProp(props.path),
+      compact({
+        color: props.color,
+        weight: props.weight,
+        opacity: props.opacity,
+        lineStyle: props.lineStyle,
+        fillColor: props.fillColor,
+        fillOpacity: props.fillOpacity,
+      }),
+    ),
   sync: lineSync,
 });
 
@@ -275,14 +310,17 @@ export const TdtDoveTailDiagonalArrow = defineOverlayComponent<
     ...fillOpacityProp,
   },
   create: (props) =>
-    new T.DoveTailDiagonalArrow(toLngLatsProp(props.path), {
-      color: props.color,
-      weight: props.weight,
-      opacity: props.opacity,
-      lineStyle: props.lineStyle,
-      fillColor: props.fillColor,
-      fillOpacity: props.fillOpacity,
-    }),
+    new T.DoveTailDiagonalArrow(
+      toLngLatsProp(props.path),
+      compact({
+        color: props.color,
+        weight: props.weight,
+        opacity: props.opacity,
+        lineStyle: props.lineStyle,
+        fillColor: props.fillColor,
+        fillOpacity: props.fillOpacity,
+      }),
+    ),
   sync: lineSync,
 });
 
@@ -301,14 +339,17 @@ export const TdtDoveTailStraightArrow = defineOverlayComponent<
     ...fillOpacityProp,
   },
   create: (props) =>
-    new T.DoveTailStraightArrow(toLngLatsProp(props.path), {
-      color: props.color,
-      weight: props.weight,
-      opacity: props.opacity,
-      lineStyle: props.lineStyle,
-      fillColor: props.fillColor,
-      fillOpacity: props.fillOpacity,
-    }),
+    new T.DoveTailStraightArrow(
+      toLngLatsProp(props.path),
+      compact({
+        color: props.color,
+        weight: props.weight,
+        opacity: props.opacity,
+        lineStyle: props.lineStyle,
+        fillColor: props.fillColor,
+        fillOpacity: props.fillOpacity,
+      }),
+    ),
   sync: lineSync,
 });
 
@@ -324,14 +365,17 @@ export const TdtGatheringPlace = defineOverlayComponent<MilitaryEntityProps, T.G
     ...fillOpacityProp,
   },
   create: (props) =>
-    new T.GatheringPlace(toLngLatsProp(props.path), {
-      color: props.color,
-      weight: props.weight,
-      opacity: props.opacity,
-      lineStyle: props.lineStyle,
-      fillColor: props.fillColor,
-      fillOpacity: props.fillOpacity,
-    }),
+    new T.GatheringPlace(
+      toLngLatsProp(props.path),
+      compact({
+        color: props.color,
+        weight: props.weight,
+        opacity: props.opacity,
+        lineStyle: props.lineStyle,
+        fillColor: props.fillColor,
+        fillOpacity: props.fillOpacity,
+      }),
+    ),
   sync: lineSync,
 });
 
@@ -345,12 +389,15 @@ export const TdtParallelSearch = defineOverlayComponent<MilitaryEntityProps, T.P
     ...lineStyleProp,
   },
   create: (props) =>
-    new T.ParallelSearch(toLngLatsProp(props.path), {
-      color: props.color,
-      weight: props.weight,
-      opacity: props.opacity,
-      lineStyle: props.lineStyle,
-    }),
+    new T.ParallelSearch(
+      toLngLatsProp(props.path),
+      compact({
+        color: props.color,
+        weight: props.weight,
+        opacity: props.opacity,
+        lineStyle: props.lineStyle,
+      }),
+    ),
   sync: lineSync,
 });
 
@@ -364,12 +411,15 @@ export const TdtPolylineArrow = defineOverlayComponent<MilitaryEntityProps, T.Po
     ...lineStyleProp,
   },
   create: (props) =>
-    new T.PolylineArrow(toLngLatsProp(props.path), {
-      color: props.color,
-      weight: props.weight,
-      opacity: props.opacity,
-      lineStyle: props.lineStyle,
-    }),
+    new T.PolylineArrow(
+      toLngLatsProp(props.path),
+      compact({
+        color: props.color,
+        weight: props.weight,
+        opacity: props.opacity,
+        lineStyle: props.lineStyle,
+      }),
+    ),
   sync: lineSync,
 });
 
@@ -385,14 +435,17 @@ export const TdtRectFlag = defineOverlayComponent<MilitaryEntityProps, T.RectFla
     ...fillOpacityProp,
   },
   create: (props) =>
-    new T.RectFlag(toLngLatsProp(props.path), {
-      color: props.color,
-      weight: props.weight,
-      opacity: props.opacity,
-      lineStyle: props.lineStyle,
-      fillColor: props.fillColor,
-      fillOpacity: props.fillOpacity,
-    }),
+    new T.RectFlag(
+      toLngLatsProp(props.path),
+      compact({
+        color: props.color,
+        weight: props.weight,
+        opacity: props.opacity,
+        lineStyle: props.lineStyle,
+        fillColor: props.fillColor,
+        fillOpacity: props.fillOpacity,
+      }),
+    ),
   sync: lineSync,
 });
 
@@ -408,14 +461,17 @@ export const TdtRoundRect = defineOverlayComponent<MilitaryEntityProps, T.RoundR
     ...fillOpacityProp,
   },
   create: (props) =>
-    new T.RoundRect(toLngLatsProp(props.path), {
-      color: props.color,
-      weight: props.weight,
-      opacity: props.opacity,
-      lineStyle: props.lineStyle,
-      fillColor: props.fillColor,
-      fillOpacity: props.fillOpacity,
-    }),
+    new T.RoundRect(
+      toLngLatsProp(props.path),
+      compact({
+        color: props.color,
+        weight: props.weight,
+        opacity: props.opacity,
+        lineStyle: props.lineStyle,
+        fillColor: props.fillColor,
+        fillOpacity: props.fillOpacity,
+      }),
+    ),
   sync: lineSync,
 });
 
@@ -431,14 +487,17 @@ export const TdtSector = defineOverlayComponent<MilitaryEntityProps, T.Sector>({
     ...fillOpacityProp,
   },
   create: (props) =>
-    new T.Sector(toLngLatsProp(props.path), {
-      color: props.color,
-      weight: props.weight,
-      opacity: props.opacity,
-      lineStyle: props.lineStyle,
-      fillColor: props.fillColor,
-      fillOpacity: props.fillOpacity,
-    }),
+    new T.Sector(
+      toLngLatsProp(props.path),
+      compact({
+        color: props.color,
+        weight: props.weight,
+        opacity: props.opacity,
+        lineStyle: props.lineStyle,
+        fillColor: props.fillColor,
+        fillOpacity: props.fillOpacity,
+      }),
+    ),
   sync: lineSync,
 });
 
@@ -452,12 +511,15 @@ export const TdtSectorSearch = defineOverlayComponent<MilitaryEntityProps, T.Sec
     ...lineStyleProp,
   },
   create: (props) =>
-    new T.SectorSearch(toLngLatsProp(props.path), {
-      color: props.color,
-      weight: props.weight,
-      opacity: props.opacity,
-      lineStyle: props.lineStyle,
-    }),
+    new T.SectorSearch(
+      toLngLatsProp(props.path),
+      compact({
+        color: props.color,
+        weight: props.weight,
+        opacity: props.opacity,
+        lineStyle: props.lineStyle,
+      }),
+    ),
   sync: lineSync,
 });
 
@@ -473,14 +535,17 @@ export const TdtStraightArrow = defineOverlayComponent<MilitaryEntityProps, T.St
     ...fillOpacityProp,
   },
   create: (props) =>
-    new T.StraightArrow(toLngLatsProp(props.path), {
-      color: props.color,
-      weight: props.weight,
-      opacity: props.opacity,
-      lineStyle: props.lineStyle,
-      fillColor: props.fillColor,
-      fillOpacity: props.fillOpacity,
-    }),
+    new T.StraightArrow(
+      toLngLatsProp(props.path),
+      compact({
+        color: props.color,
+        weight: props.weight,
+        opacity: props.opacity,
+        lineStyle: props.lineStyle,
+        fillColor: props.fillColor,
+        fillOpacity: props.fillOpacity,
+      }),
+    ),
   sync: lineSync,
 });
 
@@ -496,13 +561,16 @@ export const TdtTriangleFlag = defineOverlayComponent<MilitaryEntityProps, T.Tri
     ...fillOpacityProp,
   },
   create: (props) =>
-    new T.TriangleFlag(toLngLatsProp(props.path), {
-      color: props.color,
-      weight: props.weight,
-      opacity: props.opacity,
-      lineStyle: props.lineStyle,
-      fillColor: props.fillColor,
-      fillOpacity: props.fillOpacity,
-    }),
+    new T.TriangleFlag(
+      toLngLatsProp(props.path),
+      compact({
+        color: props.color,
+        weight: props.weight,
+        opacity: props.opacity,
+        lineStyle: props.lineStyle,
+        fillColor: props.fillColor,
+        fillOpacity: props.fillOpacity,
+      }),
+    ),
   sync: lineSync,
 });

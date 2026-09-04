@@ -34,8 +34,6 @@ export { TdtMarkTool } from "./tools/markTool";
 export { TdtPaintBrushTool } from "./tools/paintBrushTool";
 export { TdtCoordinatePickup } from "./tools/coordinatePickup";
 
-export { TdtCarTrack } from "./carTrack";
-
 export * from "./militarySymbols";
 
 export { TdtTileLayer, TdtTileLayerWMS } from "./layer/tileLayer";

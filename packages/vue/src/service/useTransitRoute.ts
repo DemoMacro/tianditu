@@ -1,4 +1,4 @@
-import { toLngLat } from "@tianditu/core";
+import { compact, toLngLat } from "@tianditu/core";
 import { inject, shallowRef, watch } from "vue";
 
 import { MAP_KEY } from "../context";
@@ -18,12 +18,15 @@ export function useTransitRoute(policy: T.TransitRouteOptions["policy"]) {
       if (!current || router.value) {
         return;
       }
-      router.value = new T.TransitRoute(current, {
-        policy,
-        onSearchComplete: (result) => {
-          results.value = result;
-        },
-      });
+      router.value = new T.TransitRoute(
+        current,
+        compact({
+          policy,
+          onSearchComplete: (result) => {
+            results.value = result;
+          },
+        }),
+      );
     },
     { immediate: true },
   );

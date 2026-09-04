@@ -1,4 +1,4 @@
-import { toLngLat } from "@tianditu/core";
+import { compact, toLngLat } from "@tianditu/core";
 
 import { defineOverlayComponent } from "../defineOverlayComponent";
 import { toLngLatProp } from "./utils";
@@ -33,12 +33,15 @@ export const TdtMarker = defineOverlayComponent<MarkerProps, T.Marker>({
   ] as const,
   // 挂载/卸载走 core 缺省编排：collector 存在时加入聚合，否则 addOverLay
   create: (props) =>
-    new T.Marker(toLngLat(props.lnglat), {
-      draggable: props.draggable,
-      title: props.title,
-      zIndexOffset: props.zIndexOffset,
-      opacity: props.opacity,
-    }),
+    new T.Marker(
+      toLngLat(props.lnglat),
+      compact({
+        draggable: props.draggable,
+        title: props.title,
+        zIndexOffset: props.zIndexOffset,
+        opacity: props.opacity,
+      }),
+    ),
   sync: {
     lnglat: (marker, value) => marker.setLngLat(toLngLatProp(value)),
     draggable: (marker, value) =>

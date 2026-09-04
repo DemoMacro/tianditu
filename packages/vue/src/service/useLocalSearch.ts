@@ -1,4 +1,4 @@
-import { toLngLat } from "@tianditu/core";
+import { compact, toLngLat } from "@tianditu/core";
 import { inject, shallowRef, watch, type ShallowRef } from "vue";
 
 import { MAP_KEY } from "../context";
@@ -19,13 +19,16 @@ export function useLocalSearch(options?: { pageCapacity?: number }) {
       if (!current || searcher.value) {
         return;
       }
-      searcher.value = new T.LocalSearch(current, {
-        pageCapacity: options?.pageCapacity,
-        onSearchComplete: (result) => {
-          results.value = result;
-          status.value = "done";
-        },
-      });
+      searcher.value = new T.LocalSearch(
+        current,
+        compact({
+          pageCapacity: options?.pageCapacity,
+          onSearchComplete: (result) => {
+            results.value = result;
+            status.value = "done";
+          },
+        }),
+      );
     },
     { immediate: true },
   );

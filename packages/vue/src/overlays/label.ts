@@ -1,3 +1,5 @@
+import { compact } from "@tianditu/core";
+
 import { defineOverlayComponent } from "../defineOverlayComponent";
 import { toLngLatProp } from "./utils";
 
@@ -25,10 +27,12 @@ export const TdtLabel = defineOverlayComponent<LabelProps, T.Label>({
   },
   events: ["click", "dblclick", "mousedown", "mouseup", "mouseover", "mouseout"] as const,
   create(props) {
-    const label = new T.Label({
-      text: props.text,
-      position: toLngLatProp(props.lnglat),
-    });
+    const label = new T.Label(
+      compact({
+        text: props.text,
+        position: toLngLatProp(props.lnglat),
+      }),
+    );
     if (props.fontColor) label.setFontColor(props.fontColor);
     if (props.fontSize) label.setFontSize(props.fontSize);
     if (props.backgroundColor) label.setBackgroundColor(props.backgroundColor);

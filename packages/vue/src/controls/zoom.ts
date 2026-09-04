@@ -1,3 +1,5 @@
+import { compact } from "@tianditu/core";
+
 import { controlPositionProp, defineControlComponent } from "./defineControlComponent";
 
 export interface ControlZoomProps {
@@ -18,11 +20,13 @@ export const TdtControlZoom = defineControlComponent<ControlZoomProps>({
     zoomOutTitle: { type: String, default: undefined },
   },
   create: (props) =>
-    new T.Control.Zoom({
-      position: props.position,
-      zoomInText: props.zoomInText,
-      zoomOutText: props.zoomOutText,
-      zoomInTitle: props.zoomInTitle,
-      zoomOutTitle: props.zoomOutTitle,
-    }),
+    new T.Control.Zoom(
+      compact({
+        position: props.position,
+        zoomInText: props.zoomInText,
+        zoomOutText: props.zoomOutText,
+        zoomInTitle: props.zoomInTitle,
+        zoomOutTitle: props.zoomOutTitle,
+      }),
+    ),
 });
