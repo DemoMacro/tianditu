@@ -88,10 +88,11 @@ declare namespace T {
     /** 返回方案个数 */
     getNumPlans(): number;
     /** 返回索引指定的方案。索引0表示第一条方案 */
-    getPlan(i: number): DrivingRoutePlan;
+    getPlan(i: number): RoutePlan;
   }
 
-  interface DrivingRoutePlan {
+  /** 官方文档页名为 RoutePlan（通过 DrivingRouteResult.getPlan() 获得） */
+  interface RoutePlan {
     /** 返回该方案包含的线路的个数 */
     getNumRoutes(): number;
     /** 返回方案中索引指定的线路信息。索引0表示第一条线路 */
