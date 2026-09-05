@@ -1,0 +1,21 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
+}
+
+tdt-marker,
+tdt-polyline,
+tdt-circle,
+tdt-control-zoom,
+tdt-control-scale,
+tdt-info-window {
+  display: none;
+}
+
+.win {
+  padding: 4px;
+  font-size: 13px;
+  line-height: 1.6;
+}

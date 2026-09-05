@@ -1,0 +1,40 @@
+{
+  "name": "@tianditu/web-components",
+  "version": "0.0.0-edge.1",
+  "description": "Web components for tianditu, powered by Demo Macro.",
+  "keywords": [
+    "libraries",
+    "map",
+    "tianditu",
+    "utility",
+    "web-components"
+  ],
+  "homepage": "https://github.com/DemoMacro/tianditu#readme",
+  "bugs": {
+    "url": "https://github.com/DemoMacro/tianditu/issues"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Demo Macro",
+    "email": "abc@imst.xyz",
+    "url": "https://imst.xyz/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DemoMacro/tianditu.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.mjs",
+  "types": "dist/index.d.mts",
+  "scripts": {
+    "build": "vp pack",
+    "prepack": "pnpm build",
+    "demo": "vp dev"
+  },
+  "dependencies": {
+    "@tianditu/core": "workspace:*",
+    "lit": "^3.1.0"
+  }
+}
