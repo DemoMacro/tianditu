@@ -10,6 +10,7 @@ export { TdtCircle } from "./overlays/circle";
 export { TdtRectangle } from "./overlays/rectangle";
 export { TdtLabel } from "./overlays/label";
 export { TdtMarkerCluster } from "./overlays/markerClusterer";
+export { TdtCloudMarker } from "./overlays/cloudMarker";
 export { TdtInfoWindow } from "./overlays/infoWindow";
 export { TdtContextMenu, TdtContextMenuItem } from "./overlays/contextMenu";
 
@@ -19,6 +20,9 @@ export { useGeolocation } from "./service/useGeolocation";
 export { useDrivingRoute } from "./service/useDrivingRoute";
 export { useTransitRoute } from "./service/useTransitRoute";
 export { useBusLineSearch } from "./service/useBusLineSearch";
+export { useDataSources } from "./service/useDataSources";
+export { useAdministrativeDivision } from "./service/useAdministrativeDivision";
+export { useLocalCity } from "./service/useLocalCity";
 
 export { TdtControlZoom } from "./controls/zoom";
 export { TdtControlScale } from "./controls/scale";
@@ -36,4 +40,6 @@ export { TdtCoordinatePickup } from "./tools/coordinatePickup";
 
 export * from "./militarySymbols";
 
-export { TdtTileLayer, TdtTileLayerWMS } from "./layer/tileLayer";
+export { TdtTileLayer, TdtTileLayerWMS, TdtTileLayerTDT } from "./layer/tileLayer";
+export { TdtGridlineLayer } from "./layer/gridlineLayer";
+export { TdtLayerGroup } from "./layer/layerGroup";

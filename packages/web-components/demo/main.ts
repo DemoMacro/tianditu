@@ -1,7 +1,12 @@
 import "../src";
 import { TdtControlScaleElement, TdtControlZoomElement } from "../src/controls";
 import { TdtInfoWindowElement } from "../src/info-window";
-import { TdtCircleElement, TdtMarkerElement, TdtPolylineElement } from "../src/overlays";
+import {
+  TdtCircleElement,
+  TdtCloudMarkerElement,
+  TdtMarkerElement,
+  TdtPolylineElement,
+} from "../src/overlays";
 import { TdtMapElement, lnglatConverter } from "../src/tdt-map";
 
 import "./style.css";
@@ -13,6 +18,17 @@ if (!tk) {
     '<p style="padding:2rem">缺少 <code>VITE_TIANDITU_BROWSER_KEY</code>：在 packages/web-components/.env 中配置天地图浏览器端 key 后重启。</p>';
 } else {
   main();
+}
+
+/** 海量点演示数据：确定性点阵 */
+function cloudPoints(): string {
+  const points: string[] = [];
+  for (let i = 0; i < 300; i++) {
+    const col = i % 20;
+    const row = Math.floor(i / 20);
+    points.push(`${(116.3 + col * 0.01).toFixed(3)},${(39.82 + row * 0.008).toFixed(3)}`);
+  }
+  return points.join(";");
 }
 
 function main() {
@@ -27,6 +43,7 @@ function main() {
       </tdt-marker>
       <tdt-polyline path="116.38,39.9;116.42,39.92;116.44,39.9" color="#2563eb" weight="4"></tdt-polyline>
       <tdt-circle center="116.45,39.87" radius="800" fill-color="#dc2626" fill-opacity="0.3"></tdt-circle>
+      <tdt-cloud-marker lnglats="${cloudPoints()}" shape="CIRCLE" size="SMALL" color="#7c3aed"></tdt-cloud-marker>
     </tdt-map>
   `;
 
@@ -45,6 +62,7 @@ function main() {
       TdtMarkerElement,
       TdtPolylineElement,
       TdtCircleElement,
+      TdtCloudMarkerElement,
       TdtControlZoomElement,
       TdtControlScaleElement,
       TdtInfoWindowElement,

@@ -13,9 +13,9 @@ declare global {
       /**
        * 海量点的预设形状。
        * CIRCLE 圆形(默认)；
-       * RHOMBUS 星形；
+       * STAR 星形；
        * SQUARE 方形；
-       * STAR 菱形；
+       * RHOMBUS 菱形；
        * WATERDROP 滴状
        */
       ShapeType?: "CIRCLE" | "RHOMBUS" | "SQUARE" | "STAR" | "WATERDROP";
@@ -25,9 +25,9 @@ declare global {
        * SMALLER 很小，宽高为4px * 4px；
        * SMALL 小，宽高为8px * 8px；
        * NORMAL 正常，宽高为10px * 10px(默认)；
-       * HUGE 大，宽高为16px * 16px；
+       * BIG 大，宽高为16px * 16px；
        * BIGGER 很大，宽高为20px * 20px；
-       * BIG 超大，宽高为30px * 30px
+       * HUGE 超大，宽高为30px * 30px
        */
       SizeType?: "TINY" | "SMALLER" | "SMALL" | "NORMAL" | "HUGE" | "BIGGER" | "BIG";
       /**

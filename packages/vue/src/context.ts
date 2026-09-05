@@ -20,6 +20,9 @@ export type MarkerCollector = OverlayCollector;
 
 export const CLUSTER_KEY: InjectionKey<MarkerCollector> = Symbol("tianditu:cluster");
 
+/** LayerGroup 向子级覆盖物提供的收集器（形状同 core 的 OverlayCollector） */
+export const LAYER_GROUP_KEY: InjectionKey<MarkerCollector> = Symbol("tianditu:layer-group");
+
 /** ContextMenu 向子级 MenuItem 注入的菜单实例 */
 export const CONTEXT_MENU_KEY: InjectionKey<ShallowRef<T.ContextMenu | undefined>> =
   Symbol("tianditu:context-menu");

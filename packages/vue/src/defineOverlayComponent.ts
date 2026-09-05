@@ -10,7 +10,7 @@ import {
   type ShallowRef,
 } from "vue";
 
-import { CLUSTER_KEY, MAP_KEY, OVERLAY_KEY } from "./context";
+import { CLUSTER_KEY, LAYER_GROUP_KEY, MAP_KEY, OVERLAY_KEY } from "./context";
 
 export interface OverlayComponentOptions<P extends object, O> {
   name: string;
@@ -44,7 +44,8 @@ export function defineOverlayComponent<P extends object, O>(
     emits: options.events ? [...options.events] : [],
     setup(props, { emit, slots }) {
       const { map } = inject(MAP_KEY)!;
-      const collector = inject(CLUSTER_KEY, undefined);
+      // 命中聚合或图层容器时覆盖物加入容器而非直接上屏（就近优先：内层容器收编）
+      const collector = inject(LAYER_GROUP_KEY, undefined) ?? inject(CLUSTER_KEY, undefined);
       const instance = shallowRef<O>();
       provide(OVERLAY_KEY, instance);
       options.setup?.({ instance });

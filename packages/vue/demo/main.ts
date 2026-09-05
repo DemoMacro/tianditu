@@ -2,14 +2,17 @@ import { createApp, defineComponent, h, ref, watch } from "vue";
 
 import {
   TdtCircle,
+  TdtCloudMarker,
   TdtControlCopyright,
   TdtControlMilitarySymbols,
   TdtControlScale,
   TdtControlZoom,
   TdtContextMenu,
   TdtContextMenuItem,
+  TdtGridlineLayer,
   TdtInfoWindow,
   TdtLabel,
+  TdtLayerGroup,
   TdtMap,
   TdtMarker,
   TdtMarkerCluster,
@@ -19,6 +22,9 @@ import {
   TdtRectangle,
   TdtStraightArrow,
   TdtStraightArrowTool,
+  useAdministrativeDivision,
+  useDataSources,
+  useLocalCity,
   useLocalSearch,
   useMap,
 } from "../src";
@@ -32,6 +38,17 @@ if (!tk) {
     '<p style="padding:2rem">缺少 <code>VITE_TIANDITU_BROWSER_KEY</code>：在 packages/vue/.env.local 中配置天地图浏览器端 key 后重启。</p>';
 } else {
   main();
+}
+
+/** 海量点演示数据：以天安门为中心的确定性点阵（官方 CloudMarkerCollection 适用于万级点） */
+function cloudPoints(): Array<[number, number]> {
+  const points: Array<[number, number]> = [];
+  for (let i = 0; i < 400; i++) {
+    const col = i % 20;
+    const row = Math.floor(i / 20);
+    points.push([116.3 + col * 0.01 + (row % 3) * 0.002, 39.82 + row * 0.008]);
+  }
+  return points;
 }
 
 function main() {
@@ -51,6 +68,10 @@ function main() {
       const keyword = ref("");
       const searched = ref(false);
       const { search: localSearch, results, status } = useLocalSearch();
+      const { location: locateCity } = useLocalCity();
+      const { search: searchDataSource } = useDataSources();
+      const { search: searchDivision } = useAdministrativeDivision();
+      const serviceTip = ref("");
 
       function moveTo(lnglat: [number, number], name: string) {
         if (!map.value) {
@@ -76,6 +97,27 @@ function main() {
           return;
         }
         localSearch(keyword.value.trim());
+      }
+
+      /** 无图服务示例：本地城市定位 + 数据来源 + 行政区划，各自回调互不阻塞 */
+      function runServices() {
+        void locateCity().then((city) => {
+          console.log("[demo] LocalCity", city);
+          if (city) {
+            serviceTip.value = `${city.cityName}（最佳级别 ${city.level}）`;
+          }
+        });
+        void searchDataSource({ level: map.value?.getZoom() ?? 12 }).then((ds) =>
+          console.log("[demo] DataSources", ds),
+        );
+        void searchDivision({ searchWord: "北京", searchType: 1, needSubInfo: false }).then(
+          (division) =>
+            console.log(
+              "[demo] AdministrativeDivision",
+              division ? division.getStatus() : null,
+              division?.getMsg(),
+            ),
+        );
       }
 
       function locate(poi: T.LocalSearchPoi) {
@@ -125,7 +167,17 @@ function main() {
               },
               "➡ 箭头",
             ),
+            h(
+              "button",
+              {
+                class: "tool",
+                title: "本地城市定位 / 数据来源 / 行政区划（结果见控制台）",
+                onClick: () => runServices(),
+              },
+              "🧭 服务",
+            ),
           ]),
+          serviceTip.value ? h("p", { class: "tip" }, serviceTip.value) : null,
           status.value === "loading"
             ? h("p", { class: "tip" }, "搜索中…")
             : results.value
@@ -233,6 +285,21 @@ function main() {
               fillOpacity: 0.3,
             }),
             h(TdtLabel as never, { text: "奥体中心", lnglat: [116.39, 40.0] }),
+
+            // 图层容器：子级标注经收集器加入容器（卸载随容器清空）
+            h(TdtLayerGroup as never, () => [
+              h(TdtMarker as never, { key: "group-a", lnglat: [116.46, 39.93] }),
+              h(TdtMarker as never, { key: "group-b", lnglat: [116.47, 39.92] }),
+            ]),
+
+            // 海量点：400 个点整批展示
+            h(TdtCloudMarker as never, {
+              lnglats: cloudPoints(),
+              styles: { ShapeType: "CIRCLE", SizeType: "SMALL", color: "#7c3aed" },
+            }),
+
+            // 格网图层
+            h(TdtGridlineLayer as never, { tileSize: 256 }),
 
             h(TdtStraightArrow as never, {
               path: [

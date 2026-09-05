@@ -44,17 +44,23 @@ const tileLayerSync: SyncDef<T.TileLayer, TileLayerProps> = {
 /**
  * 瓦片图层组件工厂：挂载与事件在 core 的 mountTileLayer，
  * url/opacity/zIndex 响应式同步；minZoom/maxZoom 仅初始化生效（SDK 无 setter）。
+ * 官方选项不含这些字段的图层（如 GridlineLayer）以 sync 整体替换内置同步表。
  */
-export function createTileLayerComponent<P extends TileLayerProps>(options: {
+export function createTileLayerComponent<P extends object>(options: {
   name: string;
   /** 运行时 props 定义；静态形状由泛型 P 声明并与其对齐 */
   props: ComponentObjectPropsOptions;
+  /** 缺省为全部瓦片图层事件；官方未列的事件（如 GridlineLayer）按文档收窄 */
+  events?: readonly string[];
+  /** 缺省同步 url/opacity/zIndex；组件 props 与之不符时整体替换 */
+  sync?: SyncDef<T.TileLayer, P>;
   create(props: P): T.TileLayer;
 }) {
+  const sync = (options.sync ?? tileLayerSync) as SyncDef<T.TileLayer, P>;
   return defineComponent({
     name: options.name,
     props: options.props,
-    emits: [...TILE_LAYER_EVENT_NAMES],
+    emits: [...(options.events ?? TILE_LAYER_EVENT_NAMES)],
     setup(props, { emit, expose }) {
       const { map } = inject(MAP_KEY)!;
       const layer = shallowRef<T.TileLayer>();
@@ -71,12 +77,13 @@ export function createTileLayerComponent<P extends TileLayerProps>(options: {
           unmount = mountTileLayer({
             map: current,
             layer: layer.value,
+            events: options.events,
             dispatch: (name, event) => emit(name as never, event),
           });
           stopSync = createPropsSync(
             () => layer.value,
             () => props as unknown as P,
-            tileLayerSync,
+            sync,
           );
         },
         { immediate: true },
@@ -149,6 +156,30 @@ export const TdtTileLayerWMS = createTileLayerComponent<TileLayerWMSProps>({
         transparent: props.transparent,
         version: props.version,
         srs: props.srs,
+      }),
+    ),
+});
+
+export interface TileLayerTDTProps extends TileLayerProps {
+  /** 用来描述图层信息 */
+  attribution?: string;
+}
+
+export const TdtTileLayerTDT = createTileLayerComponent<TileLayerTDTProps>({
+  name: "TdtTileLayerTDT",
+  props: {
+    ...tileLayerProps(),
+    attribution: { type: String, default: undefined },
+  },
+  create: (props) =>
+    new T.TileLayerTDT(
+      props.url,
+      compact({
+        minZoom: props.minZoom,
+        maxZoom: props.maxZoom,
+        opacity: props.opacity,
+        zIndex: props.zIndex,
+        attribution: props.attribution,
       }),
     ),
 });

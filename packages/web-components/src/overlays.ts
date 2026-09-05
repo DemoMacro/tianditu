@@ -169,3 +169,51 @@ function pathConverter(value: string | null): Array<[number, number]> {
     .filter(Boolean)
     .map((pair) => lnglatConverter(pair));
 }
+
+export class TdtCloudMarkerElement extends OverlayElement<
+  { lnglats: Array<[number, number]>; styles?: T.CloudMarkerCollectionOptions },
+  T.CloudMarkerCollection
+> {
+  static override properties = {
+    lnglats: { converter: pathConverter },
+    shape: { type: String },
+    size: { type: String },
+    color: { type: String },
+  };
+
+  lnglats: Array<[number, number]> = [];
+
+  shape?: string;
+
+  size?: string;
+
+  color?: string;
+
+  /** attribute 字符串 → 官方选项枚举值（ShapeType/SizeType 为 SDK 侧原样字符串） */
+  private styles(): T.CloudMarkerCollectionOptions {
+    return compact({
+      ShapeType: this.shape as T.CloudMarkerCollectionOptions["ShapeType"],
+      SizeType: this.size as T.CloudMarkerCollectionOptions["SizeType"],
+      color: this.color,
+    });
+  }
+
+  readonly config = {
+    sync: {
+      lnglats: (collection: T.CloudMarkerCollection, value: Array<[number, number]>) =>
+        collection.setLnglats(value.map(([lng, lat]) => new T.LngLat(lng, lat))),
+    } satisfies SyncDef<T.CloudMarkerCollection, { lnglats: Array<[number, number]> }>,
+    create: (props: {
+      lnglats: Array<[number, number]>;
+      styles?: T.CloudMarkerCollectionOptions;
+    }) =>
+      new T.CloudMarkerCollection(
+        props.lnglats.map(([lng, lat]) => new T.LngLat(lng, lat)),
+        props.styles ?? {},
+      ),
+  };
+
+  protected props() {
+    return { lnglats: this.lnglats, styles: this.styles() };
+  }
+}
