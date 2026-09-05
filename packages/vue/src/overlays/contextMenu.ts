@@ -1,11 +1,11 @@
-import { mountOverlay, type OverlayHandle } from "@tianditu/core";
+import { createWhenReady, mountOverlay, type OverlayHandle } from "@tianditu/core";
 import { defineComponent, inject, onBeforeUnmount, provide, shallowRef, watch } from "vue";
 
 import { CONTEXT_MENU_KEY, MAP_KEY } from "../context";
 
 /**
- * 右键菜单组件：构造后经 map.addOverLay 上屏（官方文档未列挂载方法，
- * 此为 SDK 通行用法，列入真实 tk 验证清单），菜单项以子组件
+ * 右键菜单组件：构造经 createWhenReady 守卫（ContextMenu 属异步加载的
+ * 扩展类）后经 map.addContextMenu 上屏，菜单项以子组件
  * TdtContextMenuItem 声明。open/close 事件直发。
  */
 export const TdtContextMenu = defineComponent({
@@ -15,6 +15,8 @@ export const TdtContextMenu = defineComponent({
     const { map } = inject(MAP_KEY)!;
     const menu = shallowRef<T.ContextMenu>();
     let handle: OverlayHandle<T.ContextMenu> | undefined;
+    // 守卫等待期间组件可能已卸载，落定时不得再挂载
+    let disposed = false;
 
     watch(
       map,
@@ -22,21 +24,25 @@ export const TdtContextMenu = defineComponent({
         if (!current || handle) {
           return;
         }
-        handle = mountOverlay(
-          { map: current },
-          {
-            props: () => ({}),
-            events: ["open", "close"],
-            dispatch: (name, event) => emit(name as never, event),
-            // SDK 无参构造内部炸（读 options.width），必须传 options 对象
-            create: () => new T.ContextMenu({ width: 160 }),
-            // ContextMenu 不是常规 overlay：挂载走 map.addContextMenu；
-            // SDK 未提供卸载方法，销毁时仅停同步、解绑事件
-            attach: (instance, ctx) => ctx.map.addContextMenu(instance),
-            detach: () => {},
-          },
-        );
-        menu.value = handle.instance;
+        void createWhenReady(() => new T.ContextMenu({ width: 160 })).then((instance) => {
+          if (disposed || !map.value || handle) {
+            return;
+          }
+          // ContextMenu 不是常规 overlay：挂载走 map.addContextMenu；
+          // SDK 未提供卸载方法，销毁时仅停同步、解绑事件
+          handle = mountOverlay(
+            { map: current },
+            {
+              props: () => ({}),
+              events: ["open", "close"],
+              dispatch: (name, event) => emit(name as never, event),
+              create: () => instance,
+              attach: (created, ctx) => ctx.map.addContextMenu(created),
+              detach: () => {},
+            },
+          );
+          menu.value = handle.instance;
+        });
       },
       { immediate: true },
     );
@@ -44,6 +50,7 @@ export const TdtContextMenu = defineComponent({
     provide(CONTEXT_MENU_KEY, menu);
 
     onBeforeUnmount(() => {
+      disposed = true;
       handle?.destroy();
       handle = undefined;
       menu.value = undefined;

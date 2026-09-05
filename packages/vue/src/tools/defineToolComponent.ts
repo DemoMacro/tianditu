@@ -1,4 +1,4 @@
-import { mountTool, type ToolLike, type ToolSession } from "@tianditu/core";
+import { createWhenReady, mountTool, type ToolLike, type ToolSession } from "@tianditu/core";
 import {
   defineComponent,
   inject,
@@ -36,6 +36,8 @@ export function defineToolComponent<P extends object>(options: {
       const { map } = inject(MAP_KEY)!;
       const tool = shallowRef<ToolLike>();
       let session: ToolSession | undefined;
+      // 守卫等待期间组件可能已卸载，落定时不得再挂载
+      let disposed = false;
 
       watch(
         map,
@@ -43,16 +45,24 @@ export function defineToolComponent<P extends object>(options: {
           if (!current || session) {
             return;
           }
-          session = mountTool({
-            map: current,
-            create: () => options.create(props as P, current),
-            events: options.events,
-            dispatch: (name, event) => emit(name as never, event as never),
-            activate: (tool) => options.activate?.(tool),
-            deactivate: (tool) => options.deactivate?.(tool),
+          // 构造经 createWhenReady 守卫（SDK 扩展组件包异步加载，过早构造
+          // 扩展类会抛 "is not a constructor"），就绪后再编排开关
+          void createWhenReady(() => options.create(props as P, current)).then((created) => {
+            if (disposed || !map.value || session) {
+              return;
+            }
+            session = mountTool({
+              map: current,
+              create: () => created,
+              events: options.events,
+              dispatch: (name, event) => emit(name as never, event as never),
+              // 组件未自定义开关动作时不传，走 mountTool 缺省的 open()/close()
+              ...(options.activate && { activate: (tool) => options.activate!(tool) }),
+              ...(options.deactivate && { deactivate: (tool) => options.deactivate!(tool) }),
+            });
+            tool.value = session.tool;
+            session.setActive(Boolean(props.active));
           });
-          tool.value = session.tool;
-          session.setActive(Boolean(props.active));
         },
         { immediate: true },
       );
@@ -63,6 +73,7 @@ export function defineToolComponent<P extends object>(options: {
       );
 
       onBeforeUnmount(() => {
+        disposed = true;
         session?.destroy();
         session = undefined;
         tool.value = undefined;

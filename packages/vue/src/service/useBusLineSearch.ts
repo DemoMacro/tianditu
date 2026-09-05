@@ -1,26 +1,20 @@
 import { compact } from "@tianditu/core";
-import { inject, shallowRef, watch } from "vue";
+import { shallowRef } from "vue";
 
-import { MAP_KEY } from "../context";
+import { useMapInstance } from "../useMapInstance";
 
 /**
  * 公交线路检索（官方 BusLineSearch）：官方双回调包装为响应式
  * busList / busLine。
  */
 export function useBusLineSearch() {
-  const { map } = inject(MAP_KEY)!;
-  const searcher = shallowRef<T.BusLineSearch>();
   const busList = shallowRef<T.BusListResult>();
   const busLine = shallowRef<T.BusLine>();
 
-  watch(
-    map,
-    (current) => {
-      if (!current || searcher.value) {
-        return;
-      }
-      searcher.value = new T.BusLineSearch(
-        current,
+  const searcher = useMapInstance(
+    (map) =>
+      new T.BusLineSearch(
+        map,
         compact({
           onGetBusListComplete: (result) => {
             busList.value = result;
@@ -29,9 +23,7 @@ export function useBusLineSearch() {
             busLine.value = result;
           },
         }),
-      );
-    },
-    { immediate: true },
+      ),
   );
 
   /** 按关键词查询公交线路列表 */

@@ -1,34 +1,26 @@
 import { compact, toLngLat } from "@tianditu/core";
-import { inject, shallowRef, watch } from "vue";
+import { shallowRef } from "vue";
 
-import { MAP_KEY } from "../context";
+import { useMapInstance } from "../useMapInstance";
 
 /**
  * 驾车路线规划（官方 DrivingRoute）：onSearchComplete 包装为响应式 results，
  * 起终点支持 [lng, lat] 数组。
  */
 export function useDrivingRoute(policy: T.DrivingRouteOptions["policy"]) {
-  const { map } = inject(MAP_KEY)!;
-  const router = shallowRef<T.DrivingRoute>();
   const results = shallowRef<T.DrivingRouteResult>();
 
-  watch(
-    map,
-    (current) => {
-      if (!current || router.value) {
-        return;
-      }
-      router.value = new T.DrivingRoute(
-        current,
+  const router = useMapInstance(
+    (map) =>
+      new T.DrivingRoute(
+        map,
         compact({
           policy,
           onSearchComplete: (result) => {
             results.value = result;
           },
         }),
-      );
-    },
-    { immediate: true },
+      ),
   );
 
   function search(start: T.LngLat | [number, number], end: T.LngLat | [number, number]) {

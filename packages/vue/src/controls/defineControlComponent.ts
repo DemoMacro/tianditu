@@ -1,3 +1,4 @@
+import { createWhenReady } from "@tianditu/core";
 import {
   defineComponent,
   inject,
@@ -19,7 +20,8 @@ export const controlPositionProp = {
 
 /**
  * 控件组件工厂：等待地图就绪后构造控件并 addControl，卸载时 removeControl。
- * 泛型 P 为组件 props 的静态形状，与运行时 props 对象手工对齐。
+ * 构造经 createWhenReady 守卫——SDK 扩展组件包异步加载，过早构造扩展类
+ * 会抛 "is not a constructor"，守卫内自动等待重试。
  */
 export function defineControlComponent<P extends object>(options: {
   name: string;
@@ -32,6 +34,8 @@ export function defineControlComponent<P extends object>(options: {
     setup(props, { slots }) {
       const { map } = inject(MAP_KEY)!;
       const control = shallowRef<T.Control>();
+      // 守卫等待期间组件可能已卸载，落定时不得再挂载
+      let disposed = false;
 
       watch(
         map,
@@ -39,14 +43,19 @@ export function defineControlComponent<P extends object>(options: {
           if (!current || control.value) {
             return;
           }
-          const created = options.create(props as P);
-          current.addControl(created);
-          control.value = created;
+          void createWhenReady(() => options.create(props as P)).then((created) => {
+            if (disposed || !map.value || control.value) {
+              return;
+            }
+            map.value.addControl(created);
+            control.value = created;
+          });
         },
         { immediate: true },
       );
 
       onBeforeUnmount(() => {
+        disposed = true;
         if (control.value && map.value) {
           map.value.removeControl(control.value);
           control.value = undefined;

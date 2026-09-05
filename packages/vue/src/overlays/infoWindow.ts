@@ -1,4 +1,4 @@
-import { createInfoWindow, type InfoWindowHandle } from "@tianditu/core";
+import { createInfoWindow, createWhenReady, type InfoWindowHandle } from "@tianditu/core";
 import {
   computed,
   defineComponent,
@@ -43,6 +43,8 @@ export const TdtInfoWindow = defineComponent({
     const anchor = shallowRef<HTMLElement>();
     let handle: InfoWindowHandle | undefined;
     let observer: MutationObserver | undefined;
+    // 守卫等待期间组件可能已卸载，落定时不得再打开
+    let disposed = false;
 
     const target = computed(() => (props.lnglat ? map.value : host?.value));
 
@@ -63,31 +65,50 @@ export const TdtInfoWindow = defineComponent({
         if (!el || !current) {
           return;
         }
-        if (!handle) {
-          handle = createInfoWindow(
-            {
-              minWidth: props.minWidth,
-              maxWidth: props.maxWidth,
-              maxHeight: props.maxHeight,
-              autoPan: props.autoPan,
-              closeButton: props.closeButton,
-              offset: props.offset,
-              autoPanPadding: props.autoPanPadding,
-              closeOnClick: props.closeOnClick,
-            },
-            (name) => {
-              emit(name);
-              if (name === "close") {
-                emit("update:open", false);
+        const build = () => {
+          if (!handle) {
+            // 构造经 createWhenReady 守卫（SDK 扩展组件包异步加载）
+            void createWhenReady(() =>
+              createInfoWindow(
+                {
+                  minWidth: props.minWidth,
+                  maxWidth: props.maxWidth,
+                  maxHeight: props.maxHeight,
+                  autoPan: props.autoPan,
+                  closeButton: props.closeButton,
+                  offset: props.offset,
+                  autoPanPadding: props.autoPanPadding,
+                  closeOnClick: props.closeOnClick,
+                },
+                (name) => {
+                  emit(name);
+                  if (name === "close") {
+                    emit("update:open", false);
+                  }
+                },
+              ),
+            ).then((created) => {
+              if (disposed || handle) {
+                return;
               }
-            },
-          );
-        }
+              handle = created;
+              attach();
+            });
+            return;
+          }
+          attach();
+        };
         // 锚点内容后续更新（含首次渲染）经 MutationObserver 持续同步
-        observer = new MutationObserver(syncContent);
-        observer.observe(el, { childList: true, subtree: true, characterData: true });
-        syncContent();
-        syncOpen(open, current);
+        const attach = () => {
+          if (anchor.value && handle) {
+            observer?.disconnect();
+            observer = new MutationObserver(syncContent);
+            observer.observe(anchor.value, { childList: true, subtree: true, characterData: true });
+            syncContent();
+            syncOpen(open, current);
+          }
+        };
+        build();
       },
       { immediate: true },
     );
@@ -118,6 +139,7 @@ export const TdtInfoWindow = defineComponent({
     }
 
     onBeforeUnmount(() => {
+      disposed = true;
       observer?.disconnect();
       observer = undefined;
       handle?.destroy();

@@ -1,4 +1,4 @@
-import { mountOverlay, type OverlayHandle, type SyncDef } from "@tianditu/core";
+import { createWhenReady, mountOverlay, type OverlayHandle, type SyncDef } from "@tianditu/core";
 import {
   defineComponent,
   inject,
@@ -50,6 +50,8 @@ export function defineOverlayComponent<P extends object, O>(
       options.setup?.({ instance });
 
       let handle: OverlayHandle<O> | undefined;
+      // 守卫等待期间组件可能已卸载，落定时不得再挂载
+      let disposed = false;
 
       // setup 内注册的 watch 随组件实例自动停止
       watch(
@@ -58,28 +60,38 @@ export function defineOverlayComponent<P extends object, O>(
           if (!current || handle) {
             return;
           }
-          handle = mountOverlay(
-            { map: current, collector },
-            {
-              props: () => props as P,
-              sync: options.sync,
-              events: options.events,
-              dispatch: (name, event) => emit(name, event),
-              create: () => options.create(props as P, { map: current }),
-              attach: options.attach
-                ? (target, ctx) => options.attach!(target, { map: ctx.map })
-                : undefined,
-              detach: options.detach
-                ? (target, ctx) => options.detach!(target, { map: ctx.map })
-                : undefined,
+          // 构造经 createWhenReady 守卫（SDK 扩展组件包异步加载，过早构造
+          // 扩展类会抛 "is not a constructor"），就绪后再同步编排挂载
+          void createWhenReady(() => options.create(props as P, { map: current })).then(
+            (created) => {
+              if (disposed || !map.value || handle) {
+                return;
+              }
+              handle = mountOverlay(
+                { map: current, collector },
+                {
+                  props: () => props as P,
+                  sync: options.sync,
+                  events: options.events,
+                  dispatch: (name, event) => emit(name, event),
+                  create: () => created,
+                  attach: options.attach
+                    ? (target, ctx) => options.attach!(target, { map: ctx.map })
+                    : undefined,
+                  detach: options.detach
+                    ? (target, ctx) => options.detach!(target, { map: ctx.map })
+                    : undefined,
+                },
+              );
+              instance.value = handle.instance;
             },
           );
-          instance.value = handle.instance;
         },
         { immediate: true },
       );
 
       onBeforeUnmount(() => {
+        disposed = true;
         handle?.destroy();
         handle = undefined;
         instance.value = undefined;

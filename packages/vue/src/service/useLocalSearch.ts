@@ -1,26 +1,20 @@
 import { compact, toLngLat } from "@tianditu/core";
-import { inject, shallowRef, watch, type ShallowRef } from "vue";
+import { shallowRef, type ShallowRef } from "vue";
 
-import { MAP_KEY } from "../context";
+import { useMapInstance } from "../useMapInstance";
 
 /**
  * 位置检索（官方 LocalSearch）：构造与 onSearchComplete 回调包装为响应式
  * results，检索方法与官方同名。
  */
 export function useLocalSearch(options?: { pageCapacity?: number }) {
-  const { map } = inject(MAP_KEY)!;
-  const searcher = shallowRef<T.LocalSearch>();
   const results = shallowRef<T.LocalSearchResult>();
   const status = shallowRef<"idle" | "loading" | "done">("idle");
 
-  watch(
-    map,
-    (current) => {
-      if (!current || searcher.value) {
-        return;
-      }
-      searcher.value = new T.LocalSearch(
-        current,
+  const searcher = useMapInstance(
+    (map) =>
+      new T.LocalSearch(
+        map,
         compact({
           pageCapacity: options?.pageCapacity,
           onSearchComplete: (result) => {
@@ -28,9 +22,7 @@ export function useLocalSearch(options?: { pageCapacity?: number }) {
             status.value = "done";
           },
         }),
-      );
-    },
-    { immediate: true },
+      ),
   );
 
   function run(invoke: (searcher: T.LocalSearch) => void) {
