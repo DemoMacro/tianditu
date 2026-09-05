@@ -6,80 +6,123 @@ body,
   font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
 }
 
-/* 官方示例风格：左侧 zTree 式功能列表与地图并排 */
+/* 主流地图风格：地图全屏，左上角悬浮搜索面板 */
 .panel {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
+  position: absolute;
+  top: 16px;
+  left: 16px;
   z-index: 999;
-  width: 230px;
-  padding: 10px 5px;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  max-height: calc(100% - 32px);
+  padding: 12px;
   overflow: auto;
-  font-size: 12px;
+  font-size: 13px;
   color: #333;
   box-sizing: border-box;
   background: #fff;
-  border-right: 1px solid #e5e5e5;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgb(0 0 0 / 15%);
 }
 
-.panel h1 {
-  margin: 4px 8px 10px;
-  font-size: 15px;
-  color: #595858;
+/* 搜索框行 */
+.searchbar {
+  display: flex;
+  gap: 8px;
 }
 
-.panel .desc {
-  margin: 0 8px 10px;
-  font-size: 12px;
-  color: #999;
-  line-height: 1.7;
-}
-
-.panel .group {
-  margin: 0;
-  padding: 6px 8px;
-  font-size: 15px;
-  font-weight: bold;
-  color: #595858;
-  line-height: 16px;
-}
-
-.panel .item {
-  display: block;
-  padding: 3px 8px 3px 26px;
+.search-input {
+  flex: 1;
+  padding: 7px 10px;
   font-size: 13px;
-  color: #595858;
-  line-height: 17px;
+  color: #333;
+  border: 1px solid #dcdfe6;
+  border-radius: 4px;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: #1a6fb5;
+}
+
+.search-btn {
+  padding: 7px 14px;
+  font-size: 13px;
+  color: #fff;
   cursor: pointer;
-  text-decoration: none;
+  background: #1a6fb5;
+  border: none;
+  border-radius: 4px;
 }
 
-.panel .item:hover {
+.search-btn:hover {
+  background: #1663a1;
+}
+
+/* 工具条 */
+.toolbar {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.tool {
+  flex: 1;
+  padding: 6px 0;
+  font-size: 13px;
+  color: #333;
+  cursor: pointer;
+  background: #f5f7fa;
+  border: 1px solid #dcdfe6;
+  border-radius: 4px;
+}
+
+.tool:hover {
   color: #1a6fb5;
+  border-color: #1a6fb5;
 }
 
-.panel .item.active {
-  background: #ffe6b0;
-  border: 1px solid #ffb951;
-  color: #000;
-  opacity: 0.8;
+.tool.active {
+  color: #1a6fb5;
+  font-weight: bold;
+  background: #e8f1fc;
+  border-color: #1a6fb5;
 }
 
-.panel .status {
-  margin: 10px 8px 0;
+/* 提示与结果 */
+.tip {
+  margin: 10px 0 0;
   font-size: 12px;
   color: #999;
 }
 
-.panel .result {
-  margin: 8px;
-  padding: 6px;
+.count {
+  margin: 10px 0 4px;
   font-size: 12px;
-  color: #595858;
-  line-height: 1.6;
-  word-break: break-all;
-  background: #f7f7f7;
+  color: #999;
+}
+
+.poi {
+  padding: 6px 8px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.poi:hover {
+  background: #f5f7fa;
+}
+
+.poi-name {
+  font-size: 13px;
+  color: #333;
+  line-height: 1.5;
+}
+
+.poi-addr {
+  font-size: 12px;
+  color: #999;
+  line-height: 1.4;
 }
 
 .win {

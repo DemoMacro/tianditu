@@ -19,7 +19,6 @@ import {
   TdtRectangle,
   TdtStraightArrow,
   TdtStraightArrowTool,
-  useGeocoder,
   useLocalSearch,
   useMap,
 } from "../src";
@@ -36,95 +35,118 @@ if (!tk) {
 }
 
 function main() {
-  const center = ref([116.404, 39.915]);
   const zoom = ref(12);
-  const openWindow = ref(false);
   const drawing = ref(false);
   const activeTool = ref<"none" | "line">("none");
+  /** 搜索选中的地点：地图定位并打开名称标注窗 */
+  const focus = ref<{ lnglat: [number, number]; name: string }>();
 
   /**
-   * 控制面板：useMap / useLocalSearch 等依赖 TdtMap 向下 provide 的地图
-   * 上下文，因此整个面板渲染为 TdtMap 的子组件，绝对定位覆盖在地图上。
+   * 搜索面板：useLocalSearch 依赖 TdtMap 向下 provide 的地图上下文，
+   * 因此面板渲染为 TdtMap 的子组件，悬浮于地图左上角。
    */
   const Panel = defineComponent({
     setup() {
       const { map } = useMap();
-      const searchResult = ref("");
-      const level = ref<number>();
-      const { search: localSearch, searchInBounds, results } = useLocalSearch();
-      const { getLocation } = useGeocoder();
+      const keyword = ref("");
+      const searched = ref(false);
+      const { search: localSearch, results, status } = useLocalSearch();
 
-      // 级别随 SDK zoomend 事件刷新（useMap 命令式监听演示）
-      watch(
-        map,
-        (instance) => {
-          if (!instance) {
-            return;
-          }
-          level.value = instance.getZoom();
-          instance.addEventListener("zoomend", () => {
-            level.value = instance.getZoom();
-          });
-        },
-        { immediate: true },
-      );
-
-      watch(results, (value) => {
-        if (!value) {
-          searchResult.value = "无结果";
+      function moveTo(lnglat: [number, number], name: string) {
+        if (!map.value) {
           return;
         }
-        const pois = Array.isArray(value.pois) ? value.pois : [];
-        searchResult.value = `共 ${value.count} 条，首条：${pois[0]?.name ?? "无"}`;
+        focus.value = { lnglat, name };
+        map.value.centerAndZoom(new T.LngLat(lnglat[0], lnglat[1]), 14);
+      }
+
+      watch(results, (value) => {
+        searched.value = true;
+        const pois = Array.isArray(value?.pois) ? value.pois : [];
+        const first = pois[0];
+        // 首条结果自动定位（lonlat 为官方 "lng,lat" 字符串）
+        if (first) {
+          const [lng, lat] = first.lonlat.split(",").map(Number);
+          moveTo([lng, lat], first.name);
+        }
       });
 
-      function searchPOI() {
-        searchResult.value = "搜索中…";
-        localSearch("餐厅");
+      function submit() {
+        if (!keyword.value.trim()) {
+          return;
+        }
+        localSearch(keyword.value.trim());
       }
 
-      function searchInViewport() {
-        searchResult.value = "视野内搜索中…";
-        searchInBounds(
-          "银行",
-          new T.LngLatBounds(new T.LngLat(116.32, 39.83), new T.LngLat(116.5, 40.0)),
-        );
+      function locate(poi: T.LocalSearchPoi) {
+        const [lng, lat] = poi.lonlat.split(",").map(Number);
+        moveTo([lng, lat], poi.name);
       }
-
-      async function geocode() {
-        searchResult.value = "解析中…";
-        const result = await getLocation([116.37304, 39.92594]);
-        searchResult.value = result ? result.getAddress() : "解析失败";
-      }
-
-      const item = (label: string, active: boolean, onClick: () => void) =>
-        h("a", { class: active ? "item active" : "item", onClick }, label);
 
       return () =>
         h("div", { class: "panel" }, [
-          h("h1", "@tianditu/vue demo"),
-          h(
-            "p",
-            { class: "desc" },
-            "对照官方示例的功能演示。地图绘制：左键取点、双击结束；地图空白处右键菜单。",
-          ),
-          h("div", { class: "group" }, "地图操作"),
-          item("zoom+1（props 同步）", false, () => (zoom.value += 1)),
-          h("div", { class: "group" }, "覆盖物"),
-          item("开关 InfoWindow", openWindow.value, () => (openWindow.value = !openWindow.value)),
-          h("div", { class: "group" }, "地图工具"),
-          item(
-            "测距工具（双击结束）",
-            activeTool.value === "line",
-            () => (activeTool.value = activeTool.value === "line" ? "none" : "line"),
-          ),
-          item("直箭头绘制", drawing.value, () => (drawing.value = !drawing.value)),
-          h("div", { class: "group" }, "服务检索"),
-          item("关键词搜餐厅", false, searchPOI),
-          item("视野内搜银行", false, searchInViewport),
-          item("逆地理编码", false, () => void geocode()),
-          h("p", { class: "status" }, level.value ? `当前级别 ${level.value}` : "加载中…"),
-          h("p", { class: "result" }, searchResult.value),
+          h("div", { class: "searchbar" }, [
+            h("input", {
+              class: "search-input",
+              placeholder: "搜索地点，如：天安门",
+              value: keyword.value,
+              onInput: (e: InputEvent) => (keyword.value = (e.target as HTMLInputElement).value),
+              onKeydown: (e: KeyboardEvent) => {
+                if (e.key === "Enter") {
+                  submit();
+                }
+              },
+            }),
+            h("button", { class: "search-btn", onClick: submit }, "搜索"),
+          ]),
+          h("div", { class: "toolbar" }, [
+            h(
+              "button",
+              {
+                class: activeTool.value === "line" ? "tool active" : "tool",
+                title: "测距（地图上左键取点，双击结束）",
+                onClick: () => {
+                  // 绘制期间收起标注窗，避免遮挡取点
+                  focus.value = undefined;
+                  activeTool.value = activeTool.value === "line" ? "none" : "line";
+                },
+              },
+              "📏 测距",
+            ),
+            h(
+              "button",
+              {
+                class: drawing.value ? "tool active" : "tool",
+                title: "直箭头绘制（双击结束）",
+                onClick: () => {
+                  focus.value = undefined;
+                  drawing.value = !drawing.value;
+                },
+              },
+              "➡ 箭头",
+            ),
+          ]),
+          status.value === "loading"
+            ? h("p", { class: "tip" }, "搜索中…")
+            : results.value
+              ? (() => {
+                  const value = results.value;
+                  const pois = Array.isArray(value.pois) ? value.pois : [];
+                  return pois.length
+                    ? [
+                        h("p", { class: "count" }, `共 ${value.count} 条结果`),
+                        ...pois.map((poi) =>
+                          h("div", { class: "poi", onClick: () => locate(poi) }, [
+                            h("div", { class: "poi-name" }, poi.name),
+                            poi.address ? h("div", { class: "poi-addr" }, poi.address) : null,
+                          ]),
+                        ),
+                      ]
+                    : [h("p", { class: "tip" }, "未找到相关地点")];
+                })()
+              : searched.value
+                ? [h("p", { class: "tip" }, "未找到相关地点")]
+                : [h("p", { class: "tip" }, "输入关键词搜索，点击结果定位到地图")],
         ]);
     },
   });
@@ -136,12 +158,12 @@ function main() {
           TdtMap as never,
           {
             tk,
-            center: center.value,
+            center: [116.404, 39.915],
             zoom: zoom.value,
-            style: { width: "calc(100vw - 230px)", height: "100vh", marginLeft: "230px" },
+            style: { width: "100vw", height: "100vh" },
           },
           () => [
-            h(TdtControlZoom as never),
+            h(TdtControlZoom as never, { position: "bottomright" }),
             h(TdtControlScale as never),
             h(TdtControlCopyright as never),
             h(TdtControlMilitarySymbols as never, { position: "topright" }),
@@ -163,11 +185,14 @@ function main() {
               onDbclick: (e: unknown) => console.log("[demo] arrow finished", e),
             }),
 
-            h(TdtMarker as never, { lnglat: [116.404, 39.915] }, () => [
-              h(TdtInfoWindow as never, { open: openWindow.value }, () => [
-                h("div", { class: "win" }, [h("b", "天安门")]),
-              ]),
-            ]),
+            // 搜索选中点：定位 + 名称标注窗
+            focus.value
+              ? h(TdtMarker as never, { lnglat: focus.value.lnglat }, () => [
+                  h(TdtInfoWindow as never, { open: true }, () => [
+                    h("div", { class: "win" }, [h("b", focus.value?.name)]),
+                  ]),
+                ])
+              : null,
 
             h(TdtMarkerCluster as never, () => [
               h(TdtMarker as never, { key: "a", lnglat: [116.41, 39.92] }),
