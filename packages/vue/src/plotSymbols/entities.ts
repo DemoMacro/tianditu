@@ -4,7 +4,7 @@ import { defineOverlayComponent } from "../defineOverlayComponent";
 import { toLngLatsProp } from "../overlays/utils";
 
 /**
- * 标绘覆盖物组件族（对照官方 militarySymbols 文档）。
+ * 标绘覆盖物组件族。
  * 各实体仅暴露 setLngLats/getLngLats，样式 props 仅构造时生效。
  */
 
@@ -17,7 +17,7 @@ const lineStyleProp = { lineStyle: { type: String, default: undefined } };
 const fillColorProp = { fillColor: { type: String, default: undefined } };
 const fillOpacityProp = { fillOpacity: { type: Number, default: undefined } };
 
-interface MilitaryEntityProps {
+interface PlotEntityProps {
   path: Array<[number, number] | T.LngLat>;
   color?: string;
   weight?: number;
@@ -30,11 +30,11 @@ interface MilitaryEntityProps {
 const lineSync = {
   path: (
     entity: { setLngLats(v: ReturnType<typeof toLngLatsProp>): void },
-    value: MilitaryEntityProps["path"],
+    value: PlotEntityProps["path"],
   ) => entity.setLngLats(toLngLatsProp(value)),
 };
 
-export const TdtArc = defineOverlayComponent<MilitaryEntityProps, T.Arc>({
+export const TdtArc = defineOverlayComponent<PlotEntityProps, T.Arc>({
   name: "TdtArc",
   props: {
     ...pathProp,
@@ -56,7 +56,7 @@ export const TdtArc = defineOverlayComponent<MilitaryEntityProps, T.Arc>({
   sync: lineSync,
 });
 
-export const TdtBezierCurve2 = defineOverlayComponent<MilitaryEntityProps, T.BezierCurve2>({
+export const TdtBezierCurve2 = defineOverlayComponent<PlotEntityProps, T.BezierCurve2>({
   name: "TdtBezierCurve2",
   props: {
     ...pathProp,
@@ -78,7 +78,7 @@ export const TdtBezierCurve2 = defineOverlayComponent<MilitaryEntityProps, T.Bez
   sync: lineSync,
 });
 
-export const TdtBezierCurve3 = defineOverlayComponent<MilitaryEntityProps, T.BezierCurve3>({
+export const TdtBezierCurve3 = defineOverlayComponent<PlotEntityProps, T.BezierCurve3>({
   name: "TdtBezierCurve3",
   props: {
     ...pathProp,
@@ -100,7 +100,7 @@ export const TdtBezierCurve3 = defineOverlayComponent<MilitaryEntityProps, T.Bez
   sync: lineSync,
 });
 
-export const TdtBezierCurveArrow = defineOverlayComponent<MilitaryEntityProps, T.BezierCurveArrow>({
+export const TdtBezierCurveArrow = defineOverlayComponent<PlotEntityProps, T.BezierCurveArrow>({
   name: "TdtBezierCurveArrow",
   props: {
     ...pathProp,
@@ -122,7 +122,7 @@ export const TdtBezierCurveArrow = defineOverlayComponent<MilitaryEntityProps, T
   sync: lineSync,
 });
 
-export const TdtBezierCurveN = defineOverlayComponent<MilitaryEntityProps, T.BezierCurveN>({
+export const TdtBezierCurveN = defineOverlayComponent<PlotEntityProps, T.BezierCurveN>({
   name: "TdtBezierCurveN",
   props: {
     ...pathProp,
@@ -144,7 +144,7 @@ export const TdtBezierCurveN = defineOverlayComponent<MilitaryEntityProps, T.Bez
   sync: lineSync,
 });
 
-export const TdtCardinalCurve = defineOverlayComponent<MilitaryEntityProps, T.CardinalCurve>({
+export const TdtCardinalCurve = defineOverlayComponent<PlotEntityProps, T.CardinalCurve>({
   name: "TdtCardinalCurve",
   props: {
     ...pathProp,
@@ -167,7 +167,7 @@ export const TdtCardinalCurve = defineOverlayComponent<MilitaryEntityProps, T.Ca
 });
 
 export const TdtCardinalCurveArrow = defineOverlayComponent<
-  MilitaryEntityProps,
+  PlotEntityProps,
   T.CardinalCurveArrow
 >({
   name: "TdtCardinalCurveArrow",
@@ -191,7 +191,7 @@ export const TdtCardinalCurveArrow = defineOverlayComponent<
   sync: lineSync,
 });
 
-export const TdtCloseCurve = defineOverlayComponent<MilitaryEntityProps, T.CloseCurve>({
+export const TdtCloseCurve = defineOverlayComponent<PlotEntityProps, T.CloseCurve>({
   name: "TdtCloseCurve",
   props: {
     ...pathProp,
@@ -217,7 +217,7 @@ export const TdtCloseCurve = defineOverlayComponent<MilitaryEntityProps, T.Close
   sync: lineSync,
 });
 
-export const TdtCurveFlag = defineOverlayComponent<MilitaryEntityProps, T.CurveFlag>({
+export const TdtCurveFlag = defineOverlayComponent<PlotEntityProps, T.CurveFlag>({
   name: "TdtCurveFlag",
   props: {
     ...pathProp,
@@ -243,7 +243,7 @@ export const TdtCurveFlag = defineOverlayComponent<MilitaryEntityProps, T.CurveF
   sync: lineSync,
 });
 
-export const TdtDiagonalArrow = defineOverlayComponent<MilitaryEntityProps, T.DiagonalArrow>({
+export const TdtDiagonalArrow = defineOverlayComponent<PlotEntityProps, T.DiagonalArrow>({
   name: "TdtDiagonalArrow",
   props: {
     ...pathProp,
@@ -269,7 +269,7 @@ export const TdtDiagonalArrow = defineOverlayComponent<MilitaryEntityProps, T.Di
   sync: lineSync,
 });
 
-export const TdtDoubleArrow = defineOverlayComponent<MilitaryEntityProps, T.DoubleArrow>({
+export const TdtDoubleArrow = defineOverlayComponent<PlotEntityProps, T.DoubleArrow>({
   name: "TdtDoubleArrow",
   props: {
     ...pathProp,
@@ -296,7 +296,7 @@ export const TdtDoubleArrow = defineOverlayComponent<MilitaryEntityProps, T.Doub
 });
 
 export const TdtDoveTailDiagonalArrow = defineOverlayComponent<
-  MilitaryEntityProps,
+  PlotEntityProps,
   T.DoveTailDiagonalArrow
 >({
   name: "TdtDoveTailDiagonalArrow",
@@ -325,7 +325,7 @@ export const TdtDoveTailDiagonalArrow = defineOverlayComponent<
 });
 
 export const TdtDoveTailStraightArrow = defineOverlayComponent<
-  MilitaryEntityProps,
+  PlotEntityProps,
   T.DoveTailStraightArrow
 >({
   name: "TdtDoveTailStraightArrow",
@@ -353,7 +353,7 @@ export const TdtDoveTailStraightArrow = defineOverlayComponent<
   sync: lineSync,
 });
 
-export const TdtGatheringPlace = defineOverlayComponent<MilitaryEntityProps, T.GatheringPlace>({
+export const TdtGatheringPlace = defineOverlayComponent<PlotEntityProps, T.GatheringPlace>({
   name: "TdtGatheringPlace",
   props: {
     ...pathProp,
@@ -379,7 +379,7 @@ export const TdtGatheringPlace = defineOverlayComponent<MilitaryEntityProps, T.G
   sync: lineSync,
 });
 
-export const TdtParallelSearch = defineOverlayComponent<MilitaryEntityProps, T.ParallelSearch>({
+export const TdtParallelSearch = defineOverlayComponent<PlotEntityProps, T.ParallelSearch>({
   name: "TdtParallelSearch",
   props: {
     ...pathProp,
@@ -401,7 +401,7 @@ export const TdtParallelSearch = defineOverlayComponent<MilitaryEntityProps, T.P
   sync: lineSync,
 });
 
-export const TdtPolylineArrow = defineOverlayComponent<MilitaryEntityProps, T.PolylineArrow>({
+export const TdtPolylineArrow = defineOverlayComponent<PlotEntityProps, T.PolylineArrow>({
   name: "TdtPolylineArrow",
   props: {
     ...pathProp,
@@ -423,7 +423,7 @@ export const TdtPolylineArrow = defineOverlayComponent<MilitaryEntityProps, T.Po
   sync: lineSync,
 });
 
-export const TdtRectFlag = defineOverlayComponent<MilitaryEntityProps, T.RectFlag>({
+export const TdtRectFlag = defineOverlayComponent<PlotEntityProps, T.RectFlag>({
   name: "TdtRectFlag",
   props: {
     ...pathProp,
@@ -449,7 +449,7 @@ export const TdtRectFlag = defineOverlayComponent<MilitaryEntityProps, T.RectFla
   sync: lineSync,
 });
 
-export const TdtRoundRect = defineOverlayComponent<MilitaryEntityProps, T.RoundRect>({
+export const TdtRoundRect = defineOverlayComponent<PlotEntityProps, T.RoundRect>({
   name: "TdtRoundRect",
   props: {
     ...pathProp,
@@ -475,7 +475,7 @@ export const TdtRoundRect = defineOverlayComponent<MilitaryEntityProps, T.RoundR
   sync: lineSync,
 });
 
-export const TdtSector = defineOverlayComponent<MilitaryEntityProps, T.Sector>({
+export const TdtSector = defineOverlayComponent<PlotEntityProps, T.Sector>({
   name: "TdtSector",
   props: {
     ...pathProp,
@@ -501,7 +501,7 @@ export const TdtSector = defineOverlayComponent<MilitaryEntityProps, T.Sector>({
   sync: lineSync,
 });
 
-export const TdtSectorSearch = defineOverlayComponent<MilitaryEntityProps, T.SectorSearch>({
+export const TdtSectorSearch = defineOverlayComponent<PlotEntityProps, T.SectorSearch>({
   name: "TdtSectorSearch",
   props: {
     ...pathProp,
@@ -523,7 +523,7 @@ export const TdtSectorSearch = defineOverlayComponent<MilitaryEntityProps, T.Sec
   sync: lineSync,
 });
 
-export const TdtStraightArrow = defineOverlayComponent<MilitaryEntityProps, T.StraightArrow>({
+export const TdtStraightArrow = defineOverlayComponent<PlotEntityProps, T.StraightArrow>({
   name: "TdtStraightArrow",
   props: {
     ...pathProp,
@@ -549,7 +549,7 @@ export const TdtStraightArrow = defineOverlayComponent<MilitaryEntityProps, T.St
   sync: lineSync,
 });
 
-export const TdtTriangleFlag = defineOverlayComponent<MilitaryEntityProps, T.TriangleFlag>({
+export const TdtTriangleFlag = defineOverlayComponent<PlotEntityProps, T.TriangleFlag>({
   name: "TdtTriangleFlag",
   props: {
     ...pathProp,

@@ -4,13 +4,13 @@ import type { ComponentObjectPropsOptions, PropType } from "vue";
 import { defineToolComponent } from "../tools/defineToolComponent";
 
 /**
- * 标绘工具组件族（对照官方 militarySymbols 工具文档）。
+ * 标绘工具组件族（标绘工具组件族）。
  * 事件为官方基类成员：click / move / dbclick（官方拼写即为 dbclick）。
  * 受控 active prop 开启/关闭工具；绘制的图形经 expose 的 tool（getLayers/clear）访问。
  */
 
 /** 官方各工具 Options 的公共字段：style 与 layers（存储绘制图形的容器） */
-export interface MilitaryToolProps {
+export interface PlotToolProps {
   style?: T.MilitaryStyle;
   /** 存储绘制图形的容器，缺省时工具创建空图层容器 */
   layers?: T.LayerGroup;
@@ -23,7 +23,7 @@ const props: ComponentObjectPropsOptions = {
 
 const TOOL_EVENTS = ["click", "move", "dbclick"] as const;
 
-export const TdtArcTool = defineToolComponent<MilitaryToolProps>({
+export const TdtArcTool = defineToolComponent<PlotToolProps>({
   name: "TdtArcTool",
   props,
   events: TOOL_EVENTS,
@@ -31,7 +31,7 @@ export const TdtArcTool = defineToolComponent<MilitaryToolProps>({
     new T.ArcTool(map, compact({ style: toolProps.style, layers: toolProps.layers })),
 });
 
-export const TdtBezierCurve2Tool = defineToolComponent<MilitaryToolProps>({
+export const TdtBezierCurve2Tool = defineToolComponent<PlotToolProps>({
   name: "TdtBezierCurve2Tool",
   props,
   events: TOOL_EVENTS,
@@ -39,7 +39,7 @@ export const TdtBezierCurve2Tool = defineToolComponent<MilitaryToolProps>({
     new T.BezierCurve2Tool(map, compact({ style: toolProps.style, layers: toolProps.layers })),
 });
 
-export const TdtBezierCurve3Tool = defineToolComponent<MilitaryToolProps>({
+export const TdtBezierCurve3Tool = defineToolComponent<PlotToolProps>({
   name: "TdtBezierCurve3Tool",
   props,
   events: TOOL_EVENTS,
@@ -47,7 +47,7 @@ export const TdtBezierCurve3Tool = defineToolComponent<MilitaryToolProps>({
     new T.BezierCurve3Tool(map, compact({ style: toolProps.style, layers: toolProps.layers })),
 });
 
-export const TdtBezierCurveArrowTool = defineToolComponent<MilitaryToolProps>({
+export const TdtBezierCurveArrowTool = defineToolComponent<PlotToolProps>({
   name: "TdtBezierCurveArrowTool",
   props,
   events: TOOL_EVENTS,
@@ -55,7 +55,7 @@ export const TdtBezierCurveArrowTool = defineToolComponent<MilitaryToolProps>({
     new T.BezierCurveArrowTool(map, compact({ style: toolProps.style, layers: toolProps.layers })),
 });
 
-export const TdtBezierCurveNTool = defineToolComponent<MilitaryToolProps>({
+export const TdtBezierCurveNTool = defineToolComponent<PlotToolProps>({
   name: "TdtBezierCurveNTool",
   props,
   events: TOOL_EVENTS,
@@ -63,7 +63,7 @@ export const TdtBezierCurveNTool = defineToolComponent<MilitaryToolProps>({
     new T.BezierCurveNTool(map, compact({ style: toolProps.style, layers: toolProps.layers })),
 });
 
-export const TdtCardinalCurveArrowTool = defineToolComponent<MilitaryToolProps>({
+export const TdtCardinalCurveArrowTool = defineToolComponent<PlotToolProps>({
   name: "TdtCardinalCurveArrowTool",
   props,
   events: TOOL_EVENTS,
@@ -74,7 +74,7 @@ export const TdtCardinalCurveArrowTool = defineToolComponent<MilitaryToolProps>(
     ),
 });
 
-export const TdtCardinalCurveTool = defineToolComponent<MilitaryToolProps>({
+export const TdtCardinalCurveTool = defineToolComponent<PlotToolProps>({
   name: "TdtCardinalCurveTool",
   props,
   events: TOOL_EVENTS,
@@ -82,7 +82,7 @@ export const TdtCardinalCurveTool = defineToolComponent<MilitaryToolProps>({
     new T.CardinalCurveTool(map, compact({ style: toolProps.style, layers: toolProps.layers })),
 });
 
-export const TdtCloseCurveTool = defineToolComponent<MilitaryToolProps>({
+export const TdtCloseCurveTool = defineToolComponent<PlotToolProps>({
   name: "TdtCloseCurveTool",
   props,
   events: TOOL_EVENTS,
@@ -90,7 +90,7 @@ export const TdtCloseCurveTool = defineToolComponent<MilitaryToolProps>({
     new T.CloseCurveTool(map, compact({ style: toolProps.style, layers: toolProps.layers })),
 });
 
-export const TdtCurveFlagTool = defineToolComponent<MilitaryToolProps>({
+export const TdtCurveFlagTool = defineToolComponent<PlotToolProps>({
   name: "TdtCurveFlagTool",
   props,
   events: TOOL_EVENTS,
@@ -98,7 +98,7 @@ export const TdtCurveFlagTool = defineToolComponent<MilitaryToolProps>({
     new T.CurveFlagTool(map, compact({ style: toolProps.style, layers: toolProps.layers })),
 });
 
-export const TdtDiagonalArrowTool = defineToolComponent<MilitaryToolProps>({
+export const TdtDiagonalArrowTool = defineToolComponent<PlotToolProps>({
   name: "TdtDiagonalArrowTool",
   props,
   events: TOOL_EVENTS,
@@ -106,7 +106,7 @@ export const TdtDiagonalArrowTool = defineToolComponent<MilitaryToolProps>({
     new T.DiagonalArrowTool(map, compact({ style: toolProps.style, layers: toolProps.layers })),
 });
 
-export const TdtDoubleArrowTool = defineToolComponent<MilitaryToolProps>({
+export const TdtDoubleArrowTool = defineToolComponent<PlotToolProps>({
   name: "TdtDoubleArrowTool",
   props,
   events: TOOL_EVENTS,
@@ -114,7 +114,7 @@ export const TdtDoubleArrowTool = defineToolComponent<MilitaryToolProps>({
     new T.DoubleArrowTool(map, compact({ style: toolProps.style, layers: toolProps.layers })),
 });
 
-export const TdtDoveTailDiagonalArrowTool = defineToolComponent<MilitaryToolProps>({
+export const TdtDoveTailDiagonalArrowTool = defineToolComponent<PlotToolProps>({
   name: "TdtDoveTailDiagonalArrowTool",
   props,
   events: TOOL_EVENTS,
@@ -125,7 +125,7 @@ export const TdtDoveTailDiagonalArrowTool = defineToolComponent<MilitaryToolProp
     ),
 });
 
-export const TdtDoveTailStraightArrowTool = defineToolComponent<MilitaryToolProps>({
+export const TdtDoveTailStraightArrowTool = defineToolComponent<PlotToolProps>({
   name: "TdtDoveTailStraightArrowTool",
   props,
   events: TOOL_EVENTS,
@@ -136,7 +136,7 @@ export const TdtDoveTailStraightArrowTool = defineToolComponent<MilitaryToolProp
     ),
 });
 
-export const TdtGatheringPlaceTool = defineToolComponent<MilitaryToolProps>({
+export const TdtGatheringPlaceTool = defineToolComponent<PlotToolProps>({
   name: "TdtGatheringPlaceTool",
   props,
   events: TOOL_EVENTS,
@@ -144,7 +144,7 @@ export const TdtGatheringPlaceTool = defineToolComponent<MilitaryToolProps>({
     new T.GatheringPlaceTool(map, compact({ style: toolProps.style, layers: toolProps.layers })),
 });
 
-export const TdtHandDrawingTool = defineToolComponent<MilitaryToolProps>({
+export const TdtHandDrawingTool = defineToolComponent<PlotToolProps>({
   name: "TdtHandDrawingTool",
   props,
   events: TOOL_EVENTS,
@@ -152,7 +152,7 @@ export const TdtHandDrawingTool = defineToolComponent<MilitaryToolProps>({
     new T.HandDrawingTool(map, compact({ style: toolProps.style, layers: toolProps.layers })),
 });
 
-export const TdtParallelSearchTool = defineToolComponent<MilitaryToolProps>({
+export const TdtParallelSearchTool = defineToolComponent<PlotToolProps>({
   name: "TdtParallelSearchTool",
   props,
   events: TOOL_EVENTS,
@@ -160,7 +160,7 @@ export const TdtParallelSearchTool = defineToolComponent<MilitaryToolProps>({
     new T.ParallelSearchTool(map, compact({ style: toolProps.style, layers: toolProps.layers })),
 });
 
-export const TdtPolylineArrowTool = defineToolComponent<MilitaryToolProps>({
+export const TdtPolylineArrowTool = defineToolComponent<PlotToolProps>({
   name: "TdtPolylineArrowTool",
   props,
   events: TOOL_EVENTS,
@@ -168,7 +168,7 @@ export const TdtPolylineArrowTool = defineToolComponent<MilitaryToolProps>({
     new T.PolylineArrowTool(map, compact({ style: toolProps.style, layers: toolProps.layers })),
 });
 
-export const TdtRectFlagTool = defineToolComponent<MilitaryToolProps>({
+export const TdtRectFlagTool = defineToolComponent<PlotToolProps>({
   name: "TdtRectFlagTool",
   props,
   events: TOOL_EVENTS,
@@ -176,7 +176,7 @@ export const TdtRectFlagTool = defineToolComponent<MilitaryToolProps>({
     new T.RectFlagTool(map, compact({ style: toolProps.style, layers: toolProps.layers })),
 });
 
-export const TdtRoundRectTool = defineToolComponent<MilitaryToolProps>({
+export const TdtRoundRectTool = defineToolComponent<PlotToolProps>({
   name: "TdtRoundRectTool",
   props,
   events: TOOL_EVENTS,
@@ -184,7 +184,7 @@ export const TdtRoundRectTool = defineToolComponent<MilitaryToolProps>({
     new T.RoundRectTool(map, compact({ style: toolProps.style, layers: toolProps.layers })),
 });
 
-export const TdtSectorSearchTool = defineToolComponent<MilitaryToolProps>({
+export const TdtSectorSearchTool = defineToolComponent<PlotToolProps>({
   name: "TdtSectorSearchTool",
   props,
   events: TOOL_EVENTS,
@@ -192,7 +192,7 @@ export const TdtSectorSearchTool = defineToolComponent<MilitaryToolProps>({
     new T.SectorSearchTool(map, compact({ style: toolProps.style, layers: toolProps.layers })),
 });
 
-export const TdtSectorTool = defineToolComponent<MilitaryToolProps>({
+export const TdtSectorTool = defineToolComponent<PlotToolProps>({
   name: "TdtSectorTool",
   props,
   events: TOOL_EVENTS,
@@ -200,7 +200,7 @@ export const TdtSectorTool = defineToolComponent<MilitaryToolProps>({
     new T.SectorTool(map, compact({ style: toolProps.style, layers: toolProps.layers })),
 });
 
-export const TdtStraightArrowTool = defineToolComponent<MilitaryToolProps>({
+export const TdtStraightArrowTool = defineToolComponent<PlotToolProps>({
   name: "TdtStraightArrowTool",
   props,
   events: TOOL_EVENTS,
@@ -208,7 +208,7 @@ export const TdtStraightArrowTool = defineToolComponent<MilitaryToolProps>({
     new T.StraightArrowTool(map, compact({ style: toolProps.style, layers: toolProps.layers })),
 });
 
-export const TdtTriangleFlagTool = defineToolComponent<MilitaryToolProps>({
+export const TdtTriangleFlagTool = defineToolComponent<PlotToolProps>({
   name: "TdtTriangleFlagTool",
   props,
   events: TOOL_EVENTS,
