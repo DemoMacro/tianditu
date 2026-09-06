@@ -1,10 +1,12 @@
 packages:
-  # all packages in subdirs of packages/ and playground/
+  # all packages in subdirs of packages/ and docs/
   - "packages/**"
-  - "playground/**"
+  - "docs"
   # exclude packages that are inside test directories
   - "!**/test/**"
   - "!**/dist/**"
 allowBuilds:
   "@biomejs/biome": true
+  better-sqlite3: true
   esbuild: true
+  vue-demi: true
