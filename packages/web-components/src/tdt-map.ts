@@ -80,7 +80,9 @@ export class TdtMapElement extends LitElement {
     applyMapInteractions(session.map, {});
     // 官方事件以 tdt- 前缀转发为 DOM 事件，随销毁统一解绑
     this.unbindEvents = bindEventNames(session.map, MAP_EVENT_NAMES, (name, event) => {
-      this.dispatchEvent(new CustomEvent(`tdt-${name}`, { detail: event, bubbles: true }));
+      this.dispatchEvent(
+        new CustomEvent(`tdt-${name}`, { detail: event, bubbles: true, composed: true }),
+      );
     });
     return session.map;
   }

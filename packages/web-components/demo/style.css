@@ -7,11 +7,36 @@ body {
 
 tdt-marker,
 tdt-polyline,
+tdt-polygon,
+tdt-rectangle,
+tdt-label,
 tdt-circle,
+tdt-cloud-marker,
+tdt-marker-clusterer,
+tdt-layer-group,
 tdt-control-zoom,
 tdt-control-scale,
-tdt-info-window {
+tdt-control-copyright,
+tdt-control-overview-map,
+tdt-control-map-type,
+tdt-info-window,
+tdt-polyline-tool,
+tdt-polygon-tool,
+tdt-circle-tool,
+tdt-rectangle-tool,
+tdt-mark-tool,
+tdt-paint-brush-tool,
+tdt-coordinate-pickup {
   display: none;
+}
+
+.toolbar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  height: 40px;
+  padding: 0 12px;
+  font-size: 13px;
 }
 
 .win {

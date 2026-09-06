@@ -1,6 +1,7 @@
 import { compact, createInfoWindow, createWhenReady, type InfoWindowHandle } from "@tianditu/core";
 import { LitElement } from "lit";
 
+import { resolveHostOverlay } from "./context";
 import { lnglatConverter, type TdtMapElement } from "./tdt-map";
 
 /**
@@ -60,6 +61,9 @@ export class TdtInfoWindowElement extends LitElement {
 
   private map?: T.Map;
 
+  /** 就近解析到的覆盖物宿主（如 tdt-marker）；无宿主时为 undefined */
+  private host?: unknown;
+
   override connectedCallback(): void {
     super.connectedCallback();
     this.style.display = "none";
@@ -69,8 +73,10 @@ export class TdtInfoWindowElement extends LitElement {
     }
     container
       .whenReady()
-      .then((map) => {
+      .then(async (map) => {
         this.map = map;
+        // 与 vue 侧一致：有 lnglat 由地图打开，否则优先由嵌套的覆盖物宿主打开
+        this.host = await resolveHostOverlay(this);
         return createWhenReady(() =>
           createInfoWindow(
             compact({
@@ -84,7 +90,13 @@ export class TdtInfoWindowElement extends LitElement {
               closeOnClick: this.closeOnClick,
             }),
             (name) => {
-              this.dispatchEvent(new CustomEvent(`tdt-${name}`, { detail: undefined }));
+              this.dispatchEvent(
+                new CustomEvent(`tdt-${name}`, {
+                  detail: undefined,
+                  bubbles: true,
+                  composed: true,
+                }),
+              );
               if (name === "close") {
                 this.open = false;
               }
@@ -126,10 +138,15 @@ export class TdtInfoWindowElement extends LitElement {
       return;
     }
     if (this.open) {
-      this.handle.openOn(
-        this.map,
-        this.lnglat ? new T.LngLat(this.lnglat[0], this.lnglat[1]) : undefined,
-      );
+      // 有 lnglat 由地图按坐标打开；否则嵌套宿主存在时由宿主打开
+      // （官方 Marker.openInfoWindow(win) 无需坐标），兜底取地图中心
+      if (this.lnglat) {
+        this.handle.openOn(this.map, new T.LngLat(this.lnglat[0], this.lnglat[1]));
+      } else if (this.host) {
+        this.handle.openOn(this.host as T.Marker);
+      } else {
+        this.handle.openOn(this.map);
+      }
     } else if (this.handle.isOpen()) {
       this.handle.close();
     }

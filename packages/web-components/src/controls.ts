@@ -1,91 +1,18 @@
-import { compact, createWhenReady } from "@tianditu/core";
-import { LitElement } from "lit";
+import { copyrightDef, mapTypeDef, overviewMapDef, scaleDef, zoomDef } from "@tianditu/core";
 
-import { type TdtMapElement } from "./tdt-map";
+import { makeControlElement } from "./factory";
 
 /**
- * 控件元素：attribute position → SDK 控件构造并 addControl，卸载时
- * removeControl。构造经 createWhenReady 守卫（SDK 扩展组件包异步加载）。
+ * 控件元素：定义（props/构造）见 core defs，attribute 声明与 addControl/
+ * removeControl 生命周期编排已在 factory 的 makeControlElement。
  */
 
-abstract class ControlElement extends LitElement {
-  position?: T.ControlPosition;
+export const TdtControlZoomElement = makeControlElement(zoomDef);
 
-  private control?: T.Control;
+export const TdtControlScaleElement = makeControlElement(scaleDef);
 
-  static override properties = {
-    position: { type: String },
-  };
+export const TdtControlCopyrightElement = makeControlElement(copyrightDef);
 
-  /** SDK 控件构造；扩展类构造前由 createWhenReady 守卫 */
-  protected abstract create(position?: T.ControlPosition): T.Control;
+export const TdtControlOverviewMapElement = makeControlElement(overviewMapDef);
 
-  override connectedCallback(): void {
-    super.connectedCallback();
-    const container = this.closest("tdt-map") as TdtMapElement | null;
-    if (!container) {
-      return;
-    }
-    container
-      .whenReady()
-      .then((map) =>
-        // 守卫等待期间元素可能已卸载，落定时不得再挂载
-        createWhenReady(() => this.create(this.position)).then((control) => {
-          if (this.control || !this.isConnected) {
-            return;
-          }
-          this.control = control;
-          map.addControl(control);
-        }),
-      )
-      .catch(() => {});
-  }
-
-  override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    const map = this.closest("tdt-map") as TdtMapElement | null;
-    if (this.control && map) {
-      void map
-        .whenReady()
-        .then((m) => m.removeControl(this.control!))
-        .catch(() => {});
-    }
-    this.control = undefined;
-  }
-}
-
-export class TdtControlZoomElement extends ControlElement {
-  static override properties = {
-    position: { type: String },
-    zoomInText: { type: String, attribute: "zoom-in-text" },
-    zoomOutText: { type: String, attribute: "zoom-out-text" },
-    zoomInTitle: { type: String, attribute: "zoom-in-title" },
-    zoomOutTitle: { type: String, attribute: "zoom-out-title" },
-  };
-
-  zoomInText?: string;
-
-  zoomOutText?: string;
-
-  zoomInTitle?: string;
-
-  zoomOutTitle?: string;
-
-  protected create(position?: T.ControlPosition): T.Control {
-    return new T.Control.Zoom(
-      compact({
-        position,
-        zoomInText: this.zoomInText,
-        zoomOutText: this.zoomOutText,
-        zoomInTitle: this.zoomInTitle,
-        zoomOutTitle: this.zoomOutTitle,
-      }),
-    );
-  }
-}
-
-export class TdtControlScaleElement extends ControlElement {
-  protected create(position?: T.ControlPosition): T.Control {
-    return new T.Control.Scale(compact({ position }));
-  }
-}
+export const TdtControlMapTypeElement = makeControlElement(mapTypeDef);

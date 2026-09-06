@@ -7,6 +7,7 @@ export const TdtControlPlotSymbols = defineControlComponent<{
   position?: T.ControlPosition;
 }>({
   name: "TdtControlPlotSymbols",
+  tag: "tdt-control-plot-symbols",
   props: { ...controlPositionProp },
   create: (props) => new T.Control.militarySymbols(compact({ position: props.position })),
 });

@@ -8,6 +8,7 @@ export { createAttachable, type Attachable, type AttachContext } from "./attach"
 export {
   createMapSession,
   toLngLat,
+  toLngLats,
   type CreateMapSessionOptions,
   type MapSession,
 } from "./session";
@@ -28,3 +29,4 @@ export {
 } from "./infoWindow";
 export { mountTool, type ToolLike, type ToolSession } from "./tools";
 export { mountTileLayer, TILE_LAYER_EVENT_NAMES } from "./layer";
+export * from "./defs";

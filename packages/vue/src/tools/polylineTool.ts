@@ -1,33 +1,8 @@
-import { compact } from "@tianditu/core";
+import { polylineToolDef } from "@tianditu/core";
 
-import { lineStyleProps } from "../overlays/polyline";
 import { defineToolComponent } from "./defineToolComponent";
 
-export interface PolylineToolProps {
-  /** 是否显示测距结果，关闭后可作画线工具使用 */
-  showLabel?: boolean;
-  color?: string;
-  weight?: number;
-  opacity?: number;
-  lineStyle?: "solid" | "dashed";
-}
+/** 测距工具：定义见 core defs，vue/wc 共享 */
+export type { PolylineToolProps } from "@tianditu/core";
 
-export const TdtPolylineTool = defineToolComponent<PolylineToolProps>({
-  name: "TdtPolylineTool",
-  props: {
-    showLabel: { type: Boolean, default: undefined },
-    ...lineStyleProps,
-  },
-  events: ["draw", "addpoint"] as const,
-  create: (props, map) =>
-    new T.PolylineTool(
-      map,
-      compact({
-        showLabel: props.showLabel,
-        color: props.color,
-        weight: props.weight,
-        opacity: props.opacity,
-        lineStyle: props.lineStyle,
-      }),
-    ),
-});
+export const TdtPolylineTool = defineToolComponent(polylineToolDef);

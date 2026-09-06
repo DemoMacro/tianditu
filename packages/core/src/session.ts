@@ -69,3 +69,7 @@ export async function createMapSession(
 export function toLngLat(value: T.LngLat | [number, number]): T.LngLat {
   return Array.isArray(value) ? new T.LngLat(value[0], value[1]) : value;
 }
+
+export function toLngLats(value: Array<T.LngLat | [number, number]>): T.LngLat[] {
+  return value.map(toLngLat);
+}

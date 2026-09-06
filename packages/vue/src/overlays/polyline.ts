@@ -1,59 +1,8 @@
-import { compact } from "@tianditu/core";
+import { polylineDef } from "@tianditu/core";
 
 import { defineOverlayComponent } from "../defineOverlayComponent";
-import { toLngLatsProp } from "./utils";
 
-export interface LineStyleProps {
-  color?: string;
-  weight?: number;
-  opacity?: number;
-  lineStyle?: "solid" | "dashed";
-}
+/** 折线组件：定义（含线样式四件套）见 core defs，vue/wc 共享 */
+export type { LineStyleProps, PolylineProps } from "@tianditu/core";
 
-/** 折线/多边形共用的线样式运行时 props */
-export const lineStyleProps = {
-  color: { type: String, default: undefined },
-  weight: { type: Number, default: undefined },
-  opacity: { type: Number, default: undefined },
-  lineStyle: { type: String, default: undefined },
-};
-
-export interface PolylineProps extends LineStyleProps {
-  path: Array<[number, number] | T.LngLat>;
-}
-
-export const TdtPolyline = defineOverlayComponent<PolylineProps, T.Polyline>({
-  name: "TdtPolyline",
-  props: {
-    path: { type: Array, required: true },
-    ...lineStyleProps,
-  },
-  events: ["click", "dblclick", "mousedown", "mouseup", "mouseover", "mouseout", "remove"] as const,
-  create(props) {
-    const polyline = new T.Polyline(
-      toLngLatsProp(props.path),
-      compact({
-        color: props.color,
-        weight: props.weight,
-        opacity: props.opacity,
-        lineStyle: props.lineStyle,
-      }),
-    );
-    return polyline;
-  },
-  sync: {
-    path: (polyline, value) => polyline.setLngLats(toLngLatsProp(value)),
-    color: (polyline, value) => {
-      if (value !== undefined) polyline.setColor(value);
-    },
-    weight: (polyline, value) => {
-      if (value !== undefined) polyline.setWeight(value);
-    },
-    opacity: (polyline, value) => {
-      if (value !== undefined) polyline.setOpacity(value);
-    },
-    lineStyle: (polyline, value) => {
-      if (value !== undefined) polyline.setLineStyle(value);
-    },
-  },
-});
+export const TdtPolyline = defineOverlayComponent(polylineDef);

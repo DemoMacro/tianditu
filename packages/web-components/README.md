@@ -48,18 +48,42 @@ $ pnpm add @tianditu/web-components
 
 ## Elements
 
-| Element             | Official class        | Notes                                                            |
-| ------------------- | --------------------- | ---------------------------------------------------------------- |
-| `tdt-map`           | Map                   | `tk`, `center` ("lng,lat"), `zoom`; events prefixed `tdt-`       |
-| `tdt-marker`        | Marker                | `icon-url`, `draggable`, `title`, `z-index-offset`, `opacity`    |
-| `tdt-polyline`      | Polyline              | `path` ("lng,lat;…"), `color`, `weight`, `opacity`, `line-style` |
-| `tdt-circle`        | Circle                | `center`, `radius`, line and fill attributes                     |
-| `tdt-cloud-marker`  | CloudMarkerCollection | `lnglats`, `shape`, `size`, `color`                              |
-| `tdt-control-zoom`  | Control.Zoom          | `position`                                                       |
-| `tdt-control-scale` | Control.Scale         | `position`                                                       |
-| `tdt-info-window`   | InfoWindow            | `open`, `max-width`, `close-button`, `offset`, …                 |
+| Element           | Official class | Notes                                                     |
+| ----------------- | -------------- | --------------------------------------------------------- |
+| `tdt-map`         | `T.Map`        | `tk`, `center` ("lng,lat"), `zoom`; events prefixed `tdt-` |
+| `tdt-info-window` | `T.InfoWindow` | `open`, `lnglat`, `max-width`, …; opens on the host overlay when nested |
 
-Coordinate attributes use `"lng,lat"`; coordinate collections use `";"` separators.
+### Overlays
+
+| Element                | Official class           | Notes                                                                        |
+| ---------------------- | ------------------------ | ---------------------------------------------------------------------------- |
+| `tdt-marker`           | `T.Marker`               | `lnglat`, `icon` (JSON), `draggable`, `title`, `z-index-offset`, `opacity`   |
+| `tdt-polyline`         | `T.Polyline`             | `path` ("lng,lat;…"), `color`, `weight`, `opacity`, `line-style`             |
+| `tdt-polygon`          | `T.Polygon`              | polyline attributes + `fill-color`, `fill-opacity`                           |
+| `tdt-rectangle`        | `T.Rectangle`            | `bounds` ("swLng,swLat;neLng,neLat"), line and fill attributes               |
+| `tdt-circle`           | `T.Circle`               | `center`, `radius`, line and fill attributes                                 |
+| `tdt-label`            | `T.Label`                | `text`, `lnglat`, `font-color`, `font-size`, `background-color`              |
+| `tdt-cloud-marker`     | `T.CloudMarkerCollection` | `lnglats` ("lng,lat;…"), `styles` (JSON)                                    |
+| `tdt-marker-clusterer` | `T.MarkerClusterer`      | collects nested markers; `grid-size`, `max-zoom`                             |
+| `tdt-layer-group`      | `T.LayerGroup`           | collects nested overlays                                                     |
+
+### Controls
+
+`tdt-control-zoom`, `tdt-control-scale`, `tdt-control-copyright`, `tdt-control-overview-map`, `tdt-control-map-type` — attributes follow the official control options (`position`, `zoom-in-text`, `is-open`, …).
+
+### Layers
+
+`tdt-tile-layer`, `tdt-tile-layer-wms`, `tdt-tile-layer-tdt`, `tdt-gridline-layer` — `url` (required for tile layers), `opacity`, `z-index`, `bounds`; events prefixed `tdt-` (`tdt-load`, `tdt-tileerror`, …).
+
+### Mouse tools
+
+`tdt-polyline-tool`, `tdt-polygon-tool`, `tdt-circle-tool`, `tdt-rectangle-tool`, `tdt-mark-tool`, `tdt-paint-brush-tool`, `tdt-coordinate-pickup` — toggled via the boolean `active` attribute (presence semantics: set the property from frameworks, an absent attribute means off).
+
+### Plot symbols
+
+The 22 plot entities (`tdt-arc`, `tdt-bezier-curve2`, `tdt-bezier-curve3`, `tdt-bezier-curve-arrow`, `tdt-bezier-curve-n`, `tdt-cardinal-curve`, `tdt-cardinal-curve-arrow`, `tdt-parallel-search`, `tdt-polyline-arrow`, `tdt-sector-search`, `tdt-close-curve`, `tdt-curve-flag`, `tdt-diagonal-arrow`, `tdt-double-arrow`, `tdt-dove-tail-diagonal-arrow`, `tdt-dove-tail-straight-arrow`, `tdt-gathering-place`, `tdt-rect-flag`, `tdt-round-rect`, `tdt-sector`, `tdt-straight-arrow`, `tdt-triangle-flag`) share the `path` attribute plus line/fill styling, and the 23 plot tools (the entity tags plus `-tool`, e.g. `tdt-arc-tool`, `tdt-hand-drawing-tool`) share the `active` toggle, `style` (JSON) and a JS-only `layers` property.
+
+Coordinate attributes use `"lng,lat"`; coordinate collections use `";"` separators; pure-data objects use JSON. SDK instances (layer groups, map types) are JS-only properties without an attribute.
 
 ## Related Packages
 

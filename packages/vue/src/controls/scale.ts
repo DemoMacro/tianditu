@@ -1,23 +1,8 @@
-import { compact } from "@tianditu/core";
+import { scaleDef } from "@tianditu/core";
 
-import { controlPositionProp, defineControlComponent } from "./defineControlComponent";
+import { defineControlComponent } from "./defineControlComponent";
 
-export interface ControlScaleProps {
-  position?: T.ControlPosition;
-  color?: string;
-}
+/** 比例尺控件：定义见 core defs，vue/wc 共享 */
+export type { ControlScaleProps } from "@tianditu/core";
 
-export const TdtControlScale = defineControlComponent<ControlScaleProps>({
-  name: "TdtControlScale",
-  props: {
-    ...controlPositionProp,
-    color: { type: String, default: undefined },
-  },
-  create: (props) => {
-    const control = new T.Control.Scale(compact({ position: props.position }));
-    if (props.color !== undefined) {
-      control.setColor(props.color);
-    }
-    return control;
-  },
-});
+export const TdtControlScale = defineControlComponent(scaleDef);

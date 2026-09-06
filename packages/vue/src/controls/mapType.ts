@@ -1,28 +1,8 @@
-import { compact } from "@tianditu/core";
-import { type PropType } from "vue";
+import { mapTypeDef } from "@tianditu/core";
 
-import { controlPositionProp, defineControlComponent } from "./defineControlComponent";
+import { defineControlComponent } from "./defineControlComponent";
 
-export interface ControlMapTypeProps {
-  position?: T.ControlPosition;
-  /** 控件展示的地图类型，缺省为 SDK 默认列表 */
-  mapTypes?: T.ControlMapTypeOptionsMapType[];
-}
+/** 地图类型切换控件：定义见 core defs，vue/wc 共享 */
+export type { ControlMapTypeProps } from "@tianditu/core";
 
-export const TdtControlMapType = defineControlComponent<ControlMapTypeProps>({
-  name: "TdtControlMapType",
-  props: {
-    ...controlPositionProp,
-    mapTypes: {
-      type: Array as unknown as PropType<T.ControlMapTypeOptionsMapType[]>,
-      default: undefined,
-    },
-  },
-  create: (props) =>
-    new T.Control.MapType(
-      compact({
-        position: props.position,
-        mapTypes: props.mapTypes,
-      }),
-    ),
-});
+export const TdtControlMapType = defineControlComponent(mapTypeDef);

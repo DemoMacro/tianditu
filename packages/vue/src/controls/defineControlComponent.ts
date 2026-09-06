@@ -1,19 +1,13 @@
-import { createWhenReady } from "@tianditu/core";
-import {
-  defineComponent,
-  inject,
-  onBeforeUnmount,
-  shallowRef,
-  watch,
-  type ComponentObjectPropsOptions,
-  type PropType,
-} from "vue";
+import { createWhenReady, type ControlDef, type PropDefs } from "@tianditu/core";
+import { defineComponent, inject, onBeforeUnmount, shallowRef, watch } from "vue";
 
 import { MAP_KEY } from "../context";
+import { vuePropsFromDef } from "../props";
 
-export const controlPositionProp = {
+// 标绘控件仍在沿用，收敛前保留导出
+export const controlPositionProp: PropDefs<{ position?: T.ControlPosition }> = {
   position: {
-    type: String as PropType<T.ControlPosition>,
+    type: String,
     default: undefined,
   },
 };
@@ -23,14 +17,10 @@ export const controlPositionProp = {
  * 构造经 createWhenReady 守卫——SDK 扩展组件包异步加载，过早构造扩展类
  * 会抛 "is not a constructor"，守卫内自动等待重试。
  */
-export function defineControlComponent<P extends object>(options: {
-  name: string;
-  props: ComponentObjectPropsOptions;
-  create(props: P): T.Control;
-}) {
+export function defineControlComponent<P extends object>(def: ControlDef<P>) {
   return defineComponent({
-    name: options.name,
-    props: options.props,
+    name: def.name,
+    props: vuePropsFromDef(def.props),
     // 经 expose 暴露 SDK 实例：官方控件方法（如 Copyright.addCopyright）
     // 走实例原样能力
     setup(props, { slots, expose }) {
@@ -46,7 +36,7 @@ export function defineControlComponent<P extends object>(options: {
           if (!current || control.value) {
             return;
           }
-          void createWhenReady(() => options.create(props as P)).then((created) => {
+          void createWhenReady(() => def.create(props as P)).then((created) => {
             if (disposed || !map.value || control.value) {
               return;
             }

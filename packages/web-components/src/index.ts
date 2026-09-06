@@ -1,28 +1,257 @@
-import { TdtControlScaleElement, TdtControlZoomElement } from "./controls";
+import {
+  TdtControlCopyrightElement,
+  TdtControlMapTypeElement,
+  TdtControlOverviewMapElement,
+  TdtControlScaleElement,
+  TdtControlZoomElement,
+} from "./controls";
 import { TdtInfoWindowElement } from "./info-window";
 import {
   TdtCircleElement,
   TdtCloudMarkerElement,
+  TdtLabelElement,
+  TdtLayerGroupElement,
+  TdtMarkerClustererElement,
   TdtMarkerElement,
+  TdtPolygonElement,
   TdtPolylineElement,
+  TdtRectangleElement,
 } from "./overlays";
+import {
+  TdtGridlineLayerElement,
+  TdtTileLayerElement,
+  TdtTileLayerTdtElement,
+  TdtTileLayerWmsElement,
+} from "./layers";
+import {
+  TdtArcElement,
+  TdtBezierCurve2Element,
+  TdtBezierCurve3Element,
+  TdtBezierCurveArrowElement,
+  TdtBezierCurveNElement,
+  TdtCardinalCurveArrowElement,
+  TdtCardinalCurveElement,
+  TdtCloseCurveElement,
+  TdtCurveFlagElement,
+  TdtDiagonalArrowElement,
+  TdtDoubleArrowElement,
+  TdtDoveTailDiagonalArrowElement,
+  TdtDoveTailStraightArrowElement,
+  TdtGatheringPlaceElement,
+  TdtParallelSearchElement,
+  TdtPolylineArrowElement,
+  TdtRectFlagElement,
+  TdtRoundRectElement,
+  TdtSectorElement,
+  TdtSectorSearchElement,
+  TdtStraightArrowElement,
+  TdtTriangleFlagElement,
+} from "./plot-entities";
+import {
+  TdtArcToolElement,
+  TdtBezierCurve2ToolElement,
+  TdtBezierCurve3ToolElement,
+  TdtBezierCurveArrowToolElement,
+  TdtBezierCurveNToolElement,
+  TdtCardinalCurveArrowToolElement,
+  TdtCardinalCurveToolElement,
+  TdtCloseCurveToolElement,
+  TdtCurveFlagToolElement,
+  TdtDiagonalArrowToolElement,
+  TdtDoubleArrowToolElement,
+  TdtDoveTailDiagonalArrowToolElement,
+  TdtDoveTailStraightArrowToolElement,
+  TdtGatheringPlaceToolElement,
+  TdtHandDrawingToolElement,
+  TdtParallelSearchToolElement,
+  TdtPolylineArrowToolElement,
+  TdtRectFlagToolElement,
+  TdtRoundRectToolElement,
+  TdtSectorSearchToolElement,
+  TdtSectorToolElement,
+  TdtStraightArrowToolElement,
+  TdtTriangleFlagToolElement,
+} from "./plot-tools";
 import { TdtMapElement } from "./tdt-map";
+import {
+  TdtCircleToolElement,
+  TdtCoordinatePickupElement,
+  TdtMarkToolElement,
+  TdtPaintBrushToolElement,
+  TdtPolygonToolElement,
+  TdtPolylineToolElement,
+  TdtRectangleToolElement,
+} from "./tools";
 
 export { TdtMapElement, lnglatConverter } from "./tdt-map";
 export {
-  TdtMarkerElement,
-  TdtPolylineElement,
   TdtCircleElement,
   TdtCloudMarkerElement,
+  TdtLabelElement,
+  TdtLayerGroupElement,
+  TdtMarkerClustererElement,
+  TdtMarkerElement,
+  TdtPolygonElement,
+  TdtPolylineElement,
+  TdtRectangleElement,
 } from "./overlays";
-export { TdtControlZoomElement, TdtControlScaleElement } from "./controls";
+export {
+  TdtControlCopyrightElement,
+  TdtControlMapTypeElement,
+  TdtControlOverviewMapElement,
+  TdtControlScaleElement,
+  TdtControlZoomElement,
+} from "./controls";
+export {
+  TdtGridlineLayerElement,
+  TdtTileLayerElement,
+  TdtTileLayerTdtElement,
+  TdtTileLayerWmsElement,
+} from "./layers";
+export {
+  TdtArcElement,
+  TdtBezierCurve2Element,
+  TdtBezierCurve3Element,
+  TdtBezierCurveArrowElement,
+  TdtBezierCurveNElement,
+  TdtCardinalCurveArrowElement,
+  TdtCardinalCurveElement,
+  TdtCloseCurveElement,
+  TdtCurveFlagElement,
+  TdtDiagonalArrowElement,
+  TdtDoubleArrowElement,
+  TdtDoveTailDiagonalArrowElement,
+  TdtDoveTailStraightArrowElement,
+  TdtGatheringPlaceElement,
+  TdtParallelSearchElement,
+  TdtPolylineArrowElement,
+  TdtRectFlagElement,
+  TdtRoundRectElement,
+  TdtSectorElement,
+  TdtSectorSearchElement,
+  TdtStraightArrowElement,
+  TdtTriangleFlagElement,
+} from "./plot-entities";
+export {
+  TdtArcToolElement,
+  TdtBezierCurve2ToolElement,
+  TdtBezierCurve3ToolElement,
+  TdtBezierCurveArrowToolElement,
+  TdtBezierCurveNToolElement,
+  TdtCardinalCurveArrowToolElement,
+  TdtCardinalCurveToolElement,
+  TdtCloseCurveToolElement,
+  TdtCurveFlagToolElement,
+  TdtDiagonalArrowToolElement,
+  TdtDoubleArrowToolElement,
+  TdtDoveTailDiagonalArrowToolElement,
+  TdtDoveTailStraightArrowToolElement,
+  TdtGatheringPlaceToolElement,
+  TdtHandDrawingToolElement,
+  TdtParallelSearchToolElement,
+  TdtPolylineArrowToolElement,
+  TdtRectFlagToolElement,
+  TdtRoundRectToolElement,
+  TdtSectorSearchToolElement,
+  TdtSectorToolElement,
+  TdtStraightArrowToolElement,
+  TdtTriangleFlagToolElement,
+} from "./plot-tools";
 export { TdtInfoWindowElement } from "./info-window";
+export {
+  TdtCircleToolElement,
+  TdtCoordinatePickupElement,
+  TdtMarkToolElement,
+  TdtPaintBrushToolElement,
+  TdtPolygonToolElement,
+  TdtPolylineToolElement,
+  TdtRectangleToolElement,
+} from "./tools";
 
-customElements.define("tdt-map", TdtMapElement);
-customElements.define("tdt-marker", TdtMarkerElement);
-customElements.define("tdt-polyline", TdtPolylineElement);
-customElements.define("tdt-circle", TdtCircleElement);
-customElements.define("tdt-cloud-marker", TdtCloudMarkerElement);
-customElements.define("tdt-control-zoom", TdtControlZoomElement);
-customElements.define("tdt-control-scale", TdtControlScaleElement);
-customElements.define("tdt-info-window", TdtInfoWindowElement);
+/** tag → 元素类注册表（registerComponents 与副作用注册共用） */
+export const ELEMENTS: Array<[string, CustomElementConstructor]> = [
+  ["tdt-map", TdtMapElement],
+  ["tdt-marker", TdtMarkerElement],
+  ["tdt-polyline", TdtPolylineElement],
+  ["tdt-polygon", TdtPolygonElement],
+  ["tdt-rectangle", TdtRectangleElement],
+  ["tdt-label", TdtLabelElement],
+  ["tdt-circle", TdtCircleElement],
+  ["tdt-cloud-marker", TdtCloudMarkerElement],
+  ["tdt-marker-clusterer", TdtMarkerClustererElement],
+  ["tdt-layer-group", TdtLayerGroupElement],
+  ["tdt-control-zoom", TdtControlZoomElement],
+  ["tdt-control-scale", TdtControlScaleElement],
+  ["tdt-control-copyright", TdtControlCopyrightElement],
+  ["tdt-control-overview-map", TdtControlOverviewMapElement],
+  ["tdt-control-map-type", TdtControlMapTypeElement],
+  ["tdt-info-window", TdtInfoWindowElement],
+  ["tdt-tile-layer", TdtTileLayerElement],
+  ["tdt-tile-layer-wms", TdtTileLayerWmsElement],
+  ["tdt-tile-layer-tdt", TdtTileLayerTdtElement],
+  ["tdt-gridline-layer", TdtGridlineLayerElement],
+  ["tdt-arc", TdtArcElement],
+  ["tdt-bezier-curve2", TdtBezierCurve2Element],
+  ["tdt-bezier-curve3", TdtBezierCurve3Element],
+  ["tdt-bezier-curve-arrow", TdtBezierCurveArrowElement],
+  ["tdt-bezier-curve-n", TdtBezierCurveNElement],
+  ["tdt-cardinal-curve", TdtCardinalCurveElement],
+  ["tdt-cardinal-curve-arrow", TdtCardinalCurveArrowElement],
+  ["tdt-parallel-search", TdtParallelSearchElement],
+  ["tdt-polyline-arrow", TdtPolylineArrowElement],
+  ["tdt-sector-search", TdtSectorSearchElement],
+  ["tdt-close-curve", TdtCloseCurveElement],
+  ["tdt-curve-flag", TdtCurveFlagElement],
+  ["tdt-diagonal-arrow", TdtDiagonalArrowElement],
+  ["tdt-double-arrow", TdtDoubleArrowElement],
+  ["tdt-dove-tail-diagonal-arrow", TdtDoveTailDiagonalArrowElement],
+  ["tdt-dove-tail-straight-arrow", TdtDoveTailStraightArrowElement],
+  ["tdt-gathering-place", TdtGatheringPlaceElement],
+  ["tdt-rect-flag", TdtRectFlagElement],
+  ["tdt-round-rect", TdtRoundRectElement],
+  ["tdt-sector", TdtSectorElement],
+  ["tdt-straight-arrow", TdtStraightArrowElement],
+  ["tdt-triangle-flag", TdtTriangleFlagElement],
+  ["tdt-polyline-tool", TdtPolylineToolElement],
+  ["tdt-polygon-tool", TdtPolygonToolElement],
+  ["tdt-circle-tool", TdtCircleToolElement],
+  ["tdt-rectangle-tool", TdtRectangleToolElement],
+  ["tdt-mark-tool", TdtMarkToolElement],
+  ["tdt-paint-brush-tool", TdtPaintBrushToolElement],
+  ["tdt-coordinate-pickup", TdtCoordinatePickupElement],
+  ["tdt-arc-tool", TdtArcToolElement],
+  ["tdt-bezier-curve2-tool", TdtBezierCurve2ToolElement],
+  ["tdt-bezier-curve3-tool", TdtBezierCurve3ToolElement],
+  ["tdt-bezier-curve-arrow-tool", TdtBezierCurveArrowToolElement],
+  ["tdt-bezier-curve-n-tool", TdtBezierCurveNToolElement],
+  ["tdt-cardinal-curve-tool", TdtCardinalCurveToolElement],
+  ["tdt-cardinal-curve-arrow-tool", TdtCardinalCurveArrowToolElement],
+  ["tdt-close-curve-tool", TdtCloseCurveToolElement],
+  ["tdt-curve-flag-tool", TdtCurveFlagToolElement],
+  ["tdt-diagonal-arrow-tool", TdtDiagonalArrowToolElement],
+  ["tdt-double-arrow-tool", TdtDoubleArrowToolElement],
+  ["tdt-dove-tail-diagonal-arrow-tool", TdtDoveTailDiagonalArrowToolElement],
+  ["tdt-dove-tail-straight-arrow-tool", TdtDoveTailStraightArrowToolElement],
+  ["tdt-gathering-place-tool", TdtGatheringPlaceToolElement],
+  ["tdt-hand-drawing-tool", TdtHandDrawingToolElement],
+  ["tdt-parallel-search-tool", TdtParallelSearchToolElement],
+  ["tdt-polyline-arrow-tool", TdtPolylineArrowToolElement],
+  ["tdt-rect-flag-tool", TdtRectFlagToolElement],
+  ["tdt-round-rect-tool", TdtRoundRectToolElement],
+  ["tdt-sector-search-tool", TdtSectorSearchToolElement],
+  ["tdt-sector-tool", TdtSectorToolElement],
+  ["tdt-straight-arrow-tool", TdtStraightArrowToolElement],
+  ["tdt-triangle-flag-tool", TdtTriangleFlagToolElement],
+];
+
+/** 注册全部自定义元素；已注册的 tag 自动跳过（重复 import 安全） */
+export function registerComponents(): void {
+  for (const [tag, ctor] of ELEMENTS) {
+    if (!customElements.get(tag)) {
+      customElements.define(tag, ctor);
+    }
+  }
+}
+
+// import 即注册（与按需调用 registerComponents 两种用法并存）
+registerComponents();
