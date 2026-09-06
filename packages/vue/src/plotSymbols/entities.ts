@@ -166,10 +166,7 @@ export const TdtCardinalCurve = defineOverlayComponent<PlotEntityProps, T.Cardin
   sync: lineSync,
 });
 
-export const TdtCardinalCurveArrow = defineOverlayComponent<
-  PlotEntityProps,
-  T.CardinalCurveArrow
->({
+export const TdtCardinalCurveArrow = defineOverlayComponent<PlotEntityProps, T.CardinalCurveArrow>({
   name: "TdtCardinalCurveArrow",
   props: {
     ...pathProp,

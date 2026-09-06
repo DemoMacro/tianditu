@@ -2,7 +2,7 @@ import { configDefaults, defineConfig } from "vite-plus";
 
 export default defineConfig({
   fmt: {
-    ignorePatterns: ["**/docs/content/*/index.md", "**/.output/**", "**/.nuxt/**"],
+    ignorePatterns: ["**/docs/content/**/*.md", "**/.output/**", "**/.nuxt/**"],
     sortImports: {
       type: "natural",
     },
@@ -12,6 +12,7 @@ export default defineConfig({
   lint: {
     ignorePatterns: [
       "**/scripts/**",
+      "**/docs/**",
       "**/dist/**",
       "**/coverage/**",
       "**/.output/**",

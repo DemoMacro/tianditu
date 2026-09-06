@@ -1,0 +1,7 @@
+/* live 示例容器：地图需要确定的像素高度 */
+.tdt-demo {
+  height: 24rem;
+  border-radius: var(--ui-radius, 0.5rem);
+  overflow: hidden;
+  border: 1px solid var(--ui-border, #e5e7eb);
+}

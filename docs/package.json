@@ -1,0 +1,23 @@
+{
+  "name": "@tianditu/docs",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview"
+  },
+  "dependencies": {
+    "@nuxtjs/mdc": "0.22.2",
+    "@tianditu/services": "workspace:*",
+    "@tianditu/vue": "workspace:*",
+    "docus": "5.12.3",
+    "nuxt": "4.5.2",
+    "vue": "3.5.41"
+  },
+  "devDependencies": {
+    "@iconify-json/lucide": "1.2.125"
+  }
+}

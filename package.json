@@ -26,6 +26,10 @@
   "scripts": {
     "dev": "pnpm --filter \"./packages/**\" -r dev",
     "build": "pnpm --filter \"./packages/**\" -r build",
+    "docs:dev": "pnpm --filter @tianditu/docs dev",
+    "docs:build": "pnpm --filter @tianditu/docs build",
+    "docs:generate": "pnpm --filter @tianditu/docs generate",
+    "docs:preview": "pnpm --filter @tianditu/docs preview",
     "check": "vp check --fix",
     "version": "pnpm --filter \"./packages/**\" -r exec basis version",
     "publish": "pnpm --filter \"./packages/**\" -r exec basis publish",

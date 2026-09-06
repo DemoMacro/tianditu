@@ -4,7 +4,7 @@ import {
   TdtCircle,
   TdtCloudMarker,
   TdtControlCopyright,
-  TdtControlMilitarySymbols,
+  TdtControlPlotSymbols,
   TdtControlScale,
   TdtControlZoom,
   TdtContextMenu,
@@ -218,7 +218,7 @@ function main() {
             h(TdtControlZoom as never, { position: "bottomright" }),
             h(TdtControlScale as never),
             h(TdtControlCopyright as never),
-            h(TdtControlMilitarySymbols as never, { position: "topright" }),
+            h(TdtControlPlotSymbols as never, { position: "topright" }),
 
             h(TdtContextMenu as never, null, () => [
               h(TdtContextMenuItem as never, {
