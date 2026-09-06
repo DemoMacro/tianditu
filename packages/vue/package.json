@@ -1,13 +1,24 @@
 {
   "name": "@tianditu/vue",
   "version": "0.0.3-edge.1",
-  "description": "Vue components for tianditu, powered by Demo Macro.",
+  "description": "Vue 3 components for the tianditu map — overlays, controls, mouse tools, layers, and plot symbols mounted declaratively, synced through official setters, fully typed",
   "keywords": [
-    "libraries",
-    "map",
     "tianditu",
-    "utility",
-    "vue"
+    "map",
+    "gis",
+    "lbs",
+    "vue",
+    "vue3",
+    "vue-components",
+    "marker",
+    "overlay",
+    "polygon",
+    "polyline",
+    "control",
+    "tile-layer",
+    "plot",
+    "infowindow",
+    "typescript"
   ],
   "homepage": "https://github.com/DemoMacro/tianditu#readme",
   "bugs": {
@@ -17,7 +28,7 @@
   "author": {
     "name": "Demo Macro",
     "email": "abc@imst.xyz",
-    "url": "https://imst.xyz/"
+    "url": "https://www.demomacro.com/"
   },
   "repository": {
     "type": "git",

@@ -1,13 +1,22 @@
 {
   "name": "@tianditu/services",
   "version": "0.0.3-edge.1",
-  "description": "Tianditu rest services, powered by Demo Macro.",
+  "description": "Typed REST client for tianditu services — place search, driving and transit planning, geocoding, administrative divisions, and static images, standalone from the map runtime",
   "keywords": [
-    "libraries",
-    "map",
-    "services",
     "tianditu",
-    "utility"
+    "map",
+    "gis",
+    "lbs",
+    "rest",
+    "api-client",
+    "search",
+    "geocoding",
+    "reverse-geocoding",
+    "route-planning",
+    "transit",
+    "administrative-divisions",
+    "static-image",
+    "typescript"
   ],
   "homepage": "https://github.com/DemoMacro/tianditu#readme",
   "bugs": {
@@ -17,7 +26,7 @@
   "author": {
     "name": "Demo Macro",
     "email": "abc@imst.xyz",
-    "url": "https://imst.xyz/"
+    "url": "https://www.demomacro.com/"
   },
   "repository": {
     "type": "git",

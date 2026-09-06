@@ -2,12 +2,19 @@
   "name": "tianditu",
   "version": "0.0.0",
   "private": true,
-  "description": "Utility libraries for tianditu, powered by Demo Macro.",
+  "description": "Utility libraries for tianditu — one set of framework-agnostic definitions powering both Vue 3 components and Web Components, plus a typed REST service client",
   "keywords": [
-    "libraries",
-    "map",
     "tianditu",
-    "utility"
+    "map",
+    "gis",
+    "lbs",
+    "vue",
+    "vue3",
+    "web-components",
+    "custom-elements",
+    "rest",
+    "typescript",
+    "sdk"
   ],
   "homepage": "https://github.com/DemoMacro/tianditu#readme",
   "bugs": {
@@ -17,7 +24,7 @@
   "author": {
     "name": "Demo Macro",
     "email": "abc@imst.xyz",
-    "url": "https://imst.xyz/"
+    "url": "https://www.demomacro.com/"
   },
   "repository": {
     "type": "git",

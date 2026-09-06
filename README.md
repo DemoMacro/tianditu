@@ -2,40 +2,41 @@
 
 ![GitHub](https://img.shields.io/github/license/DemoMacro/tianditu)
 
-> Utility libraries for tianditu, powered by Demo Macro. Third-party, not an official tianditu product.
+> 天地图（tianditu）的 Vue 3 组件与 Web Components 工具库。
+> 同一份框架无关定义驱动两种运行时：地图、覆盖物、控件、鼠标工具、图层与标绘组件覆盖官方 JavaScript API 全部类目，props 变更经官方 setter 响应式同步，另附独立的类型化 REST 服务客户端。第三方实现，非天地图官方产品。
 
-## Features
+## 特性
 
-- 🗺️ **Component Coverage** — Components for every class of the official JavaScript API: map, overlays, controls, mouse tools, layers, and service classes
-- 🖥️ **Two Runtimes** — The same capabilities as Vue 3 components (`@tianditu/vue`) or as Web Components (`@tianditu/web-components`)
-- 🧭 **Framework-Agnostic Core** — SDK loader, map session, and lifecycle orchestration live in `@tianditu/core`, shared by every adapter
-- 🔌 **Typed REST Client** — `@tianditu/services` wraps the REST endpoints with complete request/response types, independent of the map runtime
-- 💪 **TypeScript-First** — Full type definitions distributed with every package; component props, events, and exposes are checked at compile time
-- 📖 **Documentation Site** — Docus-based docs with live examples; enter your own key in the browser to try the map and services
+- 🗺️ **组件全覆盖** — 组件覆盖官方 JavaScript API 的每一类能力：地图、覆盖物、控件、鼠标工具、图层与服务类
+- 🖥️ **两种运行时** — 同一套能力既可用 Vue 3 组件（`@tianditu/vue`），也可用 Web Components（`@tianditu/web-components`）
+- 🧭 **框架无关内核** — SDK 加载器、地图会话与生命周期编排在 `@tianditu/core`，被所有适配层共享
+- 🔌 **类型化 REST 客户端** — `@tianditu/services` 封装 REST 接口并带完整请求/响应类型，与地图运行时解耦
+- 💪 **TypeScript 优先** — 每个包附带完整类型定义；组件 props、事件与 exposes 均在编译期检查
+- 📖 **文档站** — 基于 Docus 的文档站，含实时示例；在浏览器里填入自己的密钥即可试用地图与服务
 
-## Packages
+## 包
 
-| Package                                                         | Description                                                               |
-| --------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| [@tianditu/core](./packages/core/README.md)                     | Framework-agnostic core: SDK loader, map session, lifecycle orchestration |
-| [@tianditu/vue](./packages/vue/README.md)                       | Vue 3 component adapter                                                   |
-| [@tianditu/web-components](./packages/web-components/README.md) | Web Components adapter                                                    |
-| [@tianditu/services](./packages/services/README.md)             | Typed REST service client (decoupled from the map runtime)                |
+| 包                                                              | 说明                                                          |
+| --------------------------------------------------------------- | ------------------------------------------------------------- |
+| [@tianditu/core](./packages/core/README.md)                     | 框架无关内核：SDK 加载器、地图会话、生命周期编排              |
+| [@tianditu/vue](./packages/vue/README.md)                       | Vue 3 组件适配层                                              |
+| [@tianditu/web-components](./packages/web-components/README.md) | Web Components 适配层                                         |
+| [@tianditu/services](./packages/services/README.md)             | 类型化 REST 服务客户端（与地图运行时解耦）                    |
 
-## Quick Start
+## 快速开始
 
 ```bash
-# Vue 3 components (includes @tianditu/core)
+# Vue 3 组件（已包含 @tianditu/core）
 $ pnpm add @tianditu/vue
 
-# Web Components (includes @tianditu/core)
+# Web Components（已包含 @tianditu/core）
 $ pnpm add @tianditu/web-components
 
-# REST service client (standalone)
+# REST 服务客户端（独立使用）
 $ pnpm add @tianditu/services
 ```
 
-A map with Vue 3:
+一张 Vue 3 地图：
 
 ```vue
 <script setup>
@@ -54,7 +55,7 @@ import { TdtMap, TdtMarker } from "@tianditu/vue";
 </template>
 ```
 
-The same map with Web Components:
+同样一张 Web Components 地图：
 
 ```html
 <script type="module">
@@ -73,30 +74,30 @@ The same map with Web Components:
 </tdt-map>
 ```
 
-## Documentation
+## 文档
 
-Guides, component API reference, and live examples live in [`docs/`](./docs/). Run the docs site locally:
+指南、组件 API 参考与实时示例见 [`docs/`](./docs/)。本地运行文档站：
 
 ```bash
 $ pnpm docs:dev
 ```
 
-## Development
+## 开发
 
 ```bash
 $ git clone https://github.com/DemoMacro/tianditu.git
 $ cd tianditu
 $ pnpm install
 
-$ pnpm build        # Build all packages
-$ pnpm check        # Lint & format
-$ pnpm docs:dev     # Docs site on :3000
+$ pnpm build        # 构建全部包
+$ pnpm check        # 检查与格式化
+$ pnpm docs:dev     # 文档站，端口 :3000
 ```
 
-## Contributing
+## 贡献
 
-Welcome contributions! Run `pnpm build && pnpm check` before opening a Pull Request against `main`.
+欢迎贡献！向 `main` 发起 Pull Request 前请先运行 `pnpm build && pnpm check`。
 
-## License
+## 许可
 
-- [MIT](LICENSE) &copy; [Demo Macro](https://imst.xyz/)
+- [MIT](LICENSE) &copy; [Demo Macro](https://www.demomacro.com/)

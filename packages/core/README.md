@@ -4,19 +4,21 @@
 ![npm downloads](https://img.shields.io/npm/dw/@tianditu/core)
 ![npm license](https://img.shields.io/npm/l/@tianditu/core)
 
-> Framework-agnostic core for the tianditu libraries, powered by Demo Macro.
+> 天地图 JavaScript API 的框架无关内核，不绑定任何 UI 框架。
+> 幂等的 SDK 加载器与地图会话、覆盖物/工具/图层/信息窗的生命周期编排，以及驱动 Vue 与 Web Components 两个适配层的组件定义层都汇聚于此——适配层因此保持轻薄，接入新框架只需写响应式胶水。
 
-## Features
+## 特性
 
-- 🔄 **Idempotent SDK Loader** — `loadTdt` fetches and executes the official script once, pre-fills the component-pack cache to avoid load races, and repairs missing packs with sentinel checks
-- 🗺️ **Map Session** — `createMapSession` initializes the map per the official convention and owns teardown
-- 🧩 **Lifecycle Orchestration** — `mountOverlay`, `mountTool`, `mountTileLayer`, and `createInfoWindow` handle construct/attach/sync/detach so adapters stay thin
-- 🔁 **Props Sync** — `createPropsSync` diffs reactive getters against official setters; `SyncDef` maps prop → setter
-- 📡 **Event Bridge** — `bindEventNames` attaches/detaches native SDK events with a uniform unsubscribe shape
-- ⏳ **Construct Guard** — `createWhenReady` retries "is not a constructor" timing errors until extension packs are ready
-- 📑 **Distributed Types** — global SDK declarations ship with the package; importing it types `window.T` everywhere
+- 🔄 **幂等 SDK 加载器** — `loadTdt` 只拉取并执行一次官方脚本，预填组件包缓存规避加载竞态，并以哨兵检测补载缺失的包
+- 🗺️ **地图会话** — `createMapSession` 按官方约定初始化地图并负责销毁
+- 🧩 **生命周期编排** — `mountOverlay`、`mountTool`、`mountTileLayer` 与 `createInfoWindow` 承担构造/挂载/同步/卸载，适配层保持轻薄
+- 📑 **组件定义层** — `defs/` 下每组件一份框架无关定义（props 形状、SDK 构造、sync 与事件表），Vue 与 Web Components 适配层消费同一份
+- 🔁 **Props 同步** — `createPropsSync` 把响应式 getter diff 成官方 setter 调用；`SyncDef` 声明 prop → setter 映射
+- 📡 **事件桥** — `bindEventNames` 以统一的退订形状挂接/解绑 SDK 原生事件
+- ⏳ **构造守卫** — `createWhenReady` 对 "is not a constructor" 时序错误重试，直至扩展组件包就绪
+- 📑 **类型分发** — SDK 全局声明随包分发；import 本包即可在任意位置获得 `window.T` 类型
 
-## Installation
+## 安装
 
 ```bash
 # npm
@@ -29,7 +31,7 @@ $ yarn add @tianditu/core
 $ pnpm add @tianditu/core
 ```
 
-## Quick Start
+## 快速开始
 
 ```typescript
 import { createMapSession, loadTdt } from "@tianditu/core";
@@ -43,23 +45,24 @@ const session = await createMapSession(container, {
 session.destroy();
 ```
 
-`loadTdt({ tk })` is also exported for loading the SDK without creating a map.
+只加载 SDK 不建图时，也可使用导出的 `loadTdt({ tk })`。
 
 ## API
 
 - **loader** — `loadTdt` / `getTdt` / `isTdtLoaded` / `createWhenReady`
-- **session** — `createMapSession` / `toLngLat`
-- **orchestration** — `mountOverlay` / `mountTool` / `mountTileLayer` / `createInfoWindow` / `applyMapInteractions`
-- **utilities** — `createPropsSync` / `bindEventNames` / `compact` / `createAttachable`
+- **session** — `createMapSession` / `toLngLat` / `toLngLats`
+- **编排** — `mountOverlay` / `mountTool` / `mountTileLayer` / `createInfoWindow` / `applyMapInteractions`
+- **定义层** — `OverlayDef` / `ToolDef` / `ControlDef` / `LayerDef` 与各组件 `xxxDef` 常量
+- **工具** — `createPropsSync` / `bindEventNames` / `compact` / `createAttachable`
 
-The full typed API reference lives in the [documentation](https://github.com/DemoMacro/tianditu/tree/main/docs).
+完整类型化 API 参考见[文档站](https://github.com/DemoMacro/tianditu/tree/main/docs)。
 
-## Related Packages
+## 相关包
 
-- [@tianditu/vue](https://www.npmjs.com/package/@tianditu/vue) — Vue 3 component adapter
-- [@tianditu/web-components](https://www.npmjs.com/package/@tianditu/web-components) — Web Components adapter
-- [@tianditu/services](https://www.npmjs.com/package/@tianditu/services) — typed REST service client
+- [@tianditu/vue](https://www.npmjs.com/package/@tianditu/vue) — Vue 3 组件适配层
+- [@tianditu/web-components](https://www.npmjs.com/package/@tianditu/web-components) — Web Components 适配层
+- [@tianditu/services](https://www.npmjs.com/package/@tianditu/services) — 类型化 REST 服务客户端
 
-## License
+## 许可
 
-- [MIT](LICENSE) &copy; [Demo Macro](https://imst.xyz/)
+- [MIT](LICENSE) &copy; [Demo Macro](https://www.demomacro.com/)

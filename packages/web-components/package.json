@@ -1,13 +1,24 @@
 {
   "name": "@tianditu/web-components",
   "version": "0.0.0-edge.1",
-  "description": "Web components for tianditu, powered by Demo Macro.",
+  "description": "Web Components for the tianditu map — Lit-based custom elements for any framework or plain HTML, sharing one core definition with the Vue adapter",
   "keywords": [
-    "libraries",
-    "map",
     "tianditu",
-    "utility",
-    "web-components"
+    "map",
+    "gis",
+    "lbs",
+    "web-components",
+    "custom-elements",
+    "lit",
+    "marker",
+    "overlay",
+    "polygon",
+    "polyline",
+    "control",
+    "tile-layer",
+    "plot",
+    "infowindow",
+    "typescript"
   ],
   "homepage": "https://github.com/DemoMacro/tianditu#readme",
   "bugs": {
@@ -17,7 +28,7 @@
   "author": {
     "name": "Demo Macro",
     "email": "abc@imst.xyz",
-    "url": "https://imst.xyz/"
+    "url": "https://www.demomacro.com/"
   },
   "repository": {
     "type": "git",

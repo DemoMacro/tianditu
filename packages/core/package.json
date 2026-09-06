@@ -1,13 +1,18 @@
 {
   "name": "@tianditu/core",
   "version": "0.0.3-edge.1",
-  "description": "Headless core for tianditu, powered by Demo Macro.",
+  "description": "Headless core for tianditu — idempotent SDK loader, map session, and lifecycle orchestration shared by every framework adapter, with a component definition layer for Vue and Web Components",
   "keywords": [
-    "core",
-    "libraries",
-    "map",
     "tianditu",
-    "utility"
+    "map",
+    "gis",
+    "lbs",
+    "core",
+    "headless",
+    "framework-agnostic",
+    "sdk-loader",
+    "overlay",
+    "typescript"
   ],
   "homepage": "https://github.com/DemoMacro/tianditu#readme",
   "bugs": {
@@ -17,7 +22,7 @@
   "author": {
     "name": "Demo Macro",
     "email": "abc@imst.xyz",
-    "url": "https://imst.xyz/"
+    "url": "https://www.demomacro.com/"
   },
   "repository": {
     "type": "git",

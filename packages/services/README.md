@@ -4,16 +4,17 @@
 ![npm downloads](https://img.shields.io/npm/dw/@tianditu/services)
 ![npm license](https://img.shields.io/npm/l/@tianditu/services)
 
-> Typed REST client for the tianditu services, powered by Demo Macro.
+> 天地图 REST 服务的类型化客户端，Node 与浏览器均可运行。
+> 覆盖地名搜索、驾车/公交规划、地理编码、逆地理编码、行政区划与静态地图：每个接口都有类型化的请求与响应，状态码语义与官方一致，与地图运行时解耦、可独立使用。
 
-## Features
+## 特性
 
-- 🔌 **Standalone** — pure request wrapper, decoupled from the map runtime; runs in Node and browsers
-- 💪 **Fully Typed** — typed requests and responses for every endpoint (`SearchResult`, `DriveResult`, `TransitResult`, `GeoCodingResult`, `AdministrativeResult`, …)
-- 🧭 **Complete Endpoints** — place search, driving/transit planning, geocoding, reverse geocoding, administrative divisions, and static images
-- 🛟 **Status Semantics** — result status codes (`infocode`) exposed as-is with the official meanings
+- 🔌 **独立可用** — 纯请求封装，与地图运行时解耦；Node 与浏览器均可运行
+- 💪 **完整类型** — 每个接口都有类型化请求与响应（`SearchResult`、`DriveResult`、`TransitResult`、`GeoCodingResult`、`AdministrativeResult` 等）
+- 🧭 **接口齐全** — 地名搜索、驾车/公交规划、地理编码、逆地理编码、行政区划与静态地图
+- 🛟 **状态语义** — 结果状态码（`infocode`）原样暴露，含义与官方一致
 
-## Installation
+## 安装
 
 ```bash
 # npm
@@ -26,7 +27,7 @@ $ yarn add @tianditu/services
 $ pnpm add @tianditu/services
 ```
 
-## Quick Start
+## 快速开始
 
 ```typescript
 import { defineTianditu } from "@tianditu/services";
@@ -52,22 +53,22 @@ if (result.status.infocode === 1000) {
 
 ## API
 
-| Method                      | Parameter                 | Description                   |
-| --------------------------- | ------------------------- | ----------------------------- |
-| `search(postStr)`           | `SearchPostStr`           | Place search V2.0             |
-| `drive(postStr)`            | `DrivePostStr`            | Driving route planning        |
-| `transit(postStr)`          | `TransitPostStr`          | Transit route planning        |
-| `geoCoding(ds)`             | `GeoCodingDs`             | Geocoding                     |
-| `reverseGeoCoding(postStr)` | `ReverseGeoCodingPostStr` | Reverse geocoding             |
-| `administrative(params)`    | `AdministrativeParams`    | Administrative division query |
-| `staticImage(params)`       | `StaticImageParams`       | Static map image              |
+| 方法                        | 参数                      | 说明             |
+| --------------------------- | ------------------------- | ---------------- |
+| `search(postStr)`           | `SearchPostStr`           | 地名搜索 V2.0    |
+| `drive(postStr)`            | `DrivePostStr`            | 驾车路线规划     |
+| `transit(postStr)`          | `TransitPostStr`          | 公交路线规划     |
+| `geoCoding(ds)`             | `GeoCodingDs`             | 地理编码         |
+| `reverseGeoCoding(postStr)` | `ReverseGeoCodingPostStr` | 逆地理编码       |
+| `administrative(params)`    | `AdministrativeParams`    | 行政区划查询     |
+| `staticImage(params)`       | `StaticImageParams`       | 静态地图         |
 
-## Related Packages
+## 相关包
 
-- [@tianditu/core](https://www.npmjs.com/package/@tianditu/core) — framework-agnostic core
-- [@tianditu/vue](https://www.npmjs.com/package/@tianditu/vue) — Vue 3 component adapter
-- [@tianditu/web-components](https://www.npmjs.com/package/@tianditu/web-components) — Web Components adapter
+- [@tianditu/core](https://www.npmjs.com/package/@tianditu/core) — 框架无关内核
+- [@tianditu/vue](https://www.npmjs.com/package/@tianditu/vue) — Vue 3 组件适配层
+- [@tianditu/web-components](https://www.npmjs.com/package/@tianditu/web-components) — Web Components 适配层
 
-## License
+## 许可
 
-- [MIT](LICENSE) &copy; [Demo Macro](https://imst.xyz/)
+- [MIT](LICENSE) &copy; [Demo Macro](https://www.demomacro.com/)

@@ -4,20 +4,21 @@
 ![npm downloads](https://img.shields.io/npm/dw/@tianditu/vue)
 ![npm license](https://img.shields.io/npm/l/@tianditu/vue)
 
-> Vue 3 components for the tianditu map, powered by Demo Macro.
+> 用 Vue 3 组件写天地图。
+> 覆盖官方 JavaScript API 的地图、覆盖物、控件、鼠标工具、图层、标绘组件与服务组合式函数：组件写在地图内部即自动挂载，props 变更经官方 setter 同步，官方事件原生转发，每个组件都 expose SDK 实例可命令式兜底。
 
-## Features
+## 特性
 
-- 🗺️ **`<TdtMap>` Container** — props for center/zoom/interactions; the 14 official map events forwarded natively
-- 📌 **Overlays** — Marker, Polyline, Polygon, Circle, Rectangle, Label, MarkerClusterer, CloudMarkerCollection, InfoWindow, and ContextMenu as declarative components; prop changes sync through official setters
-- 🎛️ **Controls** — Zoom, Scale, Copyright, OverviewMap, and MapType
-- 🖱️ **Mouse Tools** — PolylineTool, PolygonTool, CircleTool, RectangleTool, MarkTool, PaintBrushTool, and CoordinatePickup with a controlled `active` prop
-- 🗂️ **Layers** — TileLayer, TileLayer.WMS, TileLayer.TDT, GridlineLayer, and LayerGroup
-- 🚩 **Plot Symbols** — 22 plotting entity components, 23 drawing tools, and the plot symbols control
-- 📞 **Service Composables** — `useLocalSearch`, `useGeocoder`, `useGeolocation`, `useDrivingRoute`, `useTransitRoute`, `useBusLineSearch`, `useDataSources`, `useAdministrativeDivision`, `useLocalCity` with callbacks turned into Promises
-- 🛟 **Escape Hatch** — `useMap()` exposes the reactive map instance; every component exposes its SDK instance for imperative access
+- 🗺️ **`<TdtMap>` 容器** — center/zoom/交互等 props；官方 14 个地图事件原生转发
+- 📌 **覆盖物** — Marker、Polyline、Polygon、Circle、Rectangle、Label、MarkerClusterer、CloudMarkerCollection、InfoWindow 与 ContextMenu 均为声明式组件；props 变化经官方 setter 同步
+- 🎛️ **控件** — Zoom、Scale、Copyright、OverviewMap 与 MapType
+- 🖱️ **鼠标工具** — PolylineTool、PolygonTool、CircleTool、RectangleTool、MarkTool、PaintBrushTool 与 CoordinatePickup，受控 `active` 开关
+- 🗂️ **图层** — TileLayer、TileLayer.WMS、TileLayer.TDT、GridlineLayer 与 LayerGroup
+- 🚩 **标绘** — 22 个标绘实体组件、23 个标绘工具与标绘控件
+- 📞 **服务组合式** — `useLocalSearch`、`useGeocoder`、`useGeolocation`、`useDrivingRoute`、`useTransitRoute`、`useBusLineSearch`、`useDataSources`、`useAdministrativeDivision`、`useLocalCity`，回调一律转为 Promise
+- 🛟 **逃生口** — `useMap()` 暴露响应式地图实例；每个组件都 expose 其 SDK 实例，可命令式访问
 
-## Installation
+## 安装
 
 ```bash
 # npm
@@ -30,7 +31,7 @@ $ yarn add @tianditu/vue
 $ pnpm add @tianditu/vue
 ```
 
-## Quick Start
+## 快速开始
 
 ```vue
 <script setup>
@@ -59,14 +60,14 @@ const open = ref(false);
 
 ## API
 
-Component groups mirror the official documentation categories — map, overlays, controls, mouse tools, layers, plot symbols, and services. Props, events, and exposes per component are documented in the [documentation](https://github.com/DemoMacro/tianditu/tree/main/docs).
+组件分组与官方文档类目一致——地图、覆盖物、控件、鼠标工具、图层、标绘与服务。每个组件的 props、事件与 exposes 见[文档站](https://github.com/DemoMacro/tianditu/tree/main/docs)。
 
-## Related Packages
+## 相关包
 
-- [@tianditu/core](https://www.npmjs.com/package/@tianditu/core) — framework-agnostic core (installed automatically)
-- [@tianditu/web-components](https://www.npmjs.com/package/@tianditu/web-components) — Web Components adapter
-- [@tianditu/services](https://www.npmjs.com/package/@tianditu/services) — typed REST service client
+- [@tianditu/core](https://www.npmjs.com/package/@tianditu/core) — 框架无关内核（自动安装）
+- [@tianditu/web-components](https://www.npmjs.com/package/@tianditu/web-components) — Web Components 适配层
+- [@tianditu/services](https://www.npmjs.com/package/@tianditu/services) — 类型化 REST 服务客户端
 
-## License
+## 许可
 
-- [MIT](LICENSE) &copy; [Demo Macro](https://imst.xyz/)
+- [MIT](LICENSE) &copy; [Demo Macro](https://www.demomacro.com/)
