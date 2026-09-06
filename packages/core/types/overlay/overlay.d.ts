@@ -3,6 +3,13 @@ export {};
 declare global {
   namespace T {
     /**
+     * 覆盖物选项
+     */
+    interface OverlayOptions {
+      /** 叠加层类型：Label 为 1、Marker 为 2、InfoWindow 为 3、Polyline 为 4、Polygon 为 5、Circle 为 6、Rectangle 为 7 */
+      type?: number;
+    }
+    /**
      * 自定义覆盖物的构造类
      */
     class Overlay {
