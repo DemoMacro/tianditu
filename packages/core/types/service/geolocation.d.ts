@@ -22,6 +22,8 @@ declare global {
     interface GeolocationOptions {
       /** 是否使用高精度 */
       enableHighAccuracy?: boolean;
+      /** 浏览器缓存定位的最大时长，单位毫秒 */
+      maximumAge?: number;
       /** 超时时间，单位毫秒 */
       timeout?: number;
     }

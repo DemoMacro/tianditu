@@ -20,9 +20,9 @@ declare global {
 
     interface CoordinatePickupOptions {
       /**
-       * 坐标显示控件停靠位置
+       * 设置回调函数（开启后点击地图回调地理坐标）
        */
-      anchor?: ControlPosition;
+      callback?: (lnglat: LngLat) => void;
     }
   }
 }
