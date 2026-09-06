@@ -12,6 +12,7 @@ import {
   shallowRef,
   watch,
   type ComponentObjectPropsOptions,
+  type PropType,
 } from "vue";
 
 import { MAP_KEY } from "../context";
@@ -23,6 +24,10 @@ export interface TileLayerProps {
   maxZoom?: number;
   opacity?: number;
   zIndex?: number;
+  /** 瓦片加载失败时显示的图片 URL */
+  errorTileUrl?: string;
+  /** 图层显示范围（官方 TileLayerOptions.bounds） */
+  bounds?: [[number, number], [number, number]] | T.LngLatBounds;
 }
 
 function tileLayerProps() {
@@ -32,7 +37,20 @@ function tileLayerProps() {
     maxZoom: { type: Number, default: undefined },
     opacity: { type: Number, default: undefined },
     zIndex: { type: Number, default: undefined },
+    errorTileUrl: { type: String, default: undefined },
+    bounds: { type: Array as unknown as PropType<TileLayerProps["bounds"]>, default: undefined },
   };
+}
+
+function toBoundsProp(value: TileLayerProps["bounds"]): T.LngLatBounds | undefined {
+  if (!value) {
+    return undefined;
+  }
+  if (Array.isArray(value)) {
+    const [[swLng, swLat], [neLng, neLat]] = value;
+    return new T.LngLatBounds(new T.LngLat(swLng, swLat), new T.LngLat(neLng, neLat));
+  }
+  return value;
 }
 
 const tileLayerSync: SyncDef<T.TileLayer, TileLayerProps> = {
@@ -114,6 +132,8 @@ export const TdtTileLayer = createTileLayerComponent<TileLayerProps>({
         maxZoom: props.maxZoom,
         opacity: props.opacity,
         zIndex: props.zIndex,
+        errorTileUrl: props.errorTileUrl,
+        bounds: toBoundsProp(props.bounds),
       }),
     ),
 });
@@ -179,6 +199,8 @@ export const TdtTileLayerTDT = createTileLayerComponent<TileLayerTDTProps>({
         maxZoom: props.maxZoom,
         opacity: props.opacity,
         zIndex: props.zIndex,
+        errorTileUrl: props.errorTileUrl,
+        bounds: toBoundsProp(props.bounds),
         attribution: props.attribution,
       }),
     ),

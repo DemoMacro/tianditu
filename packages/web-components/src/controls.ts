@@ -55,8 +55,32 @@ abstract class ControlElement extends LitElement {
 }
 
 export class TdtControlZoomElement extends ControlElement {
+  static override properties = {
+    position: { type: String },
+    zoomInText: { type: String, attribute: "zoom-in-text" },
+    zoomOutText: { type: String, attribute: "zoom-out-text" },
+    zoomInTitle: { type: String, attribute: "zoom-in-title" },
+    zoomOutTitle: { type: String, attribute: "zoom-out-title" },
+  };
+
+  zoomInText?: string;
+
+  zoomOutText?: string;
+
+  zoomInTitle?: string;
+
+  zoomOutTitle?: string;
+
   protected create(position?: T.ControlPosition): T.Control {
-    return new T.Control.Zoom(compact({ position }));
+    return new T.Control.Zoom(
+      compact({
+        position,
+        zoomInText: this.zoomInText,
+        zoomOutText: this.zoomOutText,
+        zoomInTitle: this.zoomInTitle,
+        zoomOutTitle: this.zoomOutTitle,
+      }),
+    );
   }
 }
 

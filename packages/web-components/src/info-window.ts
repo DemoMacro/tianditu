@@ -1,4 +1,4 @@
-import { createInfoWindow, createWhenReady, type InfoWindowHandle } from "@tianditu/core";
+import { compact, createInfoWindow, createWhenReady, type InfoWindowHandle } from "@tianditu/core";
 import { LitElement } from "lit";
 
 import { lnglatConverter, type TdtMapElement } from "./tdt-map";
@@ -8,16 +8,51 @@ import { lnglatConverter, type TdtMapElement } from "./tdt-map";
  * 克隆进窗体容器：SDK 在 open 时会搬移内容容器，克隆可保持元素内原始
  * 子节点稳定，且避免 observer 被搬移触发误清窗口（vue 适配层同款方案）。
  * 独立使用时经 lnglat 属性由地图打开；嵌套在覆盖物元素内时由宿主打开。
+ * attribute 随官方 InfoWindowOptions 字段（kebab-case）。
  */
+
+/** "x,y" 属性 → T.Point */
+function pointConverter(value: string | null): T.Point | undefined {
+  if (!value) {
+    return undefined;
+  }
+  const [x, y] = value.split(",").map(Number);
+  return new T.Point(x, y);
+}
+
 export class TdtInfoWindowElement extends LitElement {
   static override properties = {
     open: { type: Boolean, reflect: true },
     lnglat: { converter: lnglatConverter },
+    minWidth: { type: Number, attribute: "min-width" },
+    maxWidth: { type: Number, attribute: "max-width" },
+    maxHeight: { type: Number, attribute: "max-height" },
+    autoPan: { type: Boolean, attribute: "auto-pan" },
+    closeButton: { type: Boolean, attribute: "close-button" },
+    offset: { converter: pointConverter },
+    autoPanPadding: { converter: pointConverter, attribute: "auto-pan-padding" },
+    closeOnClick: { type: Boolean, attribute: "close-on-click" },
   };
 
   open = false;
 
   lnglat?: [number, number];
+
+  minWidth?: number;
+
+  maxWidth?: number;
+
+  maxHeight?: number;
+
+  autoPan?: boolean;
+
+  closeButton?: boolean;
+
+  offset?: T.Point;
+
+  autoPanPadding?: T.Point;
+
+  closeOnClick?: boolean;
 
   private handle?: InfoWindowHandle;
 
@@ -37,12 +72,24 @@ export class TdtInfoWindowElement extends LitElement {
       .then((map) => {
         this.map = map;
         return createWhenReady(() =>
-          createInfoWindow({}, (name) => {
-            this.dispatchEvent(new CustomEvent(`tdt-${name}`, { detail: undefined }));
-            if (name === "close") {
-              this.open = false;
-            }
-          }),
+          createInfoWindow(
+            compact({
+              minWidth: this.minWidth,
+              maxWidth: this.maxWidth,
+              maxHeight: this.maxHeight,
+              autoPan: this.autoPan,
+              closeButton: this.closeButton,
+              offset: this.offset,
+              autoPanPadding: this.autoPanPadding,
+              closeOnClick: this.closeOnClick,
+            }),
+            (name) => {
+              this.dispatchEvent(new CustomEvent(`tdt-${name}`, { detail: undefined }));
+              if (name === "close") {
+                this.open = false;
+              }
+            },
+          ),
         ).then((created) => {
           if (this.handle || !this.isConnected) {
             return;

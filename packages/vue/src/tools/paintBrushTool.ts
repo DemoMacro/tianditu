@@ -5,30 +5,22 @@ import { defineToolComponent } from "./defineToolComponent";
 export interface PaintBrushToolProps {
   /** 保持工具的连续可用性 */
   keepdrawing?: boolean;
-  /** 笔迹样式 */
-  color?: string;
-  weight?: number;
-  opacity?: number;
+  /** 画笔留下笔迹的样式（官方 PaintBrushToolOptions 的 style 字段） */
+  style?: T.PaintBrushToolOptions["style"];
 }
 
 export const TdtPaintBrushTool = defineToolComponent<PaintBrushToolProps>({
   name: "TdtPaintBrushTool",
   props: {
     keepdrawing: { type: Boolean, default: undefined },
-    color: { type: String, default: undefined },
-    weight: { type: Number, default: undefined },
-    opacity: { type: Number, default: undefined },
+    style: { type: Object, default: undefined },
   },
   create: (props, map) =>
     new T.PaintBrushTool(
       map,
       compact({
         keepdrawing: props.keepdrawing,
-        style: {
-          color: props.color,
-          weight: props.weight,
-          opacity: props.opacity,
-        },
+        style: props.style,
       }),
     ),
 });

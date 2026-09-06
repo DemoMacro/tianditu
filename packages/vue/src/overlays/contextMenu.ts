@@ -1,4 +1,4 @@
-import { createWhenReady, mountOverlay, type OverlayHandle } from "@tianditu/core";
+import { compact, createWhenReady, mountOverlay, type OverlayHandle } from "@tianditu/core";
 import { defineComponent, inject, onBeforeUnmount, provide, shallowRef, watch } from "vue";
 
 import { CONTEXT_MENU_KEY, MAP_KEY } from "../context";
@@ -10,8 +10,12 @@ import { CONTEXT_MENU_KEY, MAP_KEY } from "../context";
  */
 export const TdtContextMenu = defineComponent({
   name: "TdtContextMenu",
+  props: {
+    /** 菜单宽度（官方 ContextMenuOptions.width，默认 120） */
+    width: { type: Number, default: undefined },
+  },
   emits: ["open", "close"],
-  setup(_props, { emit, expose, slots }) {
+  setup(props, { emit, expose, slots }) {
     const { map } = inject(MAP_KEY)!;
     const menu = shallowRef<T.ContextMenu>();
     let handle: OverlayHandle<T.ContextMenu> | undefined;
@@ -24,25 +28,27 @@ export const TdtContextMenu = defineComponent({
         if (!current || handle) {
           return;
         }
-        void createWhenReady(() => new T.ContextMenu({ width: 160 })).then((instance) => {
-          if (disposed || !map.value || handle) {
-            return;
-          }
-          // ContextMenu 不是常规 overlay：挂载走 map.addContextMenu；
-          // SDK 未提供卸载方法，销毁时仅停同步、解绑事件
-          handle = mountOverlay(
-            { map: current },
-            {
-              props: () => ({}),
-              events: ["open", "close"],
-              dispatch: (name, event) => emit(name as never, event),
-              create: () => instance,
-              attach: (created, ctx) => ctx.map.addContextMenu(created),
-              detach: () => {},
-            },
-          );
-          menu.value = handle.instance;
-        });
+        void createWhenReady(() => new T.ContextMenu(compact({ width: props.width }))).then(
+          (instance) => {
+            if (disposed || !map.value || handle) {
+              return;
+            }
+            // ContextMenu 不是常规 overlay：挂载走 map.addContextMenu；
+            // SDK 未提供卸载方法，销毁时仅停同步、解绑事件
+            handle = mountOverlay(
+              { map: current },
+              {
+                props: () => ({}),
+                events: ["open", "close"],
+                dispatch: (name, event) => emit(name as never, event),
+                create: () => instance,
+                attach: (created, ctx) => ctx.map.addContextMenu(created),
+                detach: () => {},
+              },
+            );
+            menu.value = handle.instance;
+          },
+        );
       },
       { immediate: true },
     );

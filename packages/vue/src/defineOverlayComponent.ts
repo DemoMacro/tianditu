@@ -42,12 +42,15 @@ export function defineOverlayComponent<P extends object, O>(
     name: options.name,
     props: options.props,
     emits: options.events ? [...options.events] : [],
-    setup(props, { emit, slots }) {
+    setup(props, { emit, slots, expose }) {
       const { map } = inject(MAP_KEY)!;
       // 命中聚合或图层容器时覆盖物加入容器而非直接上屏（就近优先：内层容器收编）
       const collector = inject(LAYER_GROUP_KEY, undefined) ?? inject(CLUSTER_KEY, undefined);
       const instance = shallowRef<O>();
       provide(OVERLAY_KEY, instance);
+      // 经 expose 暴露 SDK 实例：官方未列组件事件的方法（addEventListener
+      // 命令式挂接、get* 读取）走实例原样能力
+      expose({ instance });
       options.setup?.({ instance });
 
       let handle: OverlayHandle<O> | undefined;
