@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { TdtMap, TdtMarker } from "@tianditu/vue";
+import { TdtMap } from "@tianditu/vue";
 
 /**
  * MDC live 地图示例：::DemoMap{center="116.404,39.915" zoom="12"}
- * 未保存浏览器端密钥时展示引导卡；密钥变更经 :key 重建地图。
+ * 未保存密钥时展示引导卡；密钥变更经 :key 重建地图。
  */
 const props = defineProps<{
   /** "lng,lat" */
@@ -13,7 +13,8 @@ const props = defineProps<{
 }>();
 
 const appConfig = useAppConfig();
-const { browserKey } = useTdtKeys();
+const { key } = useTdtKeys();
+const keyManagerOpen = useState("tdt-key-manager-open", () => false);
 
 const center = computed<[number, number]>(() => {
   if (props.center) {
@@ -27,11 +28,21 @@ const zoom = computed(() => Number(props.zoom ?? appConfig.tdt.defaultZoom));
 
 <template>
   <ClientOnly>
-    <DemoKeySettings v-if="!browserKey" type="browser" compact />
-    <div v-else class="tdt-demo">
-      <TdtMap :key="browserKey" :tk="browserKey" :center="center" :zoom="zoom">
-        <TdtMarker :lnglat="center" />
+    <DemoKeySettings v-if="!key" compact />
+    <div v-else class="tdt-demo relative">
+      <TdtMap :key="key" :tk="key" :center="center" :zoom="zoom">
+        <slot />
       </TdtMap>
+      <UButton
+        class="absolute right-2 bottom-2"
+        size="xs"
+        color="neutral"
+        variant="solid"
+        icon="i-lucide-key-round"
+        label="密钥"
+        title="修改密钥"
+        @click="keyManagerOpen = true"
+      />
     </div>
     <template #fallback>
       <div class="tdt-demo text-muted grid place-items-center text-sm">地图加载中…</div>

@@ -2,7 +2,7 @@
 
 ![GitHub](https://img.shields.io/github/license/DemoMacro/tianditu)
 
-> Utility libraries for tianditu, powered by Demo Macro.
+> Utility libraries for tianditu, powered by Demo Macro. Third-party, not an official tianditu product.
 
 ## Features
 

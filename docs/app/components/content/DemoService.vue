@@ -3,10 +3,11 @@ import { defineTianditu, type SearchResult } from "@tianditu/services";
 
 /**
  * MDC live 服务示例：::DemoService（本地搜索 V2.0）
- * 未保存服务器端密钥时展示引导卡；搜索经 @tianditu/services 直连 REST。
+ * 未保存密钥时展示引导卡；搜索经 @tianditu/services 直连 REST。
  */
-const { serverKey } = useTdtKeys();
+const { key } = useTdtKeys();
 const { tdt } = useAppConfig();
+const keyManagerOpen = useState("tdt-key-manager-open", () => false);
 
 // 普通搜索（queryType:1）在 V2.0 接口下同样必填视野参数，以缺省视图构造
 const [lng, lat] = tdt.defaultCenter;
@@ -22,7 +23,7 @@ async function search() {
   error.value = undefined;
   result.value = undefined;
   try {
-    result.value = await defineTianditu({ tk: serverKey.value }).search({
+    result.value = await defineTianditu({ tk: key.value }).search({
       keyWord: keyword.value,
       // 地名搜索V2.0：普通搜索（含地铁公交）
       queryType: 1,
@@ -32,7 +33,7 @@ async function search() {
       count: 10,
     });
   } catch {
-    error.value = "请求失败：请检查服务器端密钥与网络";
+    error.value = "请求失败：请检查密钥与网络";
   } finally {
     loading.value = false;
   }
@@ -42,27 +43,35 @@ async function search() {
 <template>
   <ClientOnly>
     <div class="flex flex-col gap-3">
-      <DemoKeySettings v-if="!serverKey" type="server" compact />
+      <DemoKeySettings v-if="!key" compact />
       <template v-else>
-        <form class="flex gap-2" @submit.prevent="search">
-          <input
-            v-model="keyword"
-            placeholder="关键词，如 北京站"
-            class="border-muted bg-default focus:ring-primary min-w-0 flex-1 rounded-(--ui-radius) border px-3 py-1.5 text-sm outline-none focus:ring-2"
+        <UForm :state="{ keyword }" class="flex items-center gap-2" @submit="search">
+          <UInput v-model="keyword" placeholder="关键词，如 北京站" class="min-w-0 flex-1" />
+          <UButton type="submit" icon="i-lucide-search" :loading="loading">搜索</UButton>
+          <UButton
+            color="neutral"
+            variant="outline"
+            icon="i-lucide-key-round"
+            aria-label="修改密钥"
+            title="修改密钥"
+            @click="keyManagerOpen = true"
           />
-          <button
-            type="submit"
-            :disabled="loading"
-            class="bg-primary text-inverted rounded-(--ui-radius) px-3 py-1.5 text-sm disabled:opacity-50"
-          >
-            {{ loading ? "搜索中…" : "搜索" }}
-          </button>
-        </form>
+        </UForm>
 
-        <p v-if="error" class="text-error text-sm">{{ error }}</p>
-        <p v-else-if="result && result.status.infocode !== 1000" class="text-muted text-sm">
-          未返回数据：{{ result.status.cndesc }}
-        </p>
+        <UAlert
+          v-if="error"
+          color="error"
+          variant="subtle"
+          icon="i-lucide-circle-alert"
+          :title="error"
+        />
+        <UAlert
+          v-else-if="result && result.status.infocode !== 1000"
+          color="neutral"
+          variant="subtle"
+          icon="i-lucide-info"
+          :title="`未返回数据：${result.status.cndesc}`"
+        />
 
         <table v-if="result?.pois?.length" class="w-full text-sm">
           <thead>

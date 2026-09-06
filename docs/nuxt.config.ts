@@ -9,8 +9,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       tianditu: {
-        browserKey: "",
-        serverKey: "",
+        key: "",
       },
     },
   },

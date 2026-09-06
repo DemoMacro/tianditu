@@ -1,8 +1,8 @@
 ---
 prose: true
 seo:
-  title: 天地图 工具库
-  description: 天地图 JavaScript API 的类型化封装——Vue 3 组件、Web Components 与 REST 服务客户端，装上就能用。
+  title: 天地图工具库
+  description: 天地图 JavaScript API 与 REST 服务的类型化封装，提供 Vue 3 组件、Web Components 与服务客户端。
 ---
 
 ::u-page-hero
@@ -14,7 +14,7 @@ orientation: horizontal
 #title
 把天地图装进你的项目
 #description
-官方 JavaScript API 与 REST 服务的类型化封装：地图可以写成 Vue 3 组件，也可以写成原生 Web Components；搜索、路线这些服务则交给一个客户端函数。输入密钥，右侧就是一张真地图。
+天地图 JavaScript API 与 REST 服务的类型化封装。地图可以写成 Vue 3 组件，也可以写成原生 Web Components；搜索、路线规划等服务通过客户端函数调用。在右侧输入密钥，地图即可运行。
 #links
 :::u-button
 ---
@@ -40,23 +40,23 @@ variant: outline
 ---
 features:
   - icon: i-lucide-map
-    title: 一个容器全包了
-    description: "`<TdtMap>` 负责加载 SDK、初始化地图、桥接事件；覆盖物、控件写进去就生效。"
+    title: 地图是一个组件
+    description: "`<TdtMap>` 完成加载 SDK、初始化地图、桥接事件；覆盖物和控件作为子组件写入。"
   - icon: i-lucide-component
-    title: 官方类逐一对应
-    description: 标注、折线、多边形、点聚合、鼠标工具、图层、标绘，官方文档里每一类都有组件。
+    title: 与官方 API 一一对应
+    description: 标注、折线、多边形、点聚合、鼠标工具、图层、标绘，官方 API 的每一类都有对应组件。
   - icon: i-lucide-plug
-    title: 服务也能直接调
-    description: "defineTianditu() 一个函数调通地名搜索、驾车公交路线、地理编码、行政区划等 REST 接口。"
+    title: REST 服务客户端
+    description: "`defineTianditu()` 调用地名搜索、驾车路线、公交路线、地理编码、行政区划等接口。"
   - icon: i-lucide-monitor-smartphone
-    title: 两种写法随便挑
-    description: 同一套能力，Vue 项目用 `@tianditu/vue`，其余任何环境用 `@tianditu/web-components`。
+    title: Vue 与 Web Components
+    description: 同一套核心。Vue 项目用 `@tianditu/vue`，其他环境用 `@tianditu/web-components`。
   - icon: i-lucide-braces
-    title: 类型全带
-    description: props、事件、实例方法都有类型定义，拼错一个参数编译期就报错。
+    title: 完整类型定义
+    description: props、事件、实例方法均有类型声明，参数错误在编译期报出。
   - icon: i-lucide-flask-conical
-    title: 边读边试
-    description: 文档页里嵌着真实地图和服务示例，输入你自己的密钥就能上手玩。
+    title: 文档内嵌示例
+    description: 各页面嵌有可运行的地图和服务示例，输入密钥即可试用。
 ---
 ::
 
@@ -90,15 +90,15 @@ import { TdtMap, TdtMarker } from "@tianditu/vue";
 ```ts [REST 服务]
 import { defineTianditu } from "@tianditu/services";
 
-const tianditu = defineTianditu({ tk: "你的服务器端密钥" });
+const tianditu = defineTianditu({ tk: "你的浏览器端密钥" });
 
 const { pois } = await tianditu.search({ keyWord: "北京站" });
 ```
 :::
 #title
-一张地图，[三种写法]{.text-(--ui-primary)}任选
+一张地图，[多种写法]{.text-(--ui-primary)}
 #description
-Vue 组件、原生自定义元素、独立服务客户端——共享同一个核心，随项目形态搭配。
+Vue 组件、原生自定义元素、独立服务客户端，共享同一个核心，按项目需要选用。
 #links
 :::u-button
 ---
@@ -114,6 +114,8 @@ variant: subtle
 ::u-page-section
 #title
 现在就开始
+#description
+本工具库是第三方封装，不是天地图官方产品；地图与服务的用法以天地图官方文档为准。
 #links
 :u-button{label="安装" to="/getting-started/installation" trailing-icon="i-lucide-arrow-right"}
 ::
