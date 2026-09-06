@@ -5,7 +5,7 @@
 
 /**
  * 搜索请求参数。必填项随 queryType 不同：
- * - 1 普通：start/count
+ * - 1 普通：mapBound、level、start/count
  * - 2 视野内 / 10 多边形：mapBound、level
  * - 3 周边：mapBound、level、pointLonlat、queryRadius
  * - 12 行政区划区域：specify
