@@ -31,9 +31,12 @@ export function defineControlComponent<P extends object>(options: {
   return defineComponent({
     name: options.name,
     props: options.props,
-    setup(props, { slots }) {
+    // 经 expose 暴露 SDK 实例：官方控件方法（如 Copyright.addCopyright）
+    // 走实例原样能力
+    setup(props, { slots, expose }) {
       const { map } = inject(MAP_KEY)!;
       const control = shallowRef<T.Control>();
+      expose({ control });
       // 守卫等待期间组件可能已卸载，落定时不得再挂载
       let disposed = false;
 
