@@ -7,8 +7,8 @@ declare global {
       constructor(points: LngLat[], opts?: PolylineOptions);
       /** 设置折线的点数组 */
       setLngLats(lnglat: LngLat[]): void;
-      /** 返回折线的点数组 */
-      getLngLats(): LngLat[];
+      /** 返回折线的点数组，按设置时的结构原样返回，嵌套数组（多环）时为二维 */
+      getLngLats(): LngLat[] | LngLat[][];
       /** 设置折线的颜色 */
       setColor(color: string): void;
       /** 返回折线的颜色 */

@@ -2,25 +2,11 @@ export {};
 
 declare global {
   namespace T {
-    class Polygon extends OverlayBase<PolygonEvents> {
-      /** 创建多边形覆盖物对象 */
-      constructor(points: LngLat[], opts?: PolygonOptions);
-      /** 设置多边形的点数组 */
-      setLngLats(lnglat: LngLat[]): void;
-      /** 返回多边形的点数组 */
-      getLngLats(): LngLat[];
-      /** 设置多边形边线的颜色 */
-      setColor(color: string): void;
-      /** 返回多边形边线的颜色 */
-      getColor(): string;
-      /** 设置多边形边线的宽度 */
-      setWeight(weight: number): void;
-      /** 返回多边形边线的宽度。 */
-      getWeight(): number;
-      /** 设置多边形边线是为实线或虚线 */
-      setLineStyle(style: PolylineOptions["lineStyle"]): void;
-      /** 返回当前多边形边线样式状态，实线或者虚线 */
-      getLineStyle(): string;
+    class Polygon extends Polyline {
+      /** 创建多边形覆盖物对象，传入嵌套数组可创建带洞多边形 */
+      constructor(points: LngLat[] | LngLat[][], opts?: PolygonOptions);
+      /** 设置多边形的点数组，嵌套数组表示带洞多边形 */
+      setLngLats(lnglat: LngLat[] | LngLat[][]): void;
       /** 设置多边形的填充颜色，参数为合法的CSS颜色值。当参数为空字符串时，多边形覆盖物填充颜色与边线颜色相同 */
       setFillColor(color: string): void;
       /** 返回多边形的填充颜色 */
@@ -29,14 +15,6 @@ declare global {
       setFillOpacity(opacity: number): void;
       /** 返回多边形的填充透明度 */
       getFillOpacity(): number;
-      /** 返回多边形的地理区域范围 */
-      getBounds(): LngLatBounds;
-      /** 启用多边形编辑功能 */
-      enableEdit(): void;
-      /** 禁用多边形编辑功能 */
-      disableEdit(): void;
-      /** 是否启用多边形编辑功能，true表示启用，false表示禁止 */
-      isEditable(): boolean;
     }
 
     interface PolygonOptions {
