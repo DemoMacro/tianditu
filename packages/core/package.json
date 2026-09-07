@@ -1,7 +1,7 @@
 {
   "name": "@tianditu/core",
-  "version": "0.1.0",
-  "description": "Headless core for tianditu — idempotent SDK loader, map session, and lifecycle orchestration shared by every framework adapter, with a component definition layer for Vue and Web Components",
+  "version": "0.1.1",
+  "description": "Headless core for tianditu — idempotent SDK loader, map session, and lifecycle orchestration shared by every framework adapter, with a component definition layer for Vue, React, and Web Components",
   "keywords": [
     "core",
     "framework-agnostic",

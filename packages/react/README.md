@@ -60,7 +60,7 @@ function App() {
 
 ## API
 
-组件分组与官方文档类目一致——地图、覆盖物、控件、鼠标工具、图层、标绘与服务。每个组件的 props、事件回调与 ref 见[文档站](https://github.com/DemoMacro/tianditu/tree/main/docs)。
+组件分组与官方文档类目一致——地图、覆盖物、控件、鼠标工具、图层、标绘与服务。每个组件的 props、事件回调与 ref 见[文档站](https://tianditu.demomacro.com/)。
 
 ## 相关包
 

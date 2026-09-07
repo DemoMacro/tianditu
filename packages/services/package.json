@@ -1,6 +1,6 @@
 {
   "name": "@tianditu/services",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Typed REST client for tianditu services — place search, driving and transit planning, geocoding, administrative divisions, and static images, standalone from the map runtime",
   "keywords": [
     "administrative-divisions",

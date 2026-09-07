@@ -1,6 +1,6 @@
 {
   "name": "@tianditu/vue",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Vue 3 components for the tianditu map — overlays, controls, mouse tools, layers, and plot symbols mounted declaratively, synced through official setters, fully typed",
   "keywords": [
     "control",

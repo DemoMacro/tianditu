@@ -1,7 +1,7 @@
 {
   "name": "@tianditu/web-components",
-  "version": "0.1.0",
-  "description": "Web Components for the tianditu map — Lit-based custom elements for any framework or plain HTML, sharing one core definition with the Vue adapter",
+  "version": "0.1.1",
+  "description": "Web Components for the tianditu map — Lit-based custom elements for any framework or plain HTML, sharing one core definition with the Vue and React adapters",
   "keywords": [
     "control",
     "custom-elements",

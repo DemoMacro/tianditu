@@ -6,7 +6,7 @@ export default defineAppConfig({
     titleTemplate: "%s - 天地图工具库",
     title: "天地图工具库",
     description:
-      "天地图 JavaScript API 的类型化封装——Vue 3 组件、Web Components 与 REST 服务客户端，powered by Demo Macro",
+      "天地图 JavaScript API 的类型化封装——Vue 3 组件、React 组件、Web Components 与 REST 服务客户端，powered by Demo Macro",
   },
   github: {
     url: "https://github.com/DemoMacro/tianditu",

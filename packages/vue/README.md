@@ -60,11 +60,12 @@ const open = ref(false);
 
 ## API
 
-组件分组与官方文档类目一致——地图、覆盖物、控件、鼠标工具、图层、标绘与服务。每个组件的 props、事件与 exposes 见[文档站](https://github.com/DemoMacro/tianditu/tree/main/docs)。
+组件分组与官方文档类目一致——地图、覆盖物、控件、鼠标工具、图层、标绘与服务。每个组件的 props、事件与 exposes 见[文档站](https://tianditu.demomacro.com/)。
 
 ## 相关包
 
 - [@tianditu/core](https://www.npmjs.com/package/@tianditu/core) — 框架无关内核（自动安装）
+- [@tianditu/react](https://www.npmjs.com/package/@tianditu/react) — React 组件适配层
 - [@tianditu/web-components](https://www.npmjs.com/package/@tianditu/web-components) — Web Components 适配层
 - [@tianditu/services](https://www.npmjs.com/package/@tianditu/services) — 类型化 REST 服务客户端
 

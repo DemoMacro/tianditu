@@ -5,13 +5,13 @@
 ![npm license](https://img.shields.io/npm/l/@tianditu/web-components)
 
 > 用标准 Web Components 写天地图，任何框架或纯 HTML 均可使用。
-> 基于 Lit 的自定义元素与 Vue 适配层共享同一份 core 定义：attribute 带类型化转换器，事件以 `tdt-` 前缀转发，覆盖物元素嵌套即挂载，容器元素就近收编子级。
+> 基于 Lit 的自定义元素与 Vue、React 适配层共享同一份 core 定义：attribute 带类型化转换器，事件以 `tdt-` 前缀转发，覆盖物元素嵌套即挂载，容器元素就近收编子级。
 
 ## 特性
 
 - 🖥️ **框架无关** — 标准自定义元素，任何框架或纯 HTML 均可使用
 - 🧩 **基于 Lit** — 响应式 attribute，坐标与集合带类型化转换器
-- 📦 **同源内核** — 与 Vue 适配层共享 @tianditu/core 的挂载/同步/卸载编排
+- 📦 **同源内核** — 与 Vue、React 适配层共享 @tianditu/core 的挂载/同步/卸载编排
 - 🏷️ **声明式子级** — 覆盖物元素写在 `<tdt-map>` 内部即自动挂载
 
 ## 安装
@@ -90,6 +90,7 @@ $ pnpm add @tianditu/web-components
 
 - [@tianditu/core](https://www.npmjs.com/package/@tianditu/core) — 框架无关内核（自动安装）
 - [@tianditu/vue](https://www.npmjs.com/package/@tianditu/vue) — Vue 3 组件适配层
+- [@tianditu/react](https://www.npmjs.com/package/@tianditu/react) — React 组件适配层
 - [@tianditu/services](https://www.npmjs.com/package/@tianditu/services) — 类型化 REST 服务客户端
 
 ## 许可
