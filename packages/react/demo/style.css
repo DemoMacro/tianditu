@@ -1,0 +1,132 @@
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
+}
+
+/* 主流地图风格：地图全屏，左上角悬浮搜索面板 */
+.panel {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  max-height: calc(100% - 32px);
+  padding: 12px;
+  overflow: auto;
+  font-size: 13px;
+  color: #333;
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgb(0 0 0 / 15%);
+}
+
+/* 搜索框行 */
+.searchbar {
+  display: flex;
+  gap: 8px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 7px 10px;
+  font-size: 13px;
+  color: #333;
+  border: 1px solid #dcdfe6;
+  border-radius: 4px;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: #1a6fb5;
+}
+
+.search-btn {
+  padding: 7px 14px;
+  font-size: 13px;
+  color: #fff;
+  cursor: pointer;
+  background: #1a6fb5;
+  border: none;
+  border-radius: 4px;
+}
+
+.search-btn:hover {
+  background: #1663a1;
+}
+
+/* 工具条 */
+.toolbar {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.tool {
+  flex: 1;
+  padding: 6px 0;
+  font-size: 13px;
+  color: #333;
+  cursor: pointer;
+  background: #f5f7fa;
+  border: 1px solid #dcdfe6;
+  border-radius: 4px;
+}
+
+.tool:hover {
+  color: #1a6fb5;
+  border-color: #1a6fb5;
+}
+
+.tool.active {
+  color: #1a6fb5;
+  font-weight: bold;
+  background: #e8f1fc;
+  border-color: #1a6fb5;
+}
+
+/* 提示与结果 */
+.tip {
+  margin: 10px 0 0;
+  font-size: 12px;
+  color: #999;
+}
+
+.count {
+  margin: 10px 0 4px;
+  font-size: 12px;
+  color: #999;
+}
+
+.poi {
+  padding: 6px 8px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.poi:hover {
+  background: #f5f7fa;
+}
+
+.poi-name {
+  font-size: 13px;
+  color: #333;
+  line-height: 1.5;
+}
+
+.poi-addr {
+  font-size: 12px;
+  color: #999;
+  line-height: 1.4;
+}
+
+.win {
+  padding: 4px;
+  font-size: 13px;
+  line-height: 1.6;
+}

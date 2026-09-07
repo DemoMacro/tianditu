@@ -1,10 +1,11 @@
 {
-  "name": "@tianditu/vue",
+  "name": "@tianditu/react",
   "version": "0.1.0",
-  "description": "Vue 3 components for the tianditu map — overlays, controls, mouse tools, layers, and plot symbols mounted declaratively, synced through official setters, fully typed",
+  "description": "React components for the tianditu map — overlays, controls, mouse tools, layers, and plot symbols mounted declaratively, synced through official setters, fully typed",
   "keywords": [
     "control",
     "gis",
+    "hooks",
     "infowindow",
     "lbs",
     "map",
@@ -13,12 +14,12 @@
     "plot",
     "polygon",
     "polyline",
+    "react",
+    "react-components",
+    "react-hooks",
     "tianditu",
     "tile-layer",
-    "typescript",
-    "vue",
-    "vue-components",
-    "vue3"
+    "typescript"
   ],
   "homepage": "https://github.com/DemoMacro/tianditu#readme",
   "bugs": {
@@ -48,9 +49,13 @@
     "@tianditu/core": "workspace:*"
   },
   "devDependencies": {
-    "vue": "3.4.37"
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.7",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
   },
   "peerDependencies": {
-    "vue": ">=3.3.0"
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
   }
 }
