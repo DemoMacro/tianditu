@@ -10,7 +10,7 @@ import { toLngLat } from "./session";
  */
 
 export interface InfoWindowSpec {
-  /** 窗体内容：HTML 字符串或容器元素；缺省创建空 div 供适配层渲染 */
+  /** 窗体内容：HTML 字符串或容器元素；默认创建空 div 供适配层渲染 */
   content?: string | HTMLElement;
   minWidth?: number;
   maxWidth?: number;
@@ -44,8 +44,8 @@ export function createInfoWindow(
 ): InfoWindowHandle {
   const container =
     spec.content instanceof HTMLElement ? spec.content : document.createElement("div");
-  // SDK setOptions 会把显式 undefined 字段覆盖到内部缺省值上（如 offset），
-  // 随后 open 时内部读缺省字段报错，因此构造前剔除 undefined 字段
+  // SDK setOptions 会把显式 undefined 字段覆盖到内部默认值上（如 offset），
+  // 随后 open 时内部读默认字段报错，因此构造前剔除 undefined 字段
   const win = new T.InfoWindow(
     container,
     compact({

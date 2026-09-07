@@ -1,9 +1,4 @@
-import {
-  gridlineLayerDef,
-  tileLayerDef,
-  tileLayerTdtDef,
-  tileLayerWmsDef,
-} from "@tianditu/core";
+import { gridlineLayerDef, tileLayerDef, tileLayerTdtDef, tileLayerWmsDef } from "@tianditu/core";
 
 import { makeLayerElement } from "./factory";
 

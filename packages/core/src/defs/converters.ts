@@ -1,6 +1,6 @@
 /**
  * WC attribute 字符串的解析器，供 defs 的 PropDef.converter 声明。
- * 分隔约定与 Google Maps WC 一致：坐标 "lng,lat"，集合用 ";" 分段。
+ * 分隔约定：坐标 "lng,lat"，坐标集合用 ";" 分段。
  */
 
 export function parseLnglat(value: string): [number, number] {

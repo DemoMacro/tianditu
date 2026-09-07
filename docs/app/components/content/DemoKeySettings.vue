@@ -7,29 +7,7 @@ const props = defineProps<{
   compact?: boolean;
 }>();
 
-const { key, setKey } = useTdtKeys();
-const toast = useToast();
-
-const draft = ref("");
-
-watchEffect(() => {
-  draft.value = key.value;
-});
-
-function save() {
-  const value = draft.value.trim();
-  setKey(value);
-  toast.add({
-    title: value ? "密钥已保存" : "密钥已清除",
-    color: "success",
-    icon: "i-lucide-check",
-  });
-}
-
-function clear() {
-  draft.value = "";
-  setKey("");
-}
+const { key, draft, save, clear } = useTdtKeyDraft();
 </script>
 
 <template>

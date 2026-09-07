@@ -88,13 +88,18 @@ function applySyncDiff<O, P extends object>(
   props: P,
 ): void {
   for (const [key, prev] of changed) {
-    const apply = (sync as Record<string, (t: O, v: unknown, p: unknown) => void>)[
-      key as string
-    ];
+    const apply = (sync as Record<string, (t: O, v: unknown, p: unknown) => void>)[key as string];
     if (apply) {
       apply(instance, props[key as keyof P], prev);
     }
   }
+}
+
+/** 实例就绪 deferred：whenInstance 惰性建 promise，落定时放行（三族元素工厂共用） */
+function deferredInstance<T>() {
+  let resolve!: (value: T) => void;
+  const promise = new Promise<T>((res) => (resolve = res));
+  return { when: () => promise, resolve: (value: T) => resolve(value) };
 }
 
 export interface OverlayElementOptions<O> {
@@ -138,9 +143,7 @@ export function makeOverlayElement<P extends object, O>(
 
     private handle?: OverlayHandle<O>;
 
-    private resolveInstance?: (value: O) => void;
-
-    private whenInstancePromise?: Promise<O>;
+    private deferred = deferredInstance<O>();
 
     constructor() {
       super();
@@ -149,9 +152,7 @@ export function makeOverlayElement<P extends object, O>(
 
     /** SDK 实例就绪 promise（容器收编子级、InfoWindow 宿主等待） */
     whenInstance(): Promise<O> {
-      return (this.whenInstancePromise ??= new Promise(
-        (resolve) => (this.resolveInstance = resolve),
-      ));
+      return this.deferred.when();
     }
 
     /** 当前 SDK 实例；未挂载时 undefined */
@@ -195,12 +196,11 @@ export function makeOverlayElement<P extends object, O>(
             events: def.events,
             dispatch: dispatchTdtEvent(this),
             create: () => created,
-            // 包裹调用：避免 unbound-method 引用（def 钩子可选方法）
-            attach: def.attach ? (target, ctx) => def.attach!(target, ctx) : undefined,
-            detach: def.detach ? (target, ctx) => def.detach!(target, ctx) : undefined,
+            attach: def.attach,
+            detach: def.detach,
           },
         );
-        this.resolveInstance?.(this.handle.instance);
+        this.deferred.resolve(this.handle.instance);
       });
     }
 
@@ -243,13 +243,11 @@ export function makeToolElement<P extends object>(def: ToolDef<P>): ToolElementC
 
     private session?: ToolSession;
 
-    private resolveTool?: (value: unknown) => void;
-
-    private whenToolPromise?: Promise<unknown>;
+    private deferred = deferredInstance<unknown>();
 
     /** SDK 工具实例就绪 promise */
     whenInstance(): Promise<unknown> {
-      return (this.whenToolPromise ??= new Promise((resolve) => (this.resolveTool = resolve)));
+      return this.deferred.when();
     }
 
     protected props(): P {
@@ -274,10 +272,10 @@ export function makeToolElement<P extends object>(def: ToolDef<P>): ToolElementC
             create: () => created,
             events: def.events,
             dispatch: dispatchTdtEvent(this),
-            activate: def.activate ? (tool) => def.activate!(tool) : undefined,
-            deactivate: def.deactivate ? (tool) => def.deactivate!(tool) : undefined,
+            activate: def.activate,
+            deactivate: def.deactivate,
           });
-          this.resolveTool?.(this.session.tool);
+          this.deferred.resolve(this.session.tool);
           this.session.setActive(this.active);
         });
     }
@@ -383,7 +381,7 @@ export interface LayerElementClass {
 
 /**
  * 瓦片图层元素工厂：create → mountTileLayer 上屏与事件；props 变更在
- * updated 里 diff 应用 sync（defs 缺省为 url/opacity/zIndex 同步表）。
+ * updated 里 diff 应用 sync（defs 默认为 url/opacity/zIndex 同步表）。
  */
 export function makeLayerElement<P extends object>(def: LayerDef<P>): LayerElementClass {
   class LayerElement extends LitElement {
@@ -393,9 +391,7 @@ export function makeLayerElement<P extends object>(def: LayerDef<P>): LayerEleme
 
     private layer?: T.TileLayer;
 
-    private resolveInstance?: (value: T.TileLayer) => void;
-
-    private whenInstancePromise?: Promise<T.TileLayer>;
+    private deferred = deferredInstance<T.TileLayer>();
 
     constructor() {
       super();
@@ -403,9 +399,7 @@ export function makeLayerElement<P extends object>(def: LayerDef<P>): LayerEleme
     }
 
     whenInstance(): Promise<T.TileLayer> {
-      return (this.whenInstancePromise ??= new Promise(
-        (resolve) => (this.resolveInstance = resolve),
-      ));
+      return this.deferred.when();
     }
 
     get instance(): T.TileLayer | undefined {
@@ -436,7 +430,7 @@ export function makeLayerElement<P extends object>(def: LayerDef<P>): LayerEleme
               events: def.events,
               dispatch: dispatchTdtEvent(this),
             });
-            this.resolveInstance?.(layer);
+            this.deferred.resolve(layer);
           }),
         )
         .catch(() => {});

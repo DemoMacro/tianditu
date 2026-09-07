@@ -47,7 +47,7 @@ export const markerDef: OverlayDef<MarkerProps, T.Marker> = {
     "dragend",
     "remove",
   ],
-  // 挂载/卸载走 core 缺省编排：collector 存在时加入聚合，否则 addOverLay
+  // 挂载/卸载走 core 默认编排：collector 存在时加入聚合，否则 addOverLay
   create: (props) =>
     new T.Marker(
       toLngLat(props.lnglat),
@@ -113,6 +113,30 @@ export interface PolylineProps extends LineStyleProps {
   path: Array<[number, number] | T.LngLat>;
 }
 
+/** 填充两件套的 props 定义（polygon/circle/rectangle 共用） */
+interface FillStyleProps {
+  fillColor?: string;
+  fillOpacity?: number;
+}
+
+const fillStylePropDefs = {
+  fillColor: { type: String, default: undefined, attribute: "fill-color" },
+  fillOpacity: { type: Number, default: undefined, attribute: "fill-opacity" },
+} as const;
+
+/** 具备填充 setter 的 SDK 实例（Polygon/Circle/Rectangle 同构） */
+type FillStyleSetter = Pick<T.Polygon, "setFillColor" | "setFillOpacity">;
+
+/** 填充 setter 同步（polygon/circle/rectangle 同构复用） */
+const fillStyleSync: SyncDef<FillStyleSetter, { fillColor?: string; fillOpacity?: number }> = {
+  fillColor: (target, value) => {
+    if (value !== undefined) target.setFillColor(value);
+  },
+  fillOpacity: (target, value) => {
+    if (value !== undefined) target.setFillOpacity(value);
+  },
+};
+
 export const polylineDef: OverlayDef<PolylineProps, T.Polyline> = {
   name: "TdtPolyline",
   tag: "tdt-polyline",
@@ -138,10 +162,8 @@ export const polylineDef: OverlayDef<PolylineProps, T.Polyline> = {
   },
 };
 
-export interface PolygonProps extends LineStyleProps {
+export interface PolygonProps extends LineStyleProps, FillStyleProps {
   path: Array<[number, number] | T.LngLat>;
-  fillColor?: string;
-  fillOpacity?: number;
 }
 
 export const polygonDef: OverlayDef<PolygonProps, T.Polygon> = {
@@ -150,8 +172,7 @@ export const polygonDef: OverlayDef<PolygonProps, T.Polygon> = {
   props: {
     path: { type: Array, required: true, attribute: "path", converter: parsePath },
     ...lineStylePropDefs,
-    fillColor: { type: String, default: undefined, attribute: "fill-color" },
-    fillOpacity: { type: Number, default: undefined, attribute: "fill-opacity" },
+    ...fillStylePropDefs,
   },
   events: ["click", "dblclick", "mousedown", "mouseup", "mouseover", "mouseout", "remove"],
   create(props) {
@@ -170,21 +191,14 @@ export const polygonDef: OverlayDef<PolygonProps, T.Polygon> = {
   sync: {
     path: (polygon, value) => polygon.setLngLats(toLngLats(value)),
     ...lineStyleSync,
-    fillColor: (polygon, value) => {
-      if (value !== undefined) polygon.setFillColor(value);
-    },
-    fillOpacity: (polygon, value) => {
-      if (value !== undefined) polygon.setFillOpacity(value);
-    },
+    ...fillStyleSync,
   },
 };
 
-export interface CircleProps extends LineStyleProps {
+export interface CircleProps extends LineStyleProps, FillStyleProps {
   center: [number, number] | T.LngLat;
   /** 半径，单位米 */
   radius: number;
-  fillColor?: string;
-  fillOpacity?: number;
 }
 
 export const circleDef: OverlayDef<CircleProps, T.Circle> = {
@@ -194,8 +208,7 @@ export const circleDef: OverlayDef<CircleProps, T.Circle> = {
     center: { type: Array, required: true, attribute: "center", converter: parseLnglat },
     radius: { type: Number, required: true, attribute: "radius" },
     ...lineStylePropDefs,
-    fillColor: { type: String, default: undefined, attribute: "fill-color" },
-    fillOpacity: { type: Number, default: undefined, attribute: "fill-opacity" },
+    ...fillStylePropDefs,
   },
   events: ["click", "dblclick", "mousedown", "mouseup", "mouseover", "mouseout", "remove"],
   create(props) {
@@ -216,20 +229,13 @@ export const circleDef: OverlayDef<CircleProps, T.Circle> = {
     center: (circle, value) => circle.setCenter(toLngLat(value)),
     radius: (circle, value) => circle.setRadius(value),
     ...lineStyleSync,
-    fillColor: (circle, value) => {
-      if (value !== undefined) circle.setFillColor(value);
-    },
-    fillOpacity: (circle, value) => {
-      if (value !== undefined) circle.setFillOpacity(value);
-    },
+    ...fillStyleSync,
   },
 };
 
-export interface RectangleProps extends LineStyleProps {
+export interface RectangleProps extends LineStyleProps, FillStyleProps {
   /** 西南角与东北角坐标 [[swLng, swLat], [neLng, neLat]] */
   bounds: [[number, number], [number, number]] | T.LngLatBounds;
-  fillColor?: string;
-  fillOpacity?: number;
 }
 
 function toBounds(value: RectangleProps["bounds"]): T.LngLatBounds {
@@ -246,8 +252,7 @@ export const rectangleDef: OverlayDef<RectangleProps, T.Rectangle> = {
   props: {
     bounds: { type: Array, required: true, attribute: "bounds", converter: parseBounds },
     ...lineStylePropDefs,
-    fillColor: { type: String, default: undefined, attribute: "fill-color" },
-    fillOpacity: { type: Number, default: undefined, attribute: "fill-opacity" },
+    ...fillStylePropDefs,
   },
   events: ["click", "dblclick", "mousedown", "mouseup", "mouseover", "mouseout", "remove"],
   create(props) {
@@ -266,12 +271,7 @@ export const rectangleDef: OverlayDef<RectangleProps, T.Rectangle> = {
   sync: {
     bounds: (rectangle, value) => rectangle.setBounds(toBounds(value)),
     ...lineStyleSync,
-    fillColor: (rectangle, value) => {
-      if (value !== undefined) rectangle.setFillColor(value);
-    },
-    fillOpacity: (rectangle, value) => {
-      if (value !== undefined) rectangle.setFillOpacity(value);
-    },
+    ...fillStyleSync,
   },
 };
 

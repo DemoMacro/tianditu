@@ -49,9 +49,9 @@ export function defineToolComponent<P extends object>(def: ToolDef<P>) {
               create: () => created,
               events: def.events,
               dispatch: (name, event) => emit(name as never, event as never),
-              // 组件未自定义开关动作时不传，走 mountTool 缺省的 open()/close()
-              ...(def.activate && { activate: (tool) => def.activate!(tool) }),
-              ...(def.deactivate && { deactivate: (tool) => def.deactivate!(tool) }),
+              // 未自定义开关动作时为 undefined，走 mountTool 默认的 open()/close()
+              activate: def.activate,
+              deactivate: def.deactivate,
             });
             tool.value = session.tool;
             session.setActive(Boolean(props.active));

@@ -9,7 +9,7 @@
 
 ## 特性
 
-- 🗺️ **`<TdtMap>` 容器** — center/zoom/交互等 props；官方 14 个地图事件原生转发
+- 🗺️ **`<TdtMap>` 容器** — center/zoom/交互等 props（`locate` 定位方式：`"geolocation"` 浏览器定位、`"ip"` 官方 IP 定位、`"auto"` 前者优先浏览器失败回退 IP，默认回退北京）；官方 14 个地图事件原生转发
 - 📌 **覆盖物** — Marker、Polyline、Polygon、Circle、Rectangle、Label、MarkerClusterer、CloudMarkerCollection、InfoWindow 与 ContextMenu 均为声明式组件；props 变化经官方 setter 同步
 - 🎛️ **控件** — Zoom、Scale、Copyright、OverviewMap 与 MapType
 - 🖱️ **鼠标工具** — PolylineTool、PolygonTool、CircleTool、RectangleTool、MarkTool、PaintBrushTool 与 CoordinatePickup，受控 `active` 开关

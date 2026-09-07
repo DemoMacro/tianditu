@@ -55,7 +55,7 @@ declare global {
        * （部分工具额外含 fillColor/fillOpacity/fill）
        */
       style?: MilitaryStyle;
-      /** 存储绘制图形的容器，缺省时工具创建空图层容器 */
+      /** 存储绘制图形的容器，默认时工具创建空图层容器 */
       layers?: LayerGroup;
     }
 

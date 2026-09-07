@@ -20,7 +20,7 @@ export default defineAppConfig({
     },
   },
   tdt: {
-    // live 示例的缺省视图：北京 天安门一带
+    // live 示例的默认视图：北京 天安门一带
     defaultCenter: [116.404, 39.915],
     defaultZoom: 12,
   },

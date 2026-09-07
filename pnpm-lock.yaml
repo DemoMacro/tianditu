@@ -71,8 +71,8 @@ importers:
         specifier: workspace:*
         version: link:../core
       lit:
-        specifier: ^3.1.0
-        version: 3.3.3
+        specifier: 3.1.0
+        version: 3.1.0
 
 packages:
 
@@ -5914,8 +5914,8 @@ packages:
   lit-html@3.3.3:
     resolution: {integrity: sha512-el8M6jK2o3RXBnrSHX3ZKrsN8zEV63pSExTO1wYJz7QndGYZ8353e2a5PPX+qHe2aGayfnchQmkAojaWAREOIA==}
 
-  lit@3.3.3:
-    resolution: {integrity: sha512-fycuvZg/hkpozL00lm1pEJH5nN/lr9ZXd6mJI2HSN4+Bzc+LDNdEApJ6HFbPkdFNHLvOplIIuJvxkS4XUxqirw==}
+  lit@3.1.0:
+    resolution: {integrity: sha512-rzo/hmUqX8zmOdamDAeydfjsGXbbdtAFqMhmocnh2j9aDYqbu0fjXygjCa0T99Od9VQ/2itwaGrjZz/ZELVl7w==}
 
   loader-runner@4.3.0:
     resolution: {integrity: sha512-3R/1M+yS3j5ou80Me59j7F9IMs4PXs3VqRrm0TU3AbKPxlmpoY1TNscJV/oGJXo8qCatFGTfDbY6W6ipGOYXfg==}
@@ -14559,7 +14559,7 @@ snapshots:
     dependencies:
       '@types/trusted-types': 2.0.7
 
-  lit@3.3.3:
+  lit@3.1.0:
     dependencies:
       '@lit/reactive-element': 2.1.2
       lit-element: 4.2.2

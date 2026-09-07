@@ -10,7 +10,7 @@
 ## 特性
 
 - 🔄 **幂等 SDK 加载器** — `loadTdt` 只拉取并执行一次官方脚本，预填组件包缓存规避加载竞态，并以哨兵检测补载缺失的包
-- 🗺️ **地图会话** — `createMapSession` 按官方约定初始化地图并负责销毁
+- 🗺️ **地图会话** — `createMapSession` 按官方约定初始化地图并负责销毁；初始中心不传时回退北京，`locate` 支持三种定位方式：`"geolocation"` 浏览器定位、`"ip"` 官方 IP 定位、`"auto"` 前者优先浏览器失败回退 IP
 - 🧩 **生命周期编排** — `mountOverlay`、`mountTool`、`mountTileLayer` 与 `createInfoWindow` 承担构造/挂载/同步/卸载，适配层保持轻薄
 - 📑 **组件定义层** — `defs/` 下每组件一份框架无关定义（props 形状、SDK 构造、sync 与事件表），Vue 与 Web Components 适配层消费同一份
 - 🔁 **Props 同步** — `createPropsSync` 把响应式 getter diff 成官方 setter 调用；`SyncDef` 声明 prop → setter 映射
@@ -49,11 +49,11 @@ session.destroy();
 
 ## API
 
-- **loader** — `loadTdt` / `getTdt` / `isTdtLoaded` / `createWhenReady`
-- **session** — `createMapSession` / `toLngLat` / `toLngLats`
+- **loader** — `loadTdt` / `createWhenReady`
+- **session** — `createMapSession` / `toLngLat` / `toLngLats` / `DEFAULT_CENTER`
 - **编排** — `mountOverlay` / `mountTool` / `mountTileLayer` / `createInfoWindow` / `applyMapInteractions`
 - **定义层** — `OverlayDef` / `ToolDef` / `ControlDef` / `LayerDef` 与各组件 `xxxDef` 常量
-- **工具** — `createPropsSync` / `bindEventNames` / `compact` / `createAttachable`
+- **工具** — `createPropsSync` / `bindEventNames` / `compact`
 
 完整类型化 API 参考见[文档站](https://github.com/DemoMacro/tianditu/tree/main/docs)。
 

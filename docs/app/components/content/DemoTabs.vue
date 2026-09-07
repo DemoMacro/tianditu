@@ -68,12 +68,7 @@ onBeforeUpdate(() => rerenderCount.value++);
       </TabsTrigger>
     </TabsList>
 
-    <TabsContent
-      v-for="(item, index) of items"
-      :key="index"
-      :value="String(index)"
-      as-child
-    >
+    <TabsContent v-for="(item, index) of items" :key="index" :value="String(index)" as-child>
       <component :is="item.component" hide-header tabindex="-1" />
     </TabsContent>
   </TabsRoot>

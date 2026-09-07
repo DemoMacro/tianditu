@@ -17,7 +17,7 @@ import type {
   TransitResult,
 } from "./types/transit";
 
-export class TianDiTuWeb {
+export class TianDiTu {
   tk: string;
   baseURL = "https://api.tianditu.gov.cn";
 

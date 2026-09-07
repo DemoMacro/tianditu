@@ -7,6 +7,12 @@ import {
 } from "./controls";
 import { TdtInfoWindowElement } from "./info-window";
 import {
+  TdtGridlineLayerElement,
+  TdtTileLayerElement,
+  TdtTileLayerTdtElement,
+  TdtTileLayerWmsElement,
+} from "./layers";
+import {
   TdtCircleElement,
   TdtCloudMarkerElement,
   TdtLabelElement,
@@ -17,12 +23,6 @@ import {
   TdtPolylineElement,
   TdtRectangleElement,
 } from "./overlays";
-import {
-  TdtGridlineLayerElement,
-  TdtTileLayerElement,
-  TdtTileLayerTdtElement,
-  TdtTileLayerWmsElement,
-} from "./layers";
 import {
   TdtArcElement,
   TdtBezierCurve2Element,
@@ -244,8 +244,14 @@ export const ELEMENTS: Array<[string, CustomElementConstructor]> = [
   ["tdt-triangle-flag-tool", TdtTriangleFlagToolElement],
 ];
 
-/** 注册全部自定义元素；已注册的 tag 自动跳过（重复 import 安全） */
+/**
+ * 注册全部自定义元素；已注册的 tag 自动跳过（重复 import 安全）。
+ * SSR/Node 环境无 customElements，静默跳过（客户端水合后再调用）。
+ */
 export function registerComponents(): void {
+  if (typeof customElements === "undefined") {
+    return;
+  }
   for (const [tag, ctor] of ELEMENTS) {
     if (!customElements.get(tag)) {
       customElements.define(tag, ctor);

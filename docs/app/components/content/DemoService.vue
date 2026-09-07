@@ -9,7 +9,7 @@ const { key } = useTdtKeys();
 const { tdt } = useAppConfig();
 const keyManagerOpen = useState("tdt-key-manager-open", () => false);
 
-// 普通搜索（queryType:1）在 V2.0 接口下同样必填视野参数，以缺省视图构造
+// 普通搜索（queryType:1）在 V2.0 接口下同样必填视野参数，以默认视图构造
 const [lng, lat] = tdt.defaultCenter;
 const mapBound = [lng - 0.32, lat - 0.26, lng + 0.32, lat + 0.26].join(",");
 

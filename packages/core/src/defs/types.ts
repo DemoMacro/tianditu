@@ -26,7 +26,7 @@ export interface PropDef<P = unknown> {
   default?: P | (() => P);
   /**
    * WC attribute 名（kebab-case）。省略 = JS-only property，用于 T.LayerGroup
-   * 等不可序列化的 SDK 实例。converter 缺省时按 type 走内建转换
+   * 等不可序列化的 SDK 实例。converter 未声明时按 type 走内建转换
    * （Boolean 为 presence 语义：attribute 存在即 true）。
    */
   attribute?: string;
@@ -54,10 +54,10 @@ export interface OverlayDef<P extends object, O> {
   events?: readonly string[];
   create(props: P, ctx: DefCreateContext): O;
   sync?: SyncDef<O, P>;
-  /** 覆盖缺省挂载（有 collector 走 addMarker，否则 addOverLay） */
-  attach?(instance: O, ctx: OverlayMountContext): void;
-  /** 覆盖缺省卸载（如 MarkerClusterer.clearMarkers） */
-  detach?(instance: O, ctx: OverlayMountContext): void;
+  /** 覆盖默认挂载（有 collector 走 addMarker，否则 addOverLay）；不依赖 this，适配层直接传递引用 */
+  attach?: (this: void, instance: O, ctx: OverlayMountContext) => void;
+  /** 覆盖默认卸载（如 MarkerClusterer.clearMarkers） */
+  detach?: (this: void, instance: O, ctx: OverlayMountContext) => void;
 }
 
 /** 鼠标工具定义（active 受控开关由适配层注入，不进 defs） */
@@ -67,9 +67,9 @@ export interface ToolDef<P extends object> {
   props: PropDefs<P>;
   events?: readonly string[];
   create(props: P, map: T.Map): ToolLike;
-  /** 缺省调用 tool.open()（Mousetool 语义） */
-  activate?(tool: ToolLike): void;
-  deactivate?(tool: ToolLike): void;
+  /** 默认调用 tool.open()（Mousetool 语义）；不依赖 this，适配层直接传递引用 */
+  activate?: (this: void, tool: ToolLike) => void;
+  deactivate?: (this: void, tool: ToolLike) => void;
 }
 
 /** 控件定义（Zoom/Scale/Copyright/OverviewMap/MapType/标绘控件） */
@@ -85,10 +85,10 @@ export interface LayerDef<P extends object> {
   name: string;
   tag: string;
   props: PropDefs<P>;
-  /** 缺省为全部瓦片图层事件（GridlineLayer 收窄为 loading/load） */
+  /** 默认为全部瓦片图层事件（GridlineLayer 收窄为 loading/load） */
   events?: readonly string[];
   create(props: P): T.TileLayer;
-  /** 缺省为 opacity/zIndex/url 同步（GridlineLayer 整表替换为仅 opacity） */
+  /** 默认为 opacity/zIndex/url 同步（GridlineLayer 整表替换为仅 opacity） */
   sync?: SyncDef<T.TileLayer, P>;
 }
 

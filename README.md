@@ -16,12 +16,12 @@
 
 ## 包
 
-| 包                                                              | 说明                                                          |
-| --------------------------------------------------------------- | ------------------------------------------------------------- |
-| [@tianditu/core](./packages/core/README.md)                     | 框架无关内核：SDK 加载器、地图会话、生命周期编排              |
-| [@tianditu/vue](./packages/vue/README.md)                       | Vue 3 组件适配层                                              |
-| [@tianditu/web-components](./packages/web-components/README.md) | Web Components 适配层                                         |
-| [@tianditu/services](./packages/services/README.md)             | 类型化 REST 服务客户端（与地图运行时解耦）                    |
+| 包                                                              | 说明                                             |
+| --------------------------------------------------------------- | ------------------------------------------------ |
+| [@tianditu/core](./packages/core/README.md)                     | 框架无关内核：SDK 加载器、地图会话、生命周期编排 |
+| [@tianditu/vue](./packages/vue/README.md)                       | Vue 3 组件适配层                                 |
+| [@tianditu/web-components](./packages/web-components/README.md) | Web Components 适配层                            |
+| [@tianditu/services](./packages/services/README.md)             | 类型化 REST 服务客户端（与地图运行时解耦）       |
 
 ## 快速开始
 

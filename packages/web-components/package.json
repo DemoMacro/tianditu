@@ -1,24 +1,24 @@
 {
   "name": "@tianditu/web-components",
-  "version": "0.0.0-edge.1",
+  "version": "0.1.0",
   "description": "Web Components for the tianditu map — Lit-based custom elements for any framework or plain HTML, sharing one core definition with the Vue adapter",
   "keywords": [
-    "tianditu",
-    "map",
-    "gis",
-    "lbs",
-    "web-components",
+    "control",
     "custom-elements",
+    "gis",
+    "infowindow",
+    "lbs",
     "lit",
+    "map",
     "marker",
     "overlay",
+    "plot",
     "polygon",
     "polyline",
-    "control",
+    "tianditu",
     "tile-layer",
-    "plot",
-    "infowindow",
-    "typescript"
+    "typescript",
+    "web-components"
   ],
   "homepage": "https://github.com/DemoMacro/tianditu#readme",
   "bugs": {
@@ -46,6 +46,6 @@
   },
   "dependencies": {
     "@tianditu/core": "workspace:*",
-    "lit": "^3.1.0"
+    "lit": "3.1.0"
   }
 }

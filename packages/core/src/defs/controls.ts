@@ -132,7 +132,7 @@ export const overviewMapDef: ControlDef<ControlOverviewMapProps> = {
 
 export interface ControlMapTypeProps {
   position?: T.ControlPosition;
-  /** 控件展示的地图类型，缺省为 SDK 默认列表 */
+  /** 控件展示的地图类型，默认为 SDK 默认列表 */
   mapTypes?: T.ControlMapTypeOptionsMapType[];
 }
 

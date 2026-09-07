@@ -4,17 +4,17 @@
   "private": true,
   "description": "Utility libraries for tianditu — one set of framework-agnostic definitions powering both Vue 3 components and Web Components, plus a typed REST service client",
   "keywords": [
-    "tianditu",
-    "map",
+    "custom-elements",
     "gis",
     "lbs",
+    "map",
+    "rest",
+    "sdk",
+    "tianditu",
+    "typescript",
     "vue",
     "vue3",
-    "web-components",
-    "custom-elements",
-    "rest",
-    "typescript",
-    "sdk"
+    "web-components"
   ],
   "homepage": "https://github.com/DemoMacro/tianditu#readme",
   "bugs": {

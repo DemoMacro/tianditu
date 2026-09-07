@@ -17,7 +17,7 @@ export const TILE_LAYER_EVENT_NAMES = [
 export interface TileLayerMountOptions {
   map: T.Map;
   layer: T.TileLayer;
-  /** 缺省为全部瓦片图层事件 */
+  /** 默认为全部瓦片图层事件 */
   events?: readonly string[];
   dispatch: (name: string, event: unknown) => void;
 }

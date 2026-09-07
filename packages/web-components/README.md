@@ -49,24 +49,24 @@ $ pnpm add @tianditu/web-components
 
 ## 元素
 
-| 元素              | 官方类          | 说明                                                       |
-| ----------------- | --------------- | ---------------------------------------------------------- |
-| `tdt-map`         | `T.Map`         | `tk`、`center`（"lng,lat"）、`zoom`；事件以 `tdt-` 前缀派发 |
-| `tdt-info-window` | `T.InfoWindow`  | `open`、`lnglat`、`max-width` 等；嵌套在覆盖物内由宿主打开  |
+| 元素              | 官方类         | 说明                                                                                                                                   |
+| ----------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `tdt-map`         | `T.Map`        | `tk`、`center`（"lng,lat"）、`locate`（定位方式："geolocation" / "ip" / "auto"，`locate` 空值即 auto）、`zoom`；事件以 `tdt-` 前缀派发 |
+| `tdt-info-window` | `T.InfoWindow` | `open`、`lnglat`、`max-width` 等；嵌套在覆盖物内由宿主打开                                                                             |
 
 ### 覆盖物
 
-| 元素                   | 官方类                    | 说明                                                                     |
-| ---------------------- | ------------------------- | ------------------------------------------------------------------------ |
+| 元素                   | 官方类                    | 说明                                                                        |
+| ---------------------- | ------------------------- | --------------------------------------------------------------------------- |
 | `tdt-marker`           | `T.Marker`                | `lnglat`、`icon`（JSON）、`draggable`、`title`、`z-index-offset`、`opacity` |
-| `tdt-polyline`         | `T.Polyline`              | `path`（"lng,lat;…"）、`color`、`weight`、`opacity`、`line-style`         |
-| `tdt-polygon`          | `T.Polygon`               | 折线 attribute + `fill-color`、`fill-opacity`                             |
-| `tdt-rectangle`        | `T.Rectangle`             | `bounds`（"swLng,swLat;neLng,neLat"）、线与填充 attribute                  |
-| `tdt-circle`           | `T.Circle`                | `center`、`radius`、线与填充 attribute                                    |
-| `tdt-label`            | `T.Label`                 | `text`、`lnglat`、`font-color`、`font-size`、`background-color`           |
-| `tdt-cloud-marker`     | `T.CloudMarkerCollection` | `lnglats`（"lng,lat;…"）、`styles`（JSON）                                |
-| `tdt-marker-clusterer` | `T.MarkerClusterer`       | 收编子级标注；`grid-size`、`max-zoom`                                     |
-| `tdt-layer-group`      | `T.LayerGroup`            | 收编子级覆盖物                                                            |
+| `tdt-polyline`         | `T.Polyline`              | `path`（"lng,lat;…"）、`color`、`weight`、`opacity`、`line-style`           |
+| `tdt-polygon`          | `T.Polygon`               | 折线 attribute + `fill-color`、`fill-opacity`                               |
+| `tdt-rectangle`        | `T.Rectangle`             | `bounds`（"swLng,swLat;neLng,neLat"）、线与填充 attribute                   |
+| `tdt-circle`           | `T.Circle`                | `center`、`radius`、线与填充 attribute                                      |
+| `tdt-label`            | `T.Label`                 | `text`、`lnglat`、`font-color`、`font-size`、`background-color`             |
+| `tdt-cloud-marker`     | `T.CloudMarkerCollection` | `lnglats`（"lng,lat;…"）、`styles`（JSON）                                  |
+| `tdt-marker-clusterer` | `T.MarkerClusterer`       | 收编子级标注；`grid-size`、`max-zoom`                                       |
+| `tdt-layer-group`      | `T.LayerGroup`            | 收编子级覆盖物                                                              |
 
 ### 控件
 

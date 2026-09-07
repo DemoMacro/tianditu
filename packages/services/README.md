@@ -53,15 +53,15 @@ if (result.status.infocode === 1000) {
 
 ## API
 
-| 方法                        | 参数                      | 说明             |
-| --------------------------- | ------------------------- | ---------------- |
-| `search(postStr)`           | `SearchPostStr`           | 地名搜索 V2.0    |
-| `drive(postStr)`            | `DrivePostStr`            | 驾车路线规划     |
-| `transit(postStr)`          | `TransitPostStr`          | 公交路线规划     |
-| `geoCoding(ds)`             | `GeoCodingDs`             | 地理编码         |
-| `reverseGeoCoding(postStr)` | `ReverseGeoCodingPostStr` | 逆地理编码       |
-| `administrative(params)`    | `AdministrativeParams`    | 行政区划查询     |
-| `staticImage(params)`       | `StaticImageParams`       | 静态地图         |
+| 方法                        | 参数                      | 说明          |
+| --------------------------- | ------------------------- | ------------- |
+| `search(postStr)`           | `SearchPostStr`           | 地名搜索 V2.0 |
+| `drive(postStr)`            | `DrivePostStr`            | 驾车路线规划  |
+| `transit(postStr)`          | `TransitPostStr`          | 公交路线规划  |
+| `geoCoding(ds)`             | `GeoCodingDs`             | 地理编码      |
+| `reverseGeoCoding(postStr)` | `ReverseGeoCodingPostStr` | 逆地理编码    |
+| `administrative(params)`    | `AdministrativeParams`    | 行政区划查询  |
+| `staticImage(params)`       | `StaticImageParams`       | 静态地图      |
 
 ## 相关包
 

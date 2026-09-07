@@ -33,7 +33,7 @@ export function useLocalSearch(options?: { pageCapacity?: number }) {
     invoke(searcher.value);
   }
 
-  /** 关键词检索，type 为官方检索类型，缺省普通搜索 */
+  /** 关键词检索，type 为官方检索类型，默认普通搜索 */
   const search = (keyword: string, type?: T.QueryType) =>
     run((s) => s.search(keyword, type ?? "1"));
   const searchInBounds = (keyword: string, bounds: T.LngLatBounds) =>

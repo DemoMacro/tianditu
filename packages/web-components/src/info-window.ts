@@ -1,8 +1,14 @@
-import { compact, createInfoWindow, createWhenReady, type InfoWindowHandle } from "@tianditu/core";
+import {
+  compact,
+  createInfoWindow,
+  createWhenReady,
+  toLngLat,
+  type InfoWindowHandle,
+} from "@tianditu/core";
 import { LitElement } from "lit";
 
-import { resolveHostOverlay } from "./context";
-import { lnglatConverter, type TdtMapElement } from "./tdt-map";
+import { dispatchTdtEvent, findMap, resolveHostOverlay } from "./context";
+import { lnglatConverter } from "./tdt-map";
 
 /**
  * 信息窗元素。内容为元素自身的子节点（light DOM），经 MutationObserver
@@ -67,16 +73,17 @@ export class TdtInfoWindowElement extends LitElement {
   override connectedCallback(): void {
     super.connectedCallback();
     this.style.display = "none";
-    const container = this.closest("tdt-map") as TdtMapElement | null;
+    const container = findMap(this);
     if (!container) {
       return;
     }
-    container
-      .whenReady()
-      .then(async (map) => {
+    const dispatch = dispatchTdtEvent(this);
+    // 地图就绪与宿主解析互不依赖，并行等待
+    void Promise.all([container.whenReady(), resolveHostOverlay(this)])
+      .then(([map, host]) => {
         this.map = map;
         // 与 vue 侧一致：有 lnglat 由地图打开，否则优先由嵌套的覆盖物宿主打开
-        this.host = await resolveHostOverlay(this);
+        this.host = host;
         return createWhenReady(() =>
           createInfoWindow(
             compact({
@@ -90,28 +97,23 @@ export class TdtInfoWindowElement extends LitElement {
               closeOnClick: this.closeOnClick,
             }),
             (name) => {
-              this.dispatchEvent(
-                new CustomEvent(`tdt-${name}`, {
-                  detail: undefined,
-                  bubbles: true,
-                  composed: true,
-                }),
-              );
+              dispatch(name, undefined);
               if (name === "close") {
                 this.open = false;
               }
             },
           ),
-        ).then((created) => {
-          if (this.handle || !this.isConnected) {
-            return;
-          }
-          this.handle = created;
-          this.observer = new MutationObserver(() => this.syncContent());
-          this.observer.observe(this, { childList: true, subtree: true, characterData: true });
-          this.syncContent();
-          this.syncOpen();
-        });
+        );
+      })
+      .then((created) => {
+        if (this.handle || !this.isConnected) {
+          return;
+        }
+        this.handle = created;
+        this.observer = new MutationObserver(() => this.syncContent());
+        this.observer.observe(this, { childList: true, subtree: true, characterData: true });
+        this.syncContent();
+        this.syncOpen();
       })
       .catch(() => {});
   }
@@ -141,7 +143,7 @@ export class TdtInfoWindowElement extends LitElement {
       // 有 lnglat 由地图按坐标打开；否则嵌套宿主存在时由宿主打开
       // （官方 Marker.openInfoWindow(win) 无需坐标），兜底取地图中心
       if (this.lnglat) {
-        this.handle.openOn(this.map, new T.LngLat(this.lnglat[0], this.lnglat[1]));
+        this.handle.openOn(this.map, toLngLat(this.lnglat));
       } else if (this.host) {
         this.handle.openOn(this.host as T.Marker);
       } else {

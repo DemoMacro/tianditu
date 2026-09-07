@@ -29,10 +29,10 @@ export interface OverlayMountSpec<P extends object, O> {
   dispatch: (name: string, event: unknown) => void;
   /** 构造实例；上屏由 attach 统一编排 */
   create(ctx: OverlayMountContext): O;
-  /** 缺省：有 collector 走 addMarker，否则 addOverLay */
-  attach?(instance: O, ctx: OverlayMountContext): void;
-  /** 缺省：有 collector 走 removeMarker，否则 removeOverLay */
-  detach?(instance: O, ctx: OverlayMountContext): void;
+  /** 默认：有 collector 走 addMarker，否则 addOverLay；this: void 允许适配层直接传递 def 钩子引用 */
+  attach?: (this: void, instance: O, ctx: OverlayMountContext) => void;
+  /** 默认：有 collector 走 removeMarker，否则 removeOverLay */
+  detach?: (this: void, instance: O, ctx: OverlayMountContext) => void;
 }
 
 export interface OverlayHandle<O> {
@@ -47,10 +47,9 @@ export function mountOverlay<P extends object, O>(
   spec: OverlayMountSpec<P, O>,
 ): OverlayHandle<O> {
   const instance = spec.create(ctx);
-  const attach = (target: O, mountCtx: OverlayMountContext) =>
-    spec.attach ? spec.attach(target, mountCtx) : defaultAttach(target, mountCtx);
-  const detach = (target: O, mountCtx: OverlayMountContext) =>
-    spec.detach ? spec.detach(target, mountCtx) : defaultDetach(target, mountCtx);
+  // def 钩子为 this: void 的函数属性，适配层直接传递引用，无需包裹
+  const attach = spec.attach ?? defaultAttach;
+  const detach = spec.detach ?? defaultDetach;
 
   attach(instance, ctx);
   const unbind = bindEventNames(instance, spec.events ?? [], spec.dispatch);

@@ -53,13 +53,9 @@ export const TdtDiagonalArrowToolElement = makeToolElement(diagonalArrowToolDef)
 
 export const TdtDoubleArrowToolElement = makeToolElement(doubleArrowToolDef);
 
-export const TdtDoveTailDiagonalArrowToolElement = makeToolElement(
-  doveTailDiagonalArrowToolDef,
-);
+export const TdtDoveTailDiagonalArrowToolElement = makeToolElement(doveTailDiagonalArrowToolDef);
 
-export const TdtDoveTailStraightArrowToolElement = makeToolElement(
-  doveTailStraightArrowToolDef,
-);
+export const TdtDoveTailStraightArrowToolElement = makeToolElement(doveTailStraightArrowToolDef);
 
 export const TdtGatheringPlaceToolElement = makeToolElement(gatheringPlaceToolDef);
 

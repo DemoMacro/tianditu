@@ -25,3 +25,34 @@ export function useTdtKeys() {
 
   return { key, setKey };
 }
+
+/**
+ * 密钥输入面板的表单态：draft 双向绑定输入框，save/clear 带统一的
+ * 保存提示（DemoKeySettings 与 AppKeyManager 共用）。
+ */
+export function useTdtKeyDraft() {
+  const { key, setKey } = useTdtKeys();
+  const toast = useToast();
+  const draft = ref("");
+
+  watchEffect(() => {
+    draft.value = key.value;
+  });
+
+  function save() {
+    const value = draft.value.trim();
+    setKey(value);
+    toast.add({
+      title: value ? "密钥已保存" : "密钥已清除",
+      color: "success",
+      icon: "i-lucide-check",
+    });
+  }
+
+  function clear() {
+    draft.value = "";
+    setKey("");
+  }
+
+  return { key, draft, save, clear };
+}

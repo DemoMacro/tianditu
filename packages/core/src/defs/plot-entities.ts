@@ -104,9 +104,17 @@ function fillPlotDef<O extends PlotEntityShape>(
 
 export const arcDef = linePlotDef("TdtArc", "tdt-arc", (p, o) => new T.Arc(p, o));
 
-export const bezierCurve2Def = linePlotDef("TdtBezierCurve2", "tdt-bezier-curve2", (p, o) => new T.BezierCurve2(p, o));
+export const bezierCurve2Def = linePlotDef(
+  "TdtBezierCurve2",
+  "tdt-bezier-curve2",
+  (p, o) => new T.BezierCurve2(p, o),
+);
 
-export const bezierCurve3Def = linePlotDef("TdtBezierCurve3", "tdt-bezier-curve3", (p, o) => new T.BezierCurve3(p, o));
+export const bezierCurve3Def = linePlotDef(
+  "TdtBezierCurve3",
+  "tdt-bezier-curve3",
+  (p, o) => new T.BezierCurve3(p, o),
+);
 
 export const bezierCurveArrowDef = linePlotDef(
   "TdtBezierCurveArrow",
@@ -144,11 +152,23 @@ export const polylineArrowDef = linePlotDef(
   (p, o) => new T.PolylineArrow(p, o),
 );
 
-export const sectorSearchDef = linePlotDef("TdtSectorSearch", "tdt-sector-search", (p, o) => new T.SectorSearch(p, o));
+export const sectorSearchDef = linePlotDef(
+  "TdtSectorSearch",
+  "tdt-sector-search",
+  (p, o) => new T.SectorSearch(p, o),
+);
 
-export const closeCurveDef = fillPlotDef("TdtCloseCurve", "tdt-close-curve", (p, o) => new T.CloseCurve(p, o));
+export const closeCurveDef = fillPlotDef(
+  "TdtCloseCurve",
+  "tdt-close-curve",
+  (p, o) => new T.CloseCurve(p, o),
+);
 
-export const curveFlagDef = fillPlotDef("TdtCurveFlag", "tdt-curve-flag", (p, o) => new T.CurveFlag(p, o));
+export const curveFlagDef = fillPlotDef(
+  "TdtCurveFlag",
+  "tdt-curve-flag",
+  (p, o) => new T.CurveFlag(p, o),
+);
 
 export const diagonalArrowDef = fillPlotDef(
   "TdtDiagonalArrow",
@@ -156,7 +176,11 @@ export const diagonalArrowDef = fillPlotDef(
   (p, o) => new T.DiagonalArrow(p, o),
 );
 
-export const doubleArrowDef = fillPlotDef("TdtDoubleArrow", "tdt-double-arrow", (p, o) => new T.DoubleArrow(p, o));
+export const doubleArrowDef = fillPlotDef(
+  "TdtDoubleArrow",
+  "tdt-double-arrow",
+  (p, o) => new T.DoubleArrow(p, o),
+);
 
 export const doveTailDiagonalArrowDef = fillPlotDef(
   "TdtDoveTailDiagonalArrow",
@@ -176,12 +200,28 @@ export const gatheringPlaceDef = fillPlotDef(
   (p, o) => new T.GatheringPlace(p, o),
 );
 
-export const rectFlagDef = fillPlotDef("TdtRectFlag", "tdt-rect-flag", (p, o) => new T.RectFlag(p, o));
+export const rectFlagDef = fillPlotDef(
+  "TdtRectFlag",
+  "tdt-rect-flag",
+  (p, o) => new T.RectFlag(p, o),
+);
 
-export const roundRectDef = fillPlotDef("TdtRoundRect", "tdt-round-rect", (p, o) => new T.RoundRect(p, o));
+export const roundRectDef = fillPlotDef(
+  "TdtRoundRect",
+  "tdt-round-rect",
+  (p, o) => new T.RoundRect(p, o),
+);
 
 export const sectorDef = fillPlotDef("TdtSector", "tdt-sector", (p, o) => new T.Sector(p, o));
 
-export const straightArrowDef = fillPlotDef("TdtStraightArrow", "tdt-straight-arrow", (p, o) => new T.StraightArrow(p, o));
+export const straightArrowDef = fillPlotDef(
+  "TdtStraightArrow",
+  "tdt-straight-arrow",
+  (p, o) => new T.StraightArrow(p, o),
+);
 
-export const triangleFlagDef = fillPlotDef("TdtTriangleFlag", "tdt-triangle-flag", (p, o) => new T.TriangleFlag(p, o));
+export const triangleFlagDef = fillPlotDef(
+  "TdtTriangleFlag",
+  "tdt-triangle-flag",
+  (p, o) => new T.TriangleFlag(p, o),
+);

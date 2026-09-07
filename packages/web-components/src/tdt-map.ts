@@ -1,8 +1,8 @@
 import {
-  applyMapInteractions,
   bindEventNames,
   createMapSession,
   MAP_EVENT_NAMES,
+  parseLnglat,
   type MapSession,
 } from "@tianditu/core";
 import { LitElement, html, type PropertyValues } from "lit";
@@ -16,19 +16,33 @@ import { LitElement, html, type PropertyValues } from "lit";
  * 事件对象），避免与标准 DOM 事件同名混淆。
  */
 
-/** "lng,lat" 字符串 → [lng, lat] 数组；attribute 缺省时返回默认中心 */
-export function lnglatConverter(value: string | null): [number, number] {
-  if (!value) {
-    return [116.404, 39.915];
+/** "lng,lat" 字符串 → [lng, lat] 数组；attribute 不传时为 undefined（回退默认中心） */
+export function lnglatConverter(value: string | null): [number, number] | undefined {
+  return value ? parseLnglat(value) : undefined;
+}
+
+/**
+ * 定位方式：attribute 不存在即关闭；空值（presence 写法 `locate`）或
+ * "auto" 为自动模式（浏览器定位 → IP 定位），亦可显式写 "geolocation"/"ip"。
+ */
+export type LocateMode = boolean | "geolocation" | "ip" | "auto";
+
+function locateConverter(value: string | null): LocateMode {
+  if (value === null) {
+    return false;
   }
-  const [lng, lat] = value.split(",").map(Number);
-  return [lng, lat];
+  if (value === "") {
+    return true;
+  }
+  return value as "geolocation" | "ip" | "auto";
 }
 
 export class TdtMapElement extends LitElement {
   tk = "";
 
-  center: [number, number] = [116.404, 39.915];
+  center?: [number, number];
+
+  locate: LocateMode = false;
 
   zoom = 12;
 
@@ -42,10 +56,6 @@ export class TdtMapElement extends LitElement {
 
   private unbindEvents?: () => void;
 
-  private prevCenter: [number, number] = [116.404, 39.915];
-
-  private prevZoom = 12;
-
   /** 当前地图实例；SDK 就绪前为 undefined */
   get map(): T.Map | undefined {
     return this.session?.map;
@@ -54,6 +64,7 @@ export class TdtMapElement extends LitElement {
   static override properties = {
     tk: { type: String },
     center: { converter: lnglatConverter },
+    locate: { converter: locateConverter },
     zoom: { type: Number },
     minZoom: { type: Number },
     maxZoom: { type: Number },
@@ -72,12 +83,12 @@ export class TdtMapElement extends LitElement {
     const session = await createMapSession(this, {
       tk: this.tk,
       center: this.center,
+      locate: this.locate,
       zoom: this.zoom,
       minZoom: this.minZoom,
       maxZoom: this.maxZoom,
     });
     this.session = session;
-    applyMapInteractions(session.map, {});
     // 官方事件以 tdt- 前缀转发为 DOM 事件，随销毁统一解绑
     this.unbindEvents = bindEventNames(session.map, MAP_EVENT_NAMES, (name, event) => {
       this.dispatchEvent(
@@ -89,7 +100,10 @@ export class TdtMapElement extends LitElement {
 
   override connectedCallback(): void {
     super.connectedCallback();
+    // isolation 创建独立的 stacking context：SDK 内部控件层的高 z-index
+    // 不会逃逸出地图容器，避免盖住宿主页面叠加的元素
     this.style.display = "block";
+    this.style.isolation = "isolate";
     // 子组件在 SDK 加载完成前即挂载，此处触发加载使其并行等待
     if (this.tk) {
       void this.whenReady();
@@ -106,18 +120,15 @@ export class TdtMapElement extends LitElement {
   }
 
   override updated(changed: PropertyValues): void {
-    const map = this.session?.map;
-    if (!map) {
+    const session = this.session;
+    if (!session) {
       return;
     }
-    if (changed.has("center") && this.center && this.center !== this.prevCenter) {
-      // SDK 无 setCenter，以当前级别 centerAndZoom 实现仅改中心
-      map.centerAndZoom(new T.LngLat(this.center[0], this.center[1]), map.getZoom());
-      this.prevCenter = [...this.center] as [number, number];
+    if (changed.has("center") && this.center) {
+      session.setCenter(this.center);
     }
-    if (changed.has("zoom") && this.zoom !== this.prevZoom) {
-      map.setZoom(this.zoom);
-      this.prevZoom = this.zoom;
+    if (changed.has("zoom")) {
+      session.map.setZoom(this.zoom);
     }
   }
 

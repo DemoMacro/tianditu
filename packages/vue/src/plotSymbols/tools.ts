@@ -57,9 +57,7 @@ export const TdtDoubleArrowTool = defineToolComponent(doubleArrowToolDef);
 
 export const TdtDoveTailDiagonalArrowTool = defineToolComponent(doveTailDiagonalArrowToolDef);
 
-export const TdtDoveTailStraightArrowTool = defineToolComponent(
-  doveTailStraightArrowToolDef,
-);
+export const TdtDoveTailStraightArrowTool = defineToolComponent(doveTailStraightArrowToolDef);
 
 export const TdtGatheringPlaceTool = defineToolComponent(gatheringPlaceToolDef);
 

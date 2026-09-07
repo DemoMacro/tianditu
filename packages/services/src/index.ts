@@ -1,4 +1,6 @@
-import { TianDiTuWeb } from "./web";
+import { TianDiTu } from "./web";
+
+export { TianDiTu };
 
 export type {
   AdministrativeParams,
@@ -49,11 +51,9 @@ export type {
 } from "./types/transit";
 
 /**
- * 浏览器端服务客户端。SDK 脚本加载已移交 @tianditu/core 的 loadTdt，
- * 本包只负责天地图 REST 服务的请求封装。
+ * SDK 脚本加载已移交 @tianditu/core 的 loadTdt，本包只负责
+ * 天地图 REST 服务的请求封装。
  */
-export class TianDiTu extends TianDiTuWeb {}
-
 export function defineTianditu({ tk, baseURL }: { tk: string; baseURL?: string }) {
   return new TianDiTu(tk, baseURL);
 }

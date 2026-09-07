@@ -67,8 +67,8 @@ export function defineOverlayComponent<P extends object, O>(
                 events: def.events,
                 dispatch: (name, event) => emit(name, event),
                 create: () => created,
-                attach: def.attach ? (target, ctx) => def.attach!(target, ctx) : undefined,
-                detach: def.detach ? (target, ctx) => def.detach!(target, ctx) : undefined,
+                attach: def.attach,
+                detach: def.detach,
               },
             );
             instance.value = handle.instance;

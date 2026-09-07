@@ -13,7 +13,7 @@ import type { PropDefs, ToolDef } from "./types";
 export interface PlotToolProps {
   /** 绘制图形的样式（官方 MilitaryToolOptions 的 style 字段） */
   style?: T.MilitaryStyle;
-  /** 存储绘制图形的容器，缺省时工具创建空图层容器 */
+  /** 存储绘制图形的容器；不传时工具自行创建空图层容器 */
   layers?: T.LayerGroup;
 }
 
@@ -36,7 +36,10 @@ type PlotToolInstantiate = (map: T.Map, options: T.MilitaryToolOptions) => ToolL
 function tagOf(name: string): string {
   return (
     "tdt-" +
-    name.slice(3).replace(/[A-Z]/g, (char) => "-" + char.toLowerCase()).slice(1)
+    name
+      .slice(3)
+      .replace(/[A-Z]/g, (char) => "-" + char.toLowerCase())
+      .slice(1)
   );
 }
 
@@ -46,28 +49,51 @@ function plotToolDef(name: string, instantiate: PlotToolInstantiate): ToolDef<Pl
     tag: tagOf(name),
     props: plotToolPropDefs,
     events: PLOT_TOOL_EVENTS,
-    create: (props, map) =>
-      instantiate(map, compact({ style: props.style, layers: props.layers })),
+    create: (props, map) => instantiate(map, compact({ style: props.style, layers: props.layers })),
   };
 }
 
 export const arcToolDef = plotToolDef("TdtArcTool", (map, o) => new T.ArcTool(map, o));
-export const bezierCurve2ToolDef = plotToolDef("TdtBezierCurve2Tool", (map, o) => new T.BezierCurve2Tool(map, o));
-export const bezierCurve3ToolDef = plotToolDef("TdtBezierCurve3Tool", (map, o) => new T.BezierCurve3Tool(map, o));
+export const bezierCurve2ToolDef = plotToolDef(
+  "TdtBezierCurve2Tool",
+  (map, o) => new T.BezierCurve2Tool(map, o),
+);
+export const bezierCurve3ToolDef = plotToolDef(
+  "TdtBezierCurve3Tool",
+  (map, o) => new T.BezierCurve3Tool(map, o),
+);
 export const bezierCurveArrowToolDef = plotToolDef(
   "TdtBezierCurveArrowTool",
   (map, o) => new T.BezierCurveArrowTool(map, o),
 );
-export const bezierCurveNToolDef = plotToolDef("TdtBezierCurveNTool", (map, o) => new T.BezierCurveNTool(map, o));
+export const bezierCurveNToolDef = plotToolDef(
+  "TdtBezierCurveNTool",
+  (map, o) => new T.BezierCurveNTool(map, o),
+);
 export const cardinalCurveArrowToolDef = plotToolDef(
   "TdtCardinalCurveArrowTool",
   (map, o) => new T.CardinalCurveArrowTool(map, o),
 );
-export const cardinalCurveToolDef = plotToolDef("TdtCardinalCurveTool", (map, o) => new T.CardinalCurveTool(map, o));
-export const closeCurveToolDef = plotToolDef("TdtCloseCurveTool", (map, o) => new T.CloseCurveTool(map, o));
-export const curveFlagToolDef = plotToolDef("TdtCurveFlagTool", (map, o) => new T.CurveFlagTool(map, o));
-export const diagonalArrowToolDef = plotToolDef("TdtDiagonalArrowTool", (map, o) => new T.DiagonalArrowTool(map, o));
-export const doubleArrowToolDef = plotToolDef("TdtDoubleArrowTool", (map, o) => new T.DoubleArrowTool(map, o));
+export const cardinalCurveToolDef = plotToolDef(
+  "TdtCardinalCurveTool",
+  (map, o) => new T.CardinalCurveTool(map, o),
+);
+export const closeCurveToolDef = plotToolDef(
+  "TdtCloseCurveTool",
+  (map, o) => new T.CloseCurveTool(map, o),
+);
+export const curveFlagToolDef = plotToolDef(
+  "TdtCurveFlagTool",
+  (map, o) => new T.CurveFlagTool(map, o),
+);
+export const diagonalArrowToolDef = plotToolDef(
+  "TdtDiagonalArrowTool",
+  (map, o) => new T.DiagonalArrowTool(map, o),
+);
+export const doubleArrowToolDef = plotToolDef(
+  "TdtDoubleArrowTool",
+  (map, o) => new T.DoubleArrowTool(map, o),
+);
 export const doveTailDiagonalArrowToolDef = plotToolDef(
   "TdtDoveTailDiagonalArrowTool",
   (map, o) => new T.DoveTailDiagonalArrowTool(map, o),
@@ -80,15 +106,36 @@ export const gatheringPlaceToolDef = plotToolDef(
   "TdtGatheringPlaceTool",
   (map, o) => new T.GatheringPlaceTool(map, o),
 );
-export const handDrawingToolDef = plotToolDef("TdtHandDrawingTool", (map, o) => new T.HandDrawingTool(map, o));
+export const handDrawingToolDef = plotToolDef(
+  "TdtHandDrawingTool",
+  (map, o) => new T.HandDrawingTool(map, o),
+);
 export const parallelSearchToolDef = plotToolDef(
   "TdtParallelSearchTool",
   (map, o) => new T.ParallelSearchTool(map, o),
 );
-export const polylineArrowToolDef = plotToolDef("TdtPolylineArrowTool", (map, o) => new T.PolylineArrowTool(map, o));
-export const rectFlagToolDef = plotToolDef("TdtRectFlagTool", (map, o) => new T.RectFlagTool(map, o));
-export const roundRectToolDef = plotToolDef("TdtRoundRectTool", (map, o) => new T.RoundRectTool(map, o));
-export const sectorSearchToolDef = plotToolDef("TdtSectorSearchTool", (map, o) => new T.SectorSearchTool(map, o));
+export const polylineArrowToolDef = plotToolDef(
+  "TdtPolylineArrowTool",
+  (map, o) => new T.PolylineArrowTool(map, o),
+);
+export const rectFlagToolDef = plotToolDef(
+  "TdtRectFlagTool",
+  (map, o) => new T.RectFlagTool(map, o),
+);
+export const roundRectToolDef = plotToolDef(
+  "TdtRoundRectTool",
+  (map, o) => new T.RoundRectTool(map, o),
+);
+export const sectorSearchToolDef = plotToolDef(
+  "TdtSectorSearchTool",
+  (map, o) => new T.SectorSearchTool(map, o),
+);
 export const sectorToolDef = plotToolDef("TdtSectorTool", (map, o) => new T.SectorTool(map, o));
-export const straightArrowToolDef = plotToolDef("TdtStraightArrowTool", (map, o) => new T.StraightArrowTool(map, o));
-export const triangleFlagToolDef = plotToolDef("TdtTriangleFlagTool", (map, o) => new T.TriangleFlagTool(map, o));
+export const straightArrowToolDef = plotToolDef(
+  "TdtStraightArrowTool",
+  (map, o) => new T.StraightArrowTool(map, o),
+);
+export const triangleFlagToolDef = plotToolDef(
+  "TdtTriangleFlagTool",
+  (map, o) => new T.TriangleFlagTool(map, o),
+);

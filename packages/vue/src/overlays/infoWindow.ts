@@ -1,4 +1,4 @@
-import { createInfoWindow, createWhenReady, type InfoWindowHandle } from "@tianditu/core";
+import { createInfoWindow, createWhenReady, toLngLat, type InfoWindowHandle } from "@tianditu/core";
 import {
   computed,
   defineComponent,
@@ -128,14 +128,10 @@ export const TdtInfoWindow = defineComponent({
         return;
       }
       if (open) {
-        handle.openOn(current, props.lnglat ? toLngLatValue(props.lnglat) : undefined);
+        handle.openOn(current, props.lnglat ? toLngLat(props.lnglat) : undefined);
       } else if (handle.isOpen()) {
         handle.close();
       }
-    }
-
-    function toLngLatValue(value: [number, number] | T.LngLat): T.LngLat {
-      return Array.isArray(value) ? new T.LngLat(value[0], value[1]) : value;
     }
 
     onBeforeUnmount(() => {

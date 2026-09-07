@@ -167,7 +167,12 @@ export const gridlineLayerDef: LayerDef<GridlineLayerProps> = {
     minZoom: { type: Number, default: undefined, attribute: "min-zoom" },
     maxZoom: { type: Number, default: undefined, attribute: "max-zoom" },
     opacity: { type: Number, default: undefined, attribute: "opacity" },
-    outlineSize: { type: Object, default: undefined, attribute: "outline-size", converter: parseJson },
+    outlineSize: {
+      type: Object,
+      default: undefined,
+      attribute: "outline-size",
+      converter: parseJson,
+    },
     textSize: { type: Object, default: undefined, attribute: "text-size", converter: parseJson },
   },
   // 官方仅列 loading/load 两个事件

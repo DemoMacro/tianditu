@@ -3,10 +3,10 @@ import type {} from "../types/index.d.ts";
 
 export { EventBridge, bindEventNames, type EventTargetLike } from "./events";
 export { compact } from "./compact";
-export { createWhenReady, getTdt, isTdtLoaded, loadTdt, type LoadTdtOptions } from "./loader";
-export { createAttachable, type Attachable, type AttachContext } from "./attach";
+export { createWhenReady, loadTdt, type LoadTdtOptions } from "./loader";
 export {
   createMapSession,
+  DEFAULT_CENTER,
   toLngLat,
   toLngLats,
   type CreateMapSessionOptions,

@@ -118,7 +118,7 @@ export const rectangleToolDef: ToolDef<RectangleToolProps> = {
 };
 
 export interface MarkToolProps {
-  /** 标注图标，缺省为 SDK 默认图标 */
+  /** 标注图标，默认为 SDK 默认图标 */
   icon?: T.Icon;
   /** 标记图标是否跟随鼠标 */
   follow?: boolean;

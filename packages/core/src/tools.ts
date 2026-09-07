@@ -23,9 +23,9 @@ export interface ToolMountOptions {
   events?: readonly string[];
   /** 事件分发回调（事件名 + 原生事件对象） */
   dispatch: (name: string, event: unknown) => void;
-  /** 缺省调用 tool.open()（Mousetool 语义） */
-  activate?(tool: ToolLike): void;
-  deactivate?(tool: ToolLike): void;
+  /** 默认调用 tool.open()（Mousetool 语义）；this: void 允许适配层直接传递 def 钩子引用 */
+  activate?: (this: void, tool: ToolLike) => void;
+  deactivate?: (this: void, tool: ToolLike) => void;
 }
 
 export interface ToolSession {
@@ -37,10 +37,9 @@ export interface ToolSession {
 
 export function mountTool(options: ToolMountOptions): ToolSession {
   const tool = options.create();
-  const activate = (current: ToolLike) =>
-    options.activate ? options.activate(current) : current.open?.();
-  const deactivate = (current: ToolLike) =>
-    options.deactivate ? options.deactivate(current) : current.close?.();
+  // def 钩子为 this: void 的函数属性，适配层直接传递引用，无需包裹
+  const activate = options.activate ?? ((current: ToolLike) => current.open?.());
+  const deactivate = options.deactivate ?? ((current: ToolLike) => current.close?.());
 
   const unbind = bindEventNames(tool, options.events ?? [], options.dispatch);
   // undefined 表示尚未应用过状态，首次 setActive 总是强制执行

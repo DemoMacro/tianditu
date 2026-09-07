@@ -27,16 +27,6 @@ const LOAD_TIMEOUT = 30_000;
 
 let pending: Promise<typeof T> | undefined;
 
-/** 读取已就绪的全局 SDK 对象，不触发加载 */
-export function getTdt(): typeof T | undefined {
-  return globalThis.T;
-}
-
-/** SDK 是否已加载完成 */
-export function isTdtLoaded(): boolean {
-  return Boolean(globalThis.T);
-}
-
 export function loadTdt(options: LoadTdtOptions): Promise<typeof T> {
   if (globalThis.T) {
     return Promise.resolve(globalThis.T);
@@ -126,17 +116,20 @@ async function primeComponentCache(baseURL: string, mainScript: string): Promise
   if (!meta) {
     return;
   }
+  // 版本号一次判定：循环内逐包重复读写 localStorage 是同步磁盘 I/O
+  const versionMatched = localStorage.getItem("TDT_version") === meta.cacheVersion;
   await Promise.all(
     meta.files.map(async (file, index) => {
       const key = `TDT_components${index}`;
-      if (localStorage.getItem(key) && localStorage.getItem("TDT_version") === meta.cacheVersion) {
+      if (versionMatched && localStorage.getItem(key)) {
         return;
       }
       const code = await fetchText(`${baseURL}${file}`, LOAD_TIMEOUT);
       localStorage.setItem(key, code);
-      localStorage.setItem("TDT_version", meta.cacheVersion);
     }),
   );
+  // 全部就绪后才落版本号，避免半套缓存伪装成完整命中
+  localStorage.setItem("TDT_version", meta.cacheVersion);
 }
 
 /** 内联执行主脚本（同步），保持全局作用域与官方 script 标签一致 */

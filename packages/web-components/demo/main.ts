@@ -1,8 +1,8 @@
 import "../src";
 import { TdtControlScaleElement, TdtControlZoomElement } from "../src/controls";
 import { TdtGridlineLayerElement } from "../src/layers";
-import { TdtPolylineToolElement } from "../src/tools";
 import { TdtMapElement, lnglatConverter } from "../src/tdt-map";
+import { TdtPolylineToolElement } from "../src/tools";
 
 import "./style.css";
 
@@ -74,9 +74,9 @@ function main() {
     console.log("[demo] marker click");
   });
 
-  const toolEl = document.querySelector(
-    "#polyline-tool",
-  ) as InstanceType<typeof TdtPolylineToolElement>;
+  const toolEl = document.querySelector("#polyline-tool") as InstanceType<
+    typeof TdtPolylineToolElement
+  >;
   const stateEl = document.querySelector("#tool-state")!;
   document.querySelector<HTMLButtonElement>("#btn-tool")!.addEventListener("click", () => {
     toolEl.active = !toolEl.active;
