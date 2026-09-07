@@ -358,7 +358,8 @@ export const cloudMarkerDef: OverlayDef<CloudMarkerProps, T.CloudMarkerCollectio
     lnglats: (collection, value) => collection.setLnglats(value.map(toLngLat)),
     styles: (collection, value) => {
       if (value) {
-        collection.setStyles(value);
+        // SDK 的 setStyles 不可用，经全局 setOptions 更新样式选项
+        T.setOptions(collection, value);
       }
     },
   },

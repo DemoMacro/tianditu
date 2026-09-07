@@ -93,5 +93,8 @@ declare global {
       /** 返回地图类型对应的图层 */
       getLayers(): MapType;
     }
+
+    /** 为目标对象更新配置项 */
+    function setOptions(target: object, options: object): void;
   }
 }
